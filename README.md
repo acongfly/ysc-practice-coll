@@ -1,2 +1,2 @@
-# ysc-practice-coll
-向架构师挺进
+# study
+学习各种知识点，向架构师挺进。
