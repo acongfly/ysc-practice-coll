@@ -62,7 +62,7 @@ public class TestStream {
             csvReadConfig.setContainsHeader(true);
             csvReadConfig.setSkipEmptyRows(true);
             CsvReader csvReader = new CsvReader(csvReadConfig);
-            CsvData read = csvReader.read(new File("/Users/shicongyang/workword/M36977092608-TB000000000020-20190605.csv"));
+            CsvData read = csvReader.read(new File("/Users/shicongyang/workword/SP131956-CricketPaytm2019070401.csv"));
             List<CsvRow> rows = read.getRows();
             /**此处校验总笔数，总金额，金额小于等于零，以及订单号重复或者为空*/
             long start = System.currentTimeMillis();

@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.acongfly.study</groupId>
-    <artifactId>study</artifactId>
+    <artifactId>ysc-practice-coll</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -19,6 +19,7 @@
     <modules>
         <module>studyjava</module>
         <module>esstudy</module>
+        <module>flink-demo</module>
     </modules>
 
 </project>

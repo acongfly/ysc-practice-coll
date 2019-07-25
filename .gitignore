@@ -90,3 +90,7 @@ studyjava/.gitignore
 studyjava/.mvn/
 studyjava/mvnw
 studyjava/mvnw.cmd
+.gitignore
+.mvn/
+mvnw
+mvnw.cmd

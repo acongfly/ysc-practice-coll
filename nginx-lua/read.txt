@@ -1,0 +1,4 @@
+1.idea使用插件EmmyLua
+2.需要配置sdk指定到lua解释器（lua5.3）
+3.需要安装luasocket进行调试
+http://yanfeng.life/2017/11/10/Latest-guid-for-lua/

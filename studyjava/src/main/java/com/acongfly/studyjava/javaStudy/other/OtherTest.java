@@ -3,6 +3,7 @@ package com.acongfly.studyjava.javaStudy.other;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.json.JSONUtil;
 import com.google.common.collect.ImmutableMap;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -167,6 +168,11 @@ public class OtherTest {
 
         String h = "";
         System.out.println("h=" + h.trim());
+        DataTest dataTest = new DataTest();
+
+        System.out.println("data:" + dataTest.getPushId());
+
+
 
 
     }
@@ -178,12 +184,10 @@ public class OtherTest {
 }
 
 
-//@Data
-//class DataTest {
-//
-//    private String pushId;
-//    private java.sql.Time dayEndTime;
-//    private java.sql.Time dayStartTime;
-//
-//}
+@Data
+class DataTest {
+
+    private String pushId;
+
+}
 

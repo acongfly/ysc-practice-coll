@@ -14,8 +14,10 @@ import java.util.Date;
 public class SimpleEntity implements Serializable {
 
     @NotBlank(message = "名字不能为空或者空串", groups = {ValidatorInterfaceColl.account.class})
-    @Length(min = 2, max = 10, message = "名字必须由2~10个字组成")
+//    @Length(min = 2, max = 10, message = "名字必须由2~10个字组成")
+    @Length.List({@Length(min = 2, max = 10, groups = {ValidatorInterfaceColl.account.class}), @Length(min = 10, groups = {ValidatorInterfaceColl.settle.class})})
     private String name;
+
 
     @Past(message = "时间不能晚于当前时间")
     private Date date;

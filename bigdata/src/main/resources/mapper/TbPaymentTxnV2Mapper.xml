@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TbPaymentTxnV2Mapper">
+    <resultMap
+            id="result"
+            type="com.mapper.Result">
+        <result column="merchant_id" property="merchantId"/>
+        <result column="trade_master_no" property="tradeMasterNo"/>
+        <result column="merchant_batch_no" property="merchantBatchNo"/>
+        <result column="order_id" property="orderId"/>
+        <result column="trade_no" property="tradeNo"/>
+        <result column="status" property="status"/>
+        <result column="amount" property="amount"/>
+        <result column="currency" property="currency"/>
+        <result column="country_code" property="countryCode"/>
+        <result column="pay_type" property="payType"/>
+        <result column="payee_upi" property="payeeUpi"/>
+        <result column="payee_name" property="payeeName"/>
+    </resultMap>
+    <resultMap id="BaseResultMap" type="com.domain.TbPaymentTxnV2">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="merchant_id" jdbcType="VARCHAR" property="merchantId"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="trade_master_no" jdbcType="VARCHAR" property="tradeMasterNo"/>
+        <result column="merchant_batch_no" jdbcType="VARCHAR" property="merchantBatchNo"/>
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="trade_no" jdbcType="VARCHAR" property="tradeNo"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="response_code" jdbcType="VARCHAR" property="responseCode"/>
+        <result column="response_msg" jdbcType="VARCHAR" property="responseMsg"/>
+        <result column="pay_order_no" jdbcType="VARCHAR" property="payOrderNo"/>
+        <result column="pay_rsp_code" jdbcType="VARCHAR" property="payRspCode"/>
+        <result column="pay_rsp_msg" jdbcType="VARCHAR" property="payRspMsg"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="fee" jdbcType="DECIMAL" property="fee"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="currency" jdbcType="CHAR" property="currency"/>
+        <result column="country_code" jdbcType="VARCHAR" property="countryCode"/>
+        <result column="pay_type" jdbcType="VARCHAR" property="payType"/>
+        <result column="product_code" jdbcType="VARCHAR" property="productCode"/>
+        <result column="cust_id" jdbcType="VARCHAR" property="custId"/>
+        <result column="member_id" jdbcType="VARCHAR" property="memberId"/>
+        <result column="extra_info" jdbcType="VARCHAR" property="extraInfo"/>
+        <result column="payee_upi" jdbcType="VARCHAR" property="payeeUpi"/>
+        <result column="payee_name" jdbcType="VARCHAR" property="payeeName"/>
+        <result column="transaction_note" jdbcType="VARCHAR" property="transactionNote"/>
+        <result column="callback_url" jdbcType="VARCHAR" property="callbackUrl"/>
+        <result column="reserved1" jdbcType="VARCHAR" property="reserved1"/>
+        <result column="reserved2" jdbcType="VARCHAR" property="reserved2"/>
+        <result column="reserved3" jdbcType="VARCHAR" property="reserved3"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime"/>
+        <result column="modifier" jdbcType="VARCHAR" property="modifier"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="account_info" jdbcType="VARCHAR" property="accountInfo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, merchant_id, version, trade_master_no, merchant_batch_no, order_id, trade_no,
+        `status`, response_code, response_msg, pay_order_no, pay_rsp_code, pay_rsp_msg, amount,
+        fee, tax, currency, country_code, pay_type, product_code, cust_id, member_id, extra_info,
+        payee_upi, payee_name, transaction_note, callback_url, reserved1, reserved2, reserved3,
+        create_time, creator, modified_time, modifier, is_deleted, account_info
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_payment_txn_v2
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from tb_payment_txn_v2
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.domain.TbPaymentTxnV2"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_payment_txn_v2 (merchant_id, version, trade_master_no,
+        merchant_batch_no, order_id, trade_no,
+        `status`, response_code, response_msg,
+        pay_order_no, pay_rsp_code, pay_rsp_msg,
+        amount, fee, tax, currency,
+        country_code, pay_type, product_code,
+        cust_id, member_id, extra_info,
+        payee_upi, payee_name, transaction_note,
+        callback_url, reserved1, reserved2,
+        reserved3, create_time, creator,
+        modified_time, modifier, is_deleted,
+        account_info)
+        values (#{merchantId,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{tradeMasterNo,jdbcType=VARCHAR},
+        #{merchantBatchNo,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{tradeNo,jdbcType=VARCHAR},
+        #{status,jdbcType=TINYINT}, #{responseCode,jdbcType=VARCHAR}, #{responseMsg,jdbcType=VARCHAR},
+        #{payOrderNo,jdbcType=VARCHAR}, #{payRspCode,jdbcType=VARCHAR}, #{payRspMsg,jdbcType=VARCHAR},
+        #{amount,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, #{tax,jdbcType=DECIMAL}, #{currency,jdbcType=CHAR},
+        #{countryCode,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR},
+        #{custId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{extraInfo,jdbcType=VARCHAR},
+        #{payeeUpi,jdbcType=VARCHAR}, #{payeeName,jdbcType=VARCHAR}, #{transactionNote,jdbcType=VARCHAR},
+        #{callbackUrl,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR},
+        #{reserved3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
+        #{modifiedTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT},
+        #{accountInfo,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.domain.TbPaymentTxnV2"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_payment_txn_v2
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="tradeMasterNo != null">
+                trade_master_no,
+            </if>
+            <if test="merchantBatchNo != null">
+                merchant_batch_no,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="tradeNo != null">
+                trade_no,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="responseCode != null">
+                response_code,
+            </if>
+            <if test="responseMsg != null">
+                response_msg,
+            </if>
+            <if test="payOrderNo != null">
+                pay_order_no,
+            </if>
+            <if test="payRspCode != null">
+                pay_rsp_code,
+            </if>
+            <if test="payRspMsg != null">
+                pay_rsp_msg,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="fee != null">
+                fee,
+            </if>
+            <if test="tax != null">
+                tax,
+            </if>
+            <if test="currency != null">
+                currency,
+            </if>
+            <if test="countryCode != null">
+                country_code,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="productCode != null">
+                product_code,
+            </if>
+            <if test="custId != null">
+                cust_id,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="extraInfo != null">
+                extra_info,
+            </if>
+            <if test="payeeUpi != null">
+                payee_upi,
+            </if>
+            <if test="payeeName != null">
+                payee_name,
+            </if>
+            <if test="transactionNote != null">
+                transaction_note,
+            </if>
+            <if test="callbackUrl != null">
+                callback_url,
+            </if>
+            <if test="reserved1 != null">
+                reserved1,
+            </if>
+            <if test="reserved2 != null">
+                reserved2,
+            </if>
+            <if test="reserved3 != null">
+                reserved3,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="modifiedTime != null">
+                modified_time,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="accountInfo != null">
+                account_info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeMasterNo != null">
+                #{tradeMasterNo,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantBatchNo != null">
+                #{merchantBatchNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeNo != null">
+                #{tradeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="responseCode != null">
+                #{responseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="responseMsg != null">
+                #{responseMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="payOrderNo != null">
+                #{payOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="payRspCode != null">
+                #{payRspCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payRspMsg != null">
+                #{payRspMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="fee != null">
+                #{fee,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                #{currency,jdbcType=CHAR},
+            </if>
+            <if test="countryCode != null">
+                #{countryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="productCode != null">
+                #{productCode,jdbcType=VARCHAR},
+            </if>
+            <if test="custId != null">
+                #{custId,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=VARCHAR},
+            </if>
+            <if test="extraInfo != null">
+                #{extraInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="payeeUpi != null">
+                #{payeeUpi,jdbcType=VARCHAR},
+            </if>
+            <if test="payeeName != null">
+                #{payeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionNote != null">
+                #{transactionNote,jdbcType=VARCHAR},
+            </if>
+            <if test="callbackUrl != null">
+                #{callbackUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="reserved1 != null">
+                #{reserved1,jdbcType=VARCHAR},
+            </if>
+            <if test="reserved2 != null">
+                #{reserved2,jdbcType=VARCHAR},
+            </if>
+            <if test="reserved3 != null">
+                #{reserved3,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="modifiedTime != null">
+                #{modifiedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="accountInfo != null">
+                #{accountInfo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.domain.TbPaymentTxnV2">
+        <!--@mbg.generated-->
+        update tb_payment_txn_v2
+        <set>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeMasterNo != null">
+                trade_master_no = #{tradeMasterNo,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantBatchNo != null">
+                merchant_batch_no = #{merchantBatchNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeNo != null">
+                trade_no = #{tradeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="responseCode != null">
+                response_code = #{responseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="responseMsg != null">
+                response_msg = #{responseMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="payOrderNo != null">
+                pay_order_no = #{payOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="payRspCode != null">
+                pay_rsp_code = #{payRspCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payRspMsg != null">
+                pay_rsp_msg = #{payRspMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="fee != null">
+                fee = #{fee,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                tax = #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=CHAR},
+            </if>
+            <if test="countryCode != null">
+                country_code = #{countryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="productCode != null">
+                product_code = #{productCode,jdbcType=VARCHAR},
+            </if>
+            <if test="custId != null">
+                cust_id = #{custId,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                member_id = #{memberId,jdbcType=VARCHAR},
+            </if>
+            <if test="extraInfo != null">
+                extra_info = #{extraInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="payeeUpi != null">
+                payee_upi = #{payeeUpi,jdbcType=VARCHAR},
+            </if>
+            <if test="payeeName != null">
+                payee_name = #{payeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionNote != null">
+                transaction_note = #{transactionNote,jdbcType=VARCHAR},
+            </if>
+            <if test="callbackUrl != null">
+                callback_url = #{callbackUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="reserved1 != null">
+                reserved1 = #{reserved1,jdbcType=VARCHAR},
+            </if>
+            <if test="reserved2 != null">
+                reserved2 = #{reserved2,jdbcType=VARCHAR},
+            </if>
+            <if test="reserved3 != null">
+                reserved3 = #{reserved3,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="accountInfo != null">
+                account_info = #{accountInfo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.domain.TbPaymentTxnV2">
+        <!--@mbg.generated-->
+        update tb_payment_txn_v2
+        set merchant_id = #{merchantId,jdbcType=VARCHAR},
+        version = #{version,jdbcType=VARCHAR},
+        trade_master_no = #{tradeMasterNo,jdbcType=VARCHAR},
+        merchant_batch_no = #{merchantBatchNo,jdbcType=VARCHAR},
+        order_id = #{orderId,jdbcType=VARCHAR},
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+        `status` = #{status,jdbcType=TINYINT},
+        response_code = #{responseCode,jdbcType=VARCHAR},
+        response_msg = #{responseMsg,jdbcType=VARCHAR},
+        pay_order_no = #{payOrderNo,jdbcType=VARCHAR},
+        pay_rsp_code = #{payRspCode,jdbcType=VARCHAR},
+        pay_rsp_msg = #{payRspMsg,jdbcType=VARCHAR},
+        amount = #{amount,jdbcType=DECIMAL},
+        fee = #{fee,jdbcType=DECIMAL},
+        tax = #{tax,jdbcType=DECIMAL},
+        currency = #{currency,jdbcType=CHAR},
+        country_code = #{countryCode,jdbcType=VARCHAR},
+        pay_type = #{payType,jdbcType=VARCHAR},
+        product_code = #{productCode,jdbcType=VARCHAR},
+        cust_id = #{custId,jdbcType=VARCHAR},
+        member_id = #{memberId,jdbcType=VARCHAR},
+        extra_info = #{extraInfo,jdbcType=VARCHAR},
+        payee_upi = #{payeeUpi,jdbcType=VARCHAR},
+        payee_name = #{payeeName,jdbcType=VARCHAR},
+        transaction_note = #{transactionNote,jdbcType=VARCHAR},
+        callback_url = #{callbackUrl,jdbcType=VARCHAR},
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        creator = #{creator,jdbcType=VARCHAR},
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+        modifier = #{modifier,jdbcType=VARCHAR},
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+        account_info = #{accountInfo,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--auto generated by MybatisCodeHelper on 2019-06-14-->
+    <select id="findByUpdateTime"
+            resultMap="result">
+    select merchant_id, trade_master_no, merchant_batch_no, order_id, trade_no, `status`, amount, currency, country_code, pay_type, payee_upi, payee_name
+    from tb_payment_txn_v2
+    where
+    <![CDATA[
+    modified_time <= from_unixtime(left(#{updateTime},10))
+
+        ]]>
+    </select>
+</mapper>

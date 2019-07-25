@@ -45,7 +45,7 @@ public class ValidationUtilsTest {
         se.setValid(false);
         se.setAmt(1L);
         se.setType(0);
-        ValidationResult result = ValidationUtils.validateByGroup(se, ValidatorInterfaceColl.settle.class);
+        ValidationResult result = ValidationUtils.validateByGroup(se, ValidatorInterfaceColl.account.class);
 //        ValidationResult result = ValidationUtils.validateEntity(se);
         if (result.isHasErrors()) {
             //此处设置响应码和响应信息
