@@ -1,24 +1,23 @@
-package com.acongfly.yscutils.aspect;
+package com.acongfly.study.aspect;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.acongfly.yscutils.annotation.LogSave;
-import com.acongfly.yscutils.common.CommonConstants;
-import com.acongfly.yscutils.model.LogInfo;
-import com.acongfly.yscutils.support.LogPrcessSupport;
-import com.acongfly.yscutils.utils.GuavaCacheUtil;
+import com.acongfly.study.annotation.LogSave;
+import com.acongfly.study.common.CommonConstants;
+import com.acongfly.study.model.LogInfo;
+import com.acongfly.study.utils.GuavaCacheUtil;
 import com.google.common.collect.Maps;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.context.annotation.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
@@ -30,14 +29,18 @@ import java.util.Objects;
  * @create: 2019-04-19 22:01
  **/
 @Aspect
-@Configuration
-@Slf4j
-public class LogSaveAspect {
+@Component
+public class LogAspect {
 
-//    @Resource
-//    private LogPrcessSupport logPrcessSupport;
 
-    @Before("@annotation(com.acongfly.yscutils.annotation.LogSave)")
+    private static Logger log = LoggerFactory.getLogger(LogAspect.class);
+
+
+    @Pointcut("@annotation(com.acongfly.study.annotation.LogSave)")
+    public void pointCut() {
+    }
+
+    @Before("pointCut()")
     public void beforeLogSave(JoinPoint point) {
         String name = point.getSignature().getName();
 
@@ -103,7 +106,7 @@ public class LogSaveAspect {
 
 
     @SuppressWarnings("All")
-    @AfterReturning(pointcut = "@annotation(com.acongfly.yscutils.annotation.LogSave)", returning = "result")
+    @AfterReturning(pointcut = "pointCut()", returning = "result")
     public void after(JoinPoint joinPoint, Object result) {
         String name = joinPoint.getSignature().getName();
         String simpleName = joinPoint.getSignature().getDeclaringType().getSimpleName();
@@ -117,20 +120,8 @@ public class LogSaveAspect {
         log.info("{}.{} time consuming = [{}]ms", simpleName, name, logInfo.getMethodEndTime() - logInfo.getMethodStartTime());
         if (value) {
             /**
-             * 异步记录日志操作
+             * 异步记录日志操作 TODO
              */
-            try {
-                Method logSave = LogPrcessSupport.class.getMethod("logSave");
-                logSave.invoke(logInfo);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-//            ReturnT<String> returnT = logPrcessSupport.logSave(logInfo);
-//            log.info("save log result ={}",returnT);
             // 响应签名
         }
 

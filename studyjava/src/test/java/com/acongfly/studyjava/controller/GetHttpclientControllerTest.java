@@ -11,14 +11,15 @@ public class GetHttpclientControllerTest {
 
     public static void main(String[] args) throws IOException {
         FileTrans fileTran = new FileTrans();
+        fileTran.setMerId("12345678");
 //        FileItem fileItem = new FileItem("/Users/shicongyang/work/testWrite.csv");
 //        String string = new String(fileItem.getContent(), "utf-8");
-        File file = new File("/Users/shicongyang/workword/pay_order_smoke.csv");
-        byte[] content = getContent(file);
+//        File file = new File("/Users/shicongyang/workword/pay_order_smoke.csv");
+//        byte[] content = getContent(file);
 //        System.out.println(string);string
 //        fileTran.setFile(fileItem);
 //        fileTran.setFileCharset("utf-8");
-        fileTran.setContent(content);
+//        fileTran.setContent(content);
         String s = HttpClientUtil.post("http://localhost:8001/getFileItem/", JSONUtil.toJsonStr(fileTran));
         System.out.println(s);
     }

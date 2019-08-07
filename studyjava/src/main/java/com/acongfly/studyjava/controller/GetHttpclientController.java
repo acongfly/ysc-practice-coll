@@ -1,13 +1,14 @@
 package com.acongfly.studyjava.controller;
 
-import cn.hutool.core.io.FileUtil;
 import com.acongfly.studyjava.javaStudy.other.FileTrans;
-import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -17,6 +18,9 @@ import java.io.InputStreamReader;
 @RestController
 @RequestMapping("/")
 public class GetHttpclientController {
+
+    @Resource
+    private TestService testService;
 
     @PostMapping("getHttpInfo")
     public String getHttpInfo(HttpServletRequest request) {
@@ -56,15 +60,10 @@ public class GetHttpclientController {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        byte[] content = tran.getContent();
-//        FileUtil.isFile()
-        File file = FileUtil.writeBytes(content, new File("/Users/shicongyang/work/testWrite2.csv"));
-        stopWatch.stop();
-        System.out.println("total==============:" + stopWatch.getTotalTimeSeconds());
+        testService.fileProcess(tran);
 
 
     }
+
 
 }

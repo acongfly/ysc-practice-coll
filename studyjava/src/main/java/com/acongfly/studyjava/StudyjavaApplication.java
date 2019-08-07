@@ -13,4 +13,11 @@ public class StudyjavaApplication {
     public static void main(String[] args) {
         SpringApplication.run(StudyjavaApplication.class, args);
     }
+//    @Component
+//    public class AspCheckValueConfig extends CheckValueAspect {
+//    }
+//    @Component
+//    public class AspLogConfig extends LogAspect {
+//    }
+
 }

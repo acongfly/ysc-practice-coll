@@ -1,21 +1,8 @@
 package com.acongfly.studyjava.javaStudy.other;
 
-import cn.hutool.core.util.ReUtil;
 import cn.hutool.json.JSONUtil;
-import com.google.common.collect.ImmutableMap;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.util.Base64Utils;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.util.Base64;
-import java.util.Map;
 
 /**
  * program: study<p>
@@ -171,8 +158,6 @@ public class OtherTest {
         DataTest dataTest = new DataTest();
 
         System.out.println("data:" + dataTest.getPushId());
-
-
 
 
     }

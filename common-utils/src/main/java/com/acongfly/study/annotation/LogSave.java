@@ -1,7 +1,10 @@
-package com.acongfly.yscutils.annotation;
+package com.acongfly.study.annotation;
 
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * description: 日志保存操作，用于service和feign相关请求操作<p>

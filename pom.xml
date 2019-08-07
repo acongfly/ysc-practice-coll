@@ -7,7 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.8.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
 
     <groupId>com.acongfly.study</groupId>
@@ -20,6 +20,8 @@
         <module>studyjava</module>
         <module>esstudy</module>
         <module>flink-demo</module>
+        <module>ysc-utils</module>
+        <module>common-utils</module>
     </modules>
 
 </project>

@@ -1,9 +1,9 @@
 package com.acongfly.studyjava.javaStudy.other;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
-import java.io.FileInputStream;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 /**
  * @program: study
@@ -12,11 +12,13 @@ import java.io.Serializable;
  * @create: 2019-04-19 10:10
  **/
 @Data
-public class FileTrans implements Serializable {
+public class FileTrans {
 
 //    private FileInputStream fileInputStream;
 
+    @NotBlank
     private String merId;
 
+    @NotNull
     private byte[] content;
 }
