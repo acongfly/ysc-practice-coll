@@ -144,7 +144,7 @@ public class MvelUtilTest {
         Map<String, Object> context = new HashMap<String, Object>(2);
         context.put("foo", "Hello");
         String result = MvelUtil.parseTemplate("@if{?foo != empty}@{foo} World!@end{}", context);
-        log.info("testParseTemplate 结果:{}" + result);
+        log.info("testParseTemplate 结果:{}", result);
         assertEquals("Hello World!", result);
     }
 
