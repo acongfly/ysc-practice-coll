@@ -44,6 +44,7 @@ public class GetHttpclientController {
                 e.printStackTrace();
             }
         }
+        System.out.println(sb.toString());
         return sb.toString();
 
 

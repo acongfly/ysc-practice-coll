@@ -6,9 +6,7 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -18,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @create: 2019-08-28 14:47
  **/
 @Slf4j
-public class ConsumerMain2 {
+public class ConsumerMain4 {
 
     public static final String brokerList = "127.0.0.1:9092";
     public static final String topic = "topic-study-mq";
@@ -52,14 +50,19 @@ public class ConsumerMain2 {
                     System.out.println("key = " + record.key()
                             + ", value = " + record.value());
                     //do something to process record.
-                    //提交方式2,带参数的同步提交,此中方式会阻塞，线上不建议使用此方式
-                    long offset = record.offset();
-                    TopicPartition topicPartition = new TopicPartition(record.topic(), record.partition());
-                    consumer.commitSync(Collections.singletonMap(topicPartition, new OffsetAndMetadata(offset + 1)));
-
                 }
-                //提交方式1。同步提交
-//                consumer.commitSync();
+                consumer.commitAsync(new OffsetCommitCallback() {
+                    @Override
+                    public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
+                        if (exception == null) {
+                            log.info("success offsets={}", offsets);
+                        } else {
+                            log.error("fail offset={}", offsets, exception);
+                        }
+                    }
+                });
+
+
             }
         } catch (Exception e) {
             log.error("kafka consumer exception", e);
