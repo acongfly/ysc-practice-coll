@@ -1,24 +1,27 @@
 package com.acongfly.kafkademo.consumer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @program: ysc-practice-coll
  * @description: kafka consumer
+ * 如果消费组 内 的消费者在启动的时候 能够找到消费位移 ，
+ * 除非发生位移越界 ， 否 则 auto . offset. reset 参数并不会奏效，
+ * 此时如 果想指定从开头或末尾开始消费，就需要 seek() 方法的帮助了 ，
+ * 下面代码 用来指定从分区末尾开始消费。
  * @author: shicong yang
  * @create: 2019-08-28 14:47
  **/
 @Slf4j
-public class ConsumerMain4 {
+public class ConsumerMain5 {
 
     public static final String brokerList = "127.0.0.1:9092";
     public static final String topic = "topic-study-mq";
@@ -33,9 +36,6 @@ public class ConsumerMain4 {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupid);
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, "consumer.client.id.demo");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-
-        //此处配置消费端的拦截器
-        props.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, ConsumerinterceptorTTL.class.getName());
         return props;
     }
 
@@ -45,29 +45,17 @@ public class ConsumerMain4 {
         consumer.subscribe(Arrays.asList(topic));
 
         try {
-            while (isRunning.get()) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
-                for (ConsumerRecord<String, String> record : records) {
+            Set<TopicPartition> assignment = new HashSet<>();
 
-                    System.out.println("topic=" + record.topic()
-                            + ",partion = " + record.partition()
-                            + ", offset = " + record.offset());
-                    System.out.println("key = " + record.key()
-                            + ", value = " + record.value());
-                    //do something to process record.
-                }
-                consumer.commitAsync(new OffsetCommitCallback() {
-                    @Override
-                    public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
-                        if (exception == null) {
-                            log.info("success offsets={}", offsets);
-                        } else {
-                            log.error("fail offset={}", offsets, exception);
-                        }
-                    }
-                });
-
-
+            while (assignment.size() == 0) {
+                consumer.poll(Duration.ofMillis(100));
+                assignment = consumer.assignment();
+            }
+//            endOffsets()方法用来获取指定分区的末尾的消息位置,如下:
+//            注意这里获取 的不是 8，是将要写入最新消息 的位置。
+            Map<TopicPartition, Long> offsets = consumer.endOffsets(assignment);
+            for (TopicPartition tp : assignment) {
+                consumer.seek(tp, offsets.get(tp));
             }
         } catch (Exception e) {
             log.error("kafka consumer exception", e);

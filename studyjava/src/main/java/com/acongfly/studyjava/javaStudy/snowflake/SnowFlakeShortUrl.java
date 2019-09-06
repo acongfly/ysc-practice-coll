@@ -106,17 +106,18 @@ public class SnowFlakeShortUrl {
         for (int i = 0; i < (1 << 4); i++) {
             //10进制
             Long id = snowFlake.nextId();
-            //62进制
-            String convertedNumStr = NumericConvertUtils.toOtherNumberSystem(id, 62);
-
-            //10进制转化为62进制
-            System.out.println("10进制：" + id + "  62进制:" + convertedNumStr);
-
-            //TODO 执行具体的存储操作，可以存放在Redis等中
-
-            //62进制转化为10进制
-            System.out.println("62进制：" + convertedNumStr + "  10进制:" + NumericConvertUtils.toDecimalNumber(convertedNumStr, 62));
-            System.out.println();
+            System.out.println(id);
+//            //62进制
+//            String convertedNumStr = NumericConvertUtils.toOtherNumberSystem(id, 62);
+//
+//            //10进制转化为62进制
+//            System.out.println("10进制：" + id + "  62进制:" + convertedNumStr);
+//
+//            //TODO 执行具体的存储操作，可以存放在Redis等中
+//
+//            //62进制转化为10进制
+//            System.out.println("62进制：" + convertedNumStr + "  10进制:" + NumericConvertUtils.toDecimalNumber(convertedNumStr, 62));
+//            System.out.println();
         }
     }
 }
