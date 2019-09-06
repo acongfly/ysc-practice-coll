@@ -63,13 +63,13 @@ public class SnowflakeIdWorkerOptimize {
     /**
      * 工作机器ID(0~15)
      */
-    @Value("${snowflake.work.id}")
+//    @Value("${snowflake.work.id}")
     private long workerId;
 
     /**
      * 数据中心ID(0~3)
      */
-    @Value("${snowflake.datacenter.id}")
+//    @Value("${snowflake.datacenter.id}")
     private long datacenterId;
 
     /**
