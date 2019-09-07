@@ -1,7 +1,5 @@
 package com.acongfly.kafkademo.product;
 
-import cn.hutool.json.JSONUtil;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -27,7 +25,7 @@ public class Productor {
 
     private static final String TOPIC = "topic-study-mq";
 
-    //    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 10000)
     public String product() {
         ProductorEntity productorEntity = new ProductorEntity();
         for (int i = 0; i < 100; i++) {

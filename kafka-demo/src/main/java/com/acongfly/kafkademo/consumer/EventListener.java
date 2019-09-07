@@ -15,22 +15,35 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Component
 @Slf4j
 public class EventListener {
+    //https://www.jianshu.com/p/6a44da908e48
 
     private static final String TOPIC = "topic-study-mq";
 
-//    private LinkedBlockingQueue queue = new LinkedBlockingQueue<ProductorEntity>();
 
-    @KafkaListener(topics = TOPIC)
+    @KafkaListener(topics = TOPIC, groupId = "groupId1")
     public void listen(ConsumerRecord<?, ?> record, Acknowledgment ack) {
 
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()) {
             String message = String.valueOf(kafkaMessage.get());
-            ProductorEntity productorEntity = JSONUtil.toBean(message, ProductorEntity.class);
             try {
-                System.out.println(productorEntity);
-//                queue.add(productorEntity);
-//                System.out.println(message);
+                System.out.println("grout1============" + message);
+            } catch (Exception e) {
+                log.error("event Exception", e);
+            } finally {
+                ack.acknowledge();
+            }
+        }
+    }
+
+    @KafkaListener(topics = TOPIC, groupId = "groupId2")
+    public void listen2(ConsumerRecord<?, ?> record, Acknowledgment ack) {
+
+        Optional<?> kafkaMessage = Optional.ofNullable(record.value());
+        if (kafkaMessage.isPresent()) {
+            String message = String.valueOf(kafkaMessage.get());
+            try {
+                System.out.println("grout2============" + message);
             } catch (Exception e) {
                 log.error("event Exception", e);
             } finally {
