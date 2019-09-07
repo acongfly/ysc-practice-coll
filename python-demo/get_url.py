@@ -11,13 +11,13 @@ def get_url(url, file_path):
 
     for h in hyperlink:
         hh = h.get('href')
-        if hh and 'res.cocolian.cn' in hh:  # 筛选博客链接
+        if hh and '/essay/' in hh:  # 筛选博客链接
             print(hh)
-            file.write(hh)  # 写入到“blog.txt”文件中
+            file.write('http://doc.cocolian.cn' + hh)  # 写入到“blog.txt”文件中
             file.write('\n')
 
     file.close()
 
 
 if __name__ == '__main__':
-    get_url('http://doc.cocolian.cn/resources/', './url.txt')
+    get_url('http://doc.cocolian.cn/essay/', './word_url.txt')
