@@ -6,6 +6,7 @@ import com.acongfly.study.esstudy.elasticsearchStudy.ArticleSearchRepository;
 import com.acongfly.study.esstudy.elasticsearchStudy.Author;
 import com.acongfly.study.esstudy.elasticsearchStudy.Tutorial;
 import org.assertj.core.util.Lists;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.index.query.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,9 @@ public class SpringbootElasticsearchApplicationTests {
 
     @Test
     public void testSaveArticleIndex() {
+//        UpdateRequest updateRequest = new UpdateRequest();
+//        updateRequest.
+
         Author author = new Author();
         author.setId(2L);
         author.setName("王五");

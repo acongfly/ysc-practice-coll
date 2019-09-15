@@ -34,7 +34,8 @@ public class ProductorMain1 {
 
         Properties properties = initConfig();
         KafkaProducer<String, String> productor = new KafkaProducer<>(properties);
-        ProducerRecord<String, String> producerRecord = new ProducerRecord(topic, "hello kafka!!!!");
+        ProducerRecord<String, String> producerRecord = null;
+
 //        //模拟延时操作
 //        ProducerRecord<String, String> record1 = new ProducerRecord<>(topic, 0, System.currentTimeMillis() - EXPIRE_INTERVAL, null, "first-expire-data");
 //        ProducerRecord<String, String> record2 = new ProducerRecord<>(topic, 0, System.currentTimeMillis(), null, "normal-data");
@@ -43,7 +44,12 @@ public class ProductorMain1 {
 //            productor.send(record1).get();
 //            productor.send(record2).get();
 //            productor.send(record3).get();
-            productor.send(producerRecord).get();
+            for (int j = 0; j < 1000; j++) {
+                for (int i = 0; i < 3; i++) {
+                    producerRecord = new ProducerRecord(topic, i, "", "hello kafka!!!!" + i);
+                    productor.send(producerRecord).get();
+                }
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

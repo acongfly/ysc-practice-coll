@@ -23,21 +23,21 @@ public class Productor {
     private KafkaSendResultHandler producerListener;
 
 
-    private static final String TOPIC = "topic-study-mq";
+    private static final String TOPIC = "topic-mq-test1";
 
     @Scheduled(fixedDelay = 10000)
     public String product() {
         ProductorEntity productorEntity = new ProductorEntity();
         for (int i = 0; i < 100; i++) {
 
-            productorEntity.setAge(10);
-            productorEntity.setMessage("test message");
+            productorEntity.setAge(i);
+            productorEntity.setMessage(System.currentTimeMillis() + "");
             productorEntity.setName("kafka" + i);
             try {
                 /**配置回调*/
                 kafkaTemplate.setProducerListener(producerListener);
                 /**同步发送*/
-                SendResult<String, Object> stringObjectSendResult = kafkaTemplate.send(TOPIC, productorEntity).get();
+                SendResult<String, Object> stringObjectSendResult = kafkaTemplate.send(TOPIC, i % 5, "", productorEntity).get();
 //                System.out.println(stringObjectSendResult);
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -38,4 +38,11 @@ public class KafkaProducterConfigure {
         return new KafkaTemplate<>(producerFactory());
     }
 
+
+    //创建topic
+//    @Bean
+//    public NewTopic newTopic(){
+//        return new NewTopic("topic-mq-test1",5, (short) 1);
+//    }
+
 }

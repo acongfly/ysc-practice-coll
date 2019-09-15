@@ -18,7 +18,7 @@ import java.util.Properties;
  * @author: shicong yang
  * @create: 2019-08-15 17:47
  **/
-public class ConsumerMain1 {
+public class ConsumerMain8 {
 
     public static final String brokerList = "127.0.0.1:9092";
 
@@ -38,7 +38,7 @@ public class ConsumerMain1 {
         Properties properties = initConfig();
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 //        consumer.subscribe(Collections.singleton(topic));
-        consumer.assign(Collections.singleton(new TopicPartition(topic, 0)));
+        consumer.assign(Collections.singleton(new TopicPartition(topic, 1)));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
             for (ConsumerRecord<String, String> record : records) {
