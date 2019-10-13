@@ -2,6 +2,7 @@ package com.acongfly.studyjava.javaStudy.streamStudy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +25,10 @@ public class StreamStudy {
             System.out.print(ele + "  ");
         }
         System.out.println();
+
+
+        Map<Integer, List<Integer>> collect1 = list.stream().collect(Collectors.groupingBy(elem -> elem % 2));
+        System.out.println(collect1);
 
         //计算最小值
         System.out.print("list中最小值");

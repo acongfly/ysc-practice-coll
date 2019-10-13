@@ -1,0 +1,40 @@
+package rules;
+
+import com.acongfly.droolsdemo.model.User;
+import java.util.*;
+
+rule "helloWorld"
+salience 4  #它的值越大执行的优先级就越高
+    when
+        eval(true)
+    then
+        System.out.println("hello, world");
+end
+
+rule "users"
+salience 3
+    when
+        $u : User(name=="张三",age==20)
+    then
+        $u.setName("李四");
+        System.out.println("hello world"+$u.getName());
+end
+
+rule "contains"
+salience 2
+    when
+        $s:String()
+        $u:User(name contains $s)
+    then
+        System.err.println("用户张三存在");
+    end
+
+
+rule "memberOf"
+salience 1
+    when
+      $list:List()
+      $u:User(name memberOf $list)
+    then
+        System.err.println("用户李四存在");
+end

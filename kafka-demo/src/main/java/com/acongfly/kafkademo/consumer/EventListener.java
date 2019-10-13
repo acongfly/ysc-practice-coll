@@ -22,7 +22,7 @@ public class EventListener {
     private static final String TOPIC = "topic-mq-test1";
 
 
-    @KafkaListener(groupId = "group1", topicPartitions = {@TopicPartition(topic = TOPIC, partitions = {"0", "1"})})
+    @KafkaListener(groupId = "test-consumer-group", topics = {TOPIC})
     public void listen(ConsumerRecord<?, ?> record, Acknowledgment ack) {
 
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());

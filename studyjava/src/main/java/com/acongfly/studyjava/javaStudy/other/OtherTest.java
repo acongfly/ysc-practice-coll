@@ -153,13 +153,28 @@ public class OtherTest {
 //        BigDecimal b = new BigDecimal(3);
 //        System.out.println(b.compareTo(BigDecimal.ZERO));
 
-        String h = "";
-        System.out.println("h=" + h.trim());
-        DataTest dataTest = new DataTest();
+//        String h = "";
+//        System.out.println("h=" + h.trim());
+//        DataTest dataTest = new DataTest();
+//
+//        System.out.println("data:" + dataTest.getPushId());
+//        try {
+//            int i = 0;
+//            if (i == 0) {
+//                return;
+//            }
+//
+//        } finally {
+//            System.out.println("6666666666666");
+//        }
+        int i = 102;
+        System.out.println(i % 2);
 
-        System.out.println("data:" + dataTest.getPushId());
 
+        System.out.println("payment".hashCode() ^ "testlo".hashCode());
+        System.out.println(0);
 
+//        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 
     public static void testObj(Object... objects) {
