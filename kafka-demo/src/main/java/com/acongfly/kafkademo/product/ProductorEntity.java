@@ -1,8 +1,8 @@
 package com.acongfly.kafkademo.product;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @program: ysc-practice-coll

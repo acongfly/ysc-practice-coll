@@ -1,31 +1,31 @@
 package com.acongfly.yscutils.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Data;
+
 @Data
 public class LogInfo implements Serializable {
-//    /**
-//     * 主键ID
-//     */
-//    private Integer id;
+    // /**
+    // * 主键ID
+    // */
+    // private Integer id;
 
-//    /**
-//     * 请求流水号
-//     */
-//    private String requestNo;
+    // /**
+    // * 请求流水号
+    // */
+    // private String requestNo;
 
     /**
      * 业务方法(按照接口可以区分)
      */
     private String bizMethod;
 
-//    /**
-//     * 商户号
-//     */
-//    private String merchantId;
+    // /**
+    // * 商户号
+    // */
+    // private String merchantId;
 
     /**
      * 请求报文

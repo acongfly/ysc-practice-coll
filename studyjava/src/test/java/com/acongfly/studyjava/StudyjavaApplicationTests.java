@@ -1,6 +1,8 @@
 package com.acongfly.studyjava;
 
-import com.acongfly.studyjava.spring.AsyncStudy;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import com.acongfly.studyjava.spring.AsyncStudy;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,10 +23,10 @@ public class StudyjavaApplicationTests {
 
     @Test
     public void contextLoads() {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("param", "{code=200,message=success}");
-////        HttpClientUtil.post("http://localhost:8001/getHttpInfo",map);
-//        HttpUtil.getInstance().doHttpPost("http://localhost:8001/getHttpInfo", map);
+        // Map<String, String> map = new HashMap<>();
+        // map.put("param", "{code=200,message=success}");
+        //// HttpClientUtil.post("http://localhost:8001/getHttpInfo",map);
+        // HttpUtil.getInstance().doHttpPost("http://localhost:8001/getHttpInfo", map);
     }
 
     @Test

@@ -1,8 +1,8 @@
 package com.acongfly.study.esstudy.elasticsearchStudy;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @author sanglp
@@ -12,6 +12,6 @@ import java.io.Serializable;
 @Data
 public class Tutorial implements Serializable {
     private Long id;
-    //教程名称
+    // 教程名称
     private String name;
 }

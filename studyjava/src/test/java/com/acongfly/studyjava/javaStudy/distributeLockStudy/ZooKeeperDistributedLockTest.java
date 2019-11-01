@@ -1,9 +1,6 @@
 package com.acongfly.studyjava.javaStudy.distributeLockStudy;
 
-import com.acongfly.studyjava.redis.distributedLock.DistributedLock;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class ZooKeeperDistributedLockTest {
 
@@ -17,40 +14,36 @@ public class ZooKeeperDistributedLockTest {
     public void process() {
 
         ZooKeeperDistributedLock lock = new ZooKeeperDistributedLock("12345678");
-        ///usr/local/var/run/zookeeper/data
-//        lock.acquireDistributedLock();
+        /// usr/local/var/run/zookeeper/data
+        // lock.acquireDistributedLock();
         boolean b = lock.tryLock();
         if (b) {
         }
         System.out.println(b);
-//        lock.unlock();
+        // lock.unlock();
 
     }
 
     @Test
-    public void acquireDistributedLock() {
-    }
+    public void acquireDistributedLock() {}
 
     @Test
-    public void tryLock() {
-    }
+    public void tryLock() {}
 
     @Test
-    public void unlock() {
-    }
+    public void unlock() {}
 
     public static void main(String[] args) {
-
 
         Runnable runnable = new Runnable() {
             public void run() {
                 ZooKeeperDistributedLock lock = null;
                 try {
                     lock = new ZooKeeperDistributedLock("p1234567");
-//                    lock.tryLock();
+                    // lock.tryLock();
                     lock.acquireDistributedLock();
                     secskill();
-//                    Thread.sleep(30000);
+                    // Thread.sleep(30000);
                     System.out.println(Thread.currentThread().getName() + "正在运行");
                 } finally {
                     if (lock != null) {

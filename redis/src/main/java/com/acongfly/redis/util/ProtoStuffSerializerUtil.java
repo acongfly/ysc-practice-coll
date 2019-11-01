@@ -1,21 +1,26 @@
 package com.acongfly.redis.util;
 
-import io.protostuff.LinkedBuffer;
-import io.protostuff.ProtostuffIOUtil;
-import io.protostuff.Schema;
-import io.protostuff.runtime.RuntimeSchema;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import io.protostuff.LinkedBuffer;
+import io.protostuff.ProtostuffIOUtil;
+import io.protostuff.Schema;
+import io.protostuff.runtime.RuntimeSchema;
+
 /**
- * description: ProtoStuffSerializerUtil<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-05-21 <p>
+ * description: ProtoStuffSerializerUtil
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-05-21
+ * <p>
  */
 public class ProtoStuffSerializerUtil {
     /**
@@ -29,7 +34,7 @@ public class ProtoStuffSerializerUtil {
             throw new RuntimeException("序列化对象(" + obj + ")!");
         }
         @SuppressWarnings("unchecked")
-        Schema<T> schema = (Schema<T>) RuntimeSchema.getSchema(obj.getClass());
+        Schema<T> schema = (Schema<T>)RuntimeSchema.getSchema(obj.getClass());
         LinkedBuffer buffer = LinkedBuffer.allocate(1024 * 1024);
         byte[] protostuff = null;
         try {
@@ -77,7 +82,7 @@ public class ProtoStuffSerializerUtil {
             throw new RuntimeException("序列化对象列表(" + objList + ")参数异常!");
         }
         @SuppressWarnings("unchecked")
-        Schema<T> schema = (Schema<T>) RuntimeSchema.getSchema(objList.get(0).getClass());
+        Schema<T> schema = (Schema<T>)RuntimeSchema.getSchema(objList.get(0).getClass());
         LinkedBuffer buffer = LinkedBuffer.allocate(1024 * 1024);
         byte[] protostuff = null;
         ByteArrayOutputStream bos = null;

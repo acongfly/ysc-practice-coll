@@ -1,5 +1,9 @@
 package com.acongfly.kafkademo.consumer;
 
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Properties;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -7,10 +11,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
-
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Properties;
 
 /**
  * @program: ysc-practice-coll
@@ -37,7 +37,7 @@ public class ConsumerMain8 {
 
         Properties properties = initConfig();
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
-//        consumer.subscribe(Collections.singleton(topic));
+        // consumer.subscribe(Collections.singleton(topic));
         consumer.assign(Collections.singleton(new TopicPartition(topic, 1)));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));

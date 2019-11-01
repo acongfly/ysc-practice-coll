@@ -3,10 +3,14 @@ package com.acongfly.studyjava.javaStudy.setStudy;
 import java.util.TreeSet;
 
 /**
- * program: study<p>
- * description: set学习<p>
- * author: shicong yang<p>
- * createDate: 2018-12-03 10:05<p>
+ * program: study
+ * <p>
+ * description: set学习
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2018-12-03 10:05
+ * <p>
  **/
 
 public class SetStudy {

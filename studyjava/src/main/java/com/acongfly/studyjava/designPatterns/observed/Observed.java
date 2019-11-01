@@ -10,8 +10,7 @@ import java.util.List;
  */
 public class Observed {
 
-    public Observed() {
-    }
+    public Observed() {}
 
     List<Person> list = new ArrayList<Person>();
 

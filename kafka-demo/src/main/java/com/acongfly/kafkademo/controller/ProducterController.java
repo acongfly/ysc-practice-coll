@@ -1,10 +1,11 @@
 package com.acongfly.kafkademo.controller;
 
-import com.acongfly.kafkademo.product.Productor;
+import javax.annotation.Resource;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import com.acongfly.kafkademo.product.Productor;
 
 /**
  * @program: ysc-practice-coll

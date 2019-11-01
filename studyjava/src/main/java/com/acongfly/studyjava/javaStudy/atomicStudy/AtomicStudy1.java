@@ -10,8 +10,7 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 public class AtomicStudy1 {
 
     private static AtomicIntegerFieldUpdater<AtomicStudy1> updater =
-            AtomicIntegerFieldUpdater.newUpdater(AtomicStudy1.class, "count");
-
+        AtomicIntegerFieldUpdater.newUpdater(AtomicStudy1.class, "count");
 
     public volatile int count = 500;
 
@@ -27,7 +26,7 @@ public class AtomicStudy1 {
 
         AtomicStudy1 atomicStudy1 = new AtomicStudy1();
 
-        //CAS实现compareAndSet
+        // CAS实现compareAndSet
         if (updater.compareAndSet(atomicStudy1, 500, 600)) {
             System.out.println("1.更新成功，count=" + atomicStudy1.getCount());
         }
@@ -38,8 +37,6 @@ public class AtomicStudy1 {
             System.out.println("3.更新失败，count=" + atomicStudy1.getCount());
         }
 
-
     }
-
 
 }

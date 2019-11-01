@@ -3,7 +3,7 @@ package com.acongfly.studyjava.javaStudy.snowflake;
 /**
  * Twitter的SnowFlake算法,使用SnowFlake算法生成一个整数，然后转化为62进制变成一个短地址URL
  *
- * @author @author beyond  https://github.com/beyondfengyu/SnowFlake
+ * @author @author beyond https://github.com/beyondfengyu/SnowFlake
  * @author xuliugen
  * @date 2018/04/23
  */
@@ -17,9 +17,9 @@ public class SnowFlakeShortUrl {
     /**
      * 每一部分占用的位数
      */
-    private final static long SEQUENCE_BIT = 12;   //序列号占用的位数
-    private final static long MACHINE_BIT = 5;     //机器标识占用的位数
-    private final static long DATA_CENTER_BIT = 5; //数据中心占用的位数
+    private final static long SEQUENCE_BIT = 12; // 序列号占用的位数
+    private final static long MACHINE_BIT = 5; // 机器标识占用的位数
+    private final static long DATA_CENTER_BIT = 5; // 数据中心占用的位数
 
     /**
      * 每一部分的最大值
@@ -35,16 +35,18 @@ public class SnowFlakeShortUrl {
     private final static long DATA_CENTER_LEFT = SEQUENCE_BIT + MACHINE_BIT;
     private final static long TIMESTAMP_LEFT = DATA_CENTER_LEFT + DATA_CENTER_BIT;
 
-    private long dataCenterId;  //数据中心
-    private long machineId;     //机器标识
-    private long sequence = 0L; //序列号
-    private long lastTimeStamp = -1L;  //上一次时间戳
+    private long dataCenterId; // 数据中心
+    private long machineId; // 机器标识
+    private long sequence = 0L; // 序列号
+    private long lastTimeStamp = -1L; // 上一次时间戳
 
     /**
      * 根据指定的数据中心ID和机器标志ID生成指定的序列号
      *
-     * @param dataCenterId 数据中心ID
-     * @param machineId    机器标志ID
+     * @param dataCenterId
+     *            数据中心ID
+     * @param machineId
+     *            机器标志ID
      */
     public SnowFlakeShortUrl(long dataCenterId, long machineId) {
         if (dataCenterId > MAX_DATA_CENTER_NUM || dataCenterId < 0) {
@@ -69,23 +71,23 @@ public class SnowFlakeShortUrl {
         }
 
         if (currTimeStamp == lastTimeStamp) {
-            //相同毫秒内，序列号自增
+            // 相同毫秒内，序列号自增
             sequence = (sequence + 1) & MAX_SEQUENCE;
-            //同一毫秒的序列数已经达到最大
+            // 同一毫秒的序列数已经达到最大
             if (sequence == 0L) {
                 currTimeStamp = getNextMill();
             }
         } else {
-            //不同毫秒内，序列号置为0
+            // 不同毫秒内，序列号置为0
             sequence = 0L;
         }
 
         lastTimeStamp = currTimeStamp;
 
-        return (currTimeStamp - START_TIMESTAMP) << TIMESTAMP_LEFT //时间戳部分
-                | dataCenterId << DATA_CENTER_LEFT       //数据中心部分
-                | machineId << MACHINE_LEFT             //机器标识部分
-                | sequence;                             //序列号部分
+        return (currTimeStamp - START_TIMESTAMP) << TIMESTAMP_LEFT // 时间戳部分
+            | dataCenterId << DATA_CENTER_LEFT // 数据中心部分
+            | machineId << MACHINE_LEFT // 机器标识部分
+            | sequence; // 序列号部分
     }
 
     private long getNextMill() {
@@ -104,20 +106,21 @@ public class SnowFlakeShortUrl {
         SnowFlakeShortUrl snowFlake = new SnowFlakeShortUrl(2, 3);
 
         for (int i = 0; i < (1 << 4); i++) {
-            //10进制
+            // 10进制
             Long id = snowFlake.nextId();
             System.out.println(id);
-//            //62进制
-//            String convertedNumStr = NumericConvertUtils.toOtherNumberSystem(id, 62);
-//
-//            //10进制转化为62进制
-//            System.out.println("10进制：" + id + "  62进制:" + convertedNumStr);
-//
-//            //TODO 执行具体的存储操作，可以存放在Redis等中
-//
-//            //62进制转化为10进制
-//            System.out.println("62进制：" + convertedNumStr + "  10进制:" + NumericConvertUtils.toDecimalNumber(convertedNumStr, 62));
-//            System.out.println();
+            // //62进制
+            // String convertedNumStr = NumericConvertUtils.toOtherNumberSystem(id, 62);
+            //
+            // //10进制转化为62进制
+            // System.out.println("10进制：" + id + " 62进制:" + convertedNumStr);
+            //
+            // //TODO 执行具体的存储操作，可以存放在Redis等中
+            //
+            // //62进制转化为10进制
+            // System.out.println("62进制：" + convertedNumStr + " 10进制:" +
+            // NumericConvertUtils.toDecimalNumber(convertedNumStr, 62));
+            // System.out.println();
         }
     }
 }

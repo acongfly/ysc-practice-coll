@@ -5,11 +5,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * description: 模拟并发工具类（https://mp.weixin.qq.com/s/uDil9FqYVCB0w-TCGokb_A）<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-08-21 <p>
+ * description: 模拟并发工具类（https://mp.weixin.qq.com/s/uDil9FqYVCB0w-TCGokb_A）
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-08-21
+ * <p>
  */
 public class CountDownLatchUtil {
 
@@ -58,21 +63,21 @@ public class CountDownLatchUtil {
 }
 
 //
-//@RunWith(SpringRunner.class)
+// @RunWith(SpringRunner.class)
 // @SpringBootTest
 // public class HelloServiceTest {
 //
-//      @Autowired
-//     private HelloService helloService;
+// @Autowired
+// private HelloService helloService;
 //
-//      @Test
-//     public void testSayHello() throws Exception {
-//                long currentTimeMillis = System.currentTimeMillis();
-//                //模拟1000个线程并发
-//                CountDownLatchUtil countDownLatchUtil = new CountDownLatchUtil(1000);
-//                countDownLatchUtil.latch(() -> {
-//                        helloService.sayHello(currentTimeMillis);
-//                    });
-//            }
+// @Test
+// public void testSayHello() throws Exception {
+// long currentTimeMillis = System.currentTimeMillis();
+// //模拟1000个线程并发
+// CountDownLatchUtil countDownLatchUtil = new CountDownLatchUtil(1000);
+// countDownLatchUtil.latch(() -> {
+// helloService.sayHello(currentTimeMillis);
+// });
+// }
 //
-//        }
+// }

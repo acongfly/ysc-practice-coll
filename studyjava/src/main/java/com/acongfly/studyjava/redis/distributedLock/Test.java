@@ -1,10 +1,14 @@
 package com.acongfly.studyjava.redis.distributedLock;
 
 /**
- * program: study<p>
- * description: <p>
- * author: shicong yang<p>
- * createDate: 2018-11-09 16:36<p>
+ * program: study
+ * <p>
+ * description:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2018-11-09 16:36
+ * <p>
  **/
 
 public class Test {

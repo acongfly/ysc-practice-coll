@@ -1,12 +1,11 @@
 package com.acongfly.study.esstudy;
 
-import cn.hutool.json.JSONUtil;
-import com.acongfly.study.esstudy.elasticsearchStudy.Article;
-import com.acongfly.study.esstudy.elasticsearchStudy.ArticleSearchRepository;
-import com.acongfly.study.esstudy.elasticsearchStudy.Author;
-import com.acongfly.study.esstudy.elasticsearchStudy.Tutorial;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
 import org.assertj.core.util.Lists;
-import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.index.query.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,29 +13,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sound.midi.Soundbank;
-import java.util.*;
+import com.acongfly.study.esstudy.elasticsearchStudy.Article;
+import com.acongfly.study.esstudy.elasticsearchStudy.ArticleSearchRepository;
+import com.acongfly.study.esstudy.elasticsearchStudy.Author;
+import com.acongfly.study.esstudy.elasticsearchStudy.Tutorial;
+
+import cn.hutool.json.JSONUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringbootElasticsearchApplicationTests {
 
     @Test
-    public void contextLoads() {
-    }
+    public void contextLoads() {}
 
     @Autowired
     private ArticleSearchRepository articleSearchRepository;
 
     /**
-     * 参看：https://www.cnblogs.com/wenbronk/p/6432990.html
-     * https://www.jianshu.com/p/a3694b13bf89
+     * 参看：https://www.cnblogs.com/wenbronk/p/6432990.html https://www.jianshu.com/p/a3694b13bf89
      */
 
     @Test
     public void testSaveArticleIndex() {
-//        UpdateRequest updateRequest = new UpdateRequest();
-//        updateRequest.
+        // UpdateRequest updateRequest = new UpdateRequest();
+        // updateRequest.
 
         Author author = new Author();
         author.setId(2L);
@@ -69,7 +70,7 @@ public class SpringbootElasticsearchApplicationTests {
 
     @Test
     public void testSearch() {
-        String queryString = "elasticsearch";//搜索关键字
+        String queryString = "elasticsearch";// 搜索关键字
         QueryStringQueryBuilder builder = new QueryStringQueryBuilder(queryString);
         Iterable<Article> searchResult = articleSearchRepository.search(builder);
         Iterator<Article> iterator = searchResult.iterator();
@@ -91,9 +92,10 @@ public class SpringbootElasticsearchApplicationTests {
         Long documentId = 123457891L;
         Article article = new Article();
         article.setId(documentId);
-//        article.setTitle("elasticsearch");
+        // article.setTitle("elasticsearch");
 
-        QueryStringQueryBuilder id = QueryBuilders.queryStringQuery(documentId + "").field("id").defaultOperator(Operator.AND);
+        QueryStringQueryBuilder id =
+            QueryBuilders.queryStringQuery(documentId + "").field("id").defaultOperator(Operator.AND);
         Iterable<Article> search = articleSearchRepository.search(id);
         Iterator<Article> iterator = search.iterator();
         while (iterator.hasNext()) {
@@ -107,11 +109,10 @@ public class SpringbootElasticsearchApplicationTests {
     @Test
     public void testSearch02() {
         BoolQueryBuilder query = QueryBuilders.boolQuery();
-        //title = elasticsearch
+        // title = elasticsearch
         query.must(new QueryStringQueryBuilder("elasticsearch").field("title"));
-        //age 属于[20,30）
+        // age 属于[20,30）
         query.must(new RangeQueryBuilder("author.age").gte(10).lt(30));
-
 
         Iterable<Article> search = articleSearchRepository.search(query);
         Iterator<Article> iterator = search.iterator();
@@ -132,7 +133,6 @@ public class SpringbootElasticsearchApplicationTests {
         }
     }
 
-
     @Test
     public void testSearch04() {
         MatchPhrasePrefixQueryBuilder slp = QueryBuilders.matchPhrasePrefixQuery("authors.name", "李四");
@@ -142,7 +142,6 @@ public class SpringbootElasticsearchApplicationTests {
             System.out.println("***********************" + JSONUtil.toJsonStr(iterator.next()));
         }
     }
-
 
     /**
      * 多词条查询
@@ -182,6 +181,5 @@ public class SpringbootElasticsearchApplicationTests {
             System.out.println("222222222222222222222222222");
         }
     }
-
 
 }

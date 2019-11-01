@@ -1,22 +1,28 @@
 package com.acongfly.study.utils;
 
-import com.acongfly.study.annotation.EnumValid;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import com.acongfly.study.annotation.EnumValid;
+
 /**
- * description: 枚举验证类<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-04-11 <p>
+ * description: 枚举验证类
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-04-11
+ * <p>
  */
 public class EnumValidtor implements ConstraintValidator<EnumValid, Object> {
 
-    Class<?>[] cls; //枚举类
+    Class<?>[] cls; // 枚举类
     private String enumMethod;
 
     @Override
@@ -31,7 +37,7 @@ public class EnumValidtor implements ConstraintValidator<EnumValid, Object> {
             for (Class<?> cl : cls) {
                 try {
                     if (cl.isEnum()) {
-                        //枚举类验证
+                        // 枚举类验证
                         Object[] objs = cl.getEnumConstants();
                         Method method = cl.getMethod(enumMethod);
                         for (Object obj : objs) {
@@ -42,13 +48,13 @@ public class EnumValidtor implements ConstraintValidator<EnumValid, Object> {
                         }
                     }
                 } catch (NoSuchMethodException e) {
-                    //不影响业务 不抛异常
+                    // 不影响业务 不抛异常
                     return false;
                 } catch (IllegalAccessException e) {
-                    //不影响业务 不抛异常
+                    // 不影响业务 不抛异常
                     return false;
                 } catch (InvocationTargetException e) {
-                    //不影响业务 不抛异常
+                    // 不影响业务 不抛异常
                     return false;
                 }
             }

@@ -1,11 +1,16 @@
 package com.acongfly.studyjava.designPatterns.strategy;
 
 /**
- * description: 策略的枚举类 <p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang<p>
- * date: 2018/9/23 <p>
+ * description: 策略的枚举类
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2018/9/23
+ * <p>
  */
 public enum RechargeTypeEnum {
 

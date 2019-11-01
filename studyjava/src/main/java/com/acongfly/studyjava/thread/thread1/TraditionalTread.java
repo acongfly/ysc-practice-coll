@@ -8,16 +8,15 @@ package com.acongfly.studyjava.thread.thread1;
  */
 public class TraditionalTread {
 
-
-    //创建线程的方式
+    // 创建线程的方式
     public static void main(String[] args) {
-        //创建线程1.（方法一）
+        // 创建线程1.（方法一）
         Thread thread = new Thread() {
             @Override
             public void run() {
-                //定义一个循环
+                // 定义一个循环
                 while (true) {
-                    //较少cpu压力
+                    // 较少cpu压力
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
@@ -27,17 +26,17 @@ public class TraditionalTread {
                 }
             }
         };
-        //运行线程
+        // 运行线程
         thread.start();
 
-        //创建线程2.（方式二）更加体现面向对象的过程以及思维
+        // 创建线程2.（方式二）更加体现面向对象的过程以及思维
         Thread thread2 = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                //定义一个循环
+                // 定义一个循环
                 while (true) {
-                    //较少cpu压力
+                    // 较少cpu压力
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
@@ -49,7 +48,6 @@ public class TraditionalTread {
         });
 
         thread2.start();
-
 
     }
 

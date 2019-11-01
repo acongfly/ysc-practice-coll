@@ -1,20 +1,26 @@
 package com.acongfly.studyjava.utils;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
- * description: Jackson json 工具包<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-10-08 <p>
+ * description: Jackson json 工具包
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-10-08
+ * <p>
  */
 public class JacksonHelper {
 
@@ -22,11 +28,11 @@ public class JacksonHelper {
 
     private static Logger logger = LoggerFactory.getLogger(JacksonHelper.class);
 
-
     /**
      * 将对象转化为json
      *
-     * @param obj 待转化的对象
+     * @param obj
+     *            待转化的对象
      * @return 当转化发生异常时返回null
      */
     public static String toJson(Object obj) {
@@ -44,8 +50,10 @@ public class JacksonHelper {
     /**
      * 将json转化为对象
      *
-     * @param json  json对象
-     * @param clazz 待转化的对象类型
+     * @param json
+     *            json对象
+     * @param clazz
+     *            待转化的对象类型
      * @return 当转化发生异常时返回null
      */
     public static <T> T fromJson(String json, Class<T> clazz) {
@@ -63,9 +71,12 @@ public class JacksonHelper {
     /**
      * 将json对象转化为集合类型
      *
-     * @param json            json对象
-     * @param collectionClazz 具体的集合类的class，如：ArrayList.class
-     * @param clazz           集合内存放的对象的class
+     * @param json
+     *            json对象
+     * @param collectionClazz
+     *            具体的集合类的class，如：ArrayList.class
+     * @param clazz
+     *            集合内存放的对象的class
      * @return
      */
     @SuppressWarnings("rawtypes")

@@ -1,9 +1,9 @@
 package com.acongfly.studyjava.fqueueChange.util;
 
+import java.io.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.*;
 
 public final class IOUtils {
     private IOUtils() {/**/}
@@ -47,7 +47,7 @@ public final class IOUtils {
         int ch2 = in.read();
         if ((ch1 | ch2) < 0)
             throw new EOFException();
-        return (short) ((ch1 << 8) + (ch2));
+        return (short)((ch1 << 8) + (ch2));
     }
 
     public static void writeShort(OutputStream out, short v) throws IOException {

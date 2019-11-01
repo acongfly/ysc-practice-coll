@@ -1,6 +1,5 @@
 package com.acongfly.studyjava.javaStudy.snowflake;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -63,13 +62,13 @@ public class SnowflakeIdWorkerOptimize {
     /**
      * 工作机器ID(0~15)
      */
-//    @Value("${snowflake.work.id}")
+    // @Value("${snowflake.work.id}")
     private long workerId;
 
     /**
      * 数据中心ID(0~3)
      */
-//    @Value("${snowflake.datacenter.id}")
+    // @Value("${snowflake.datacenter.id}")
     private long datacenterId;
 
     /**
@@ -86,20 +85,24 @@ public class SnowflakeIdWorkerOptimize {
 
     }
 
-    //==============================Constructors=====================================
+    // ==============================Constructors=====================================
 
     /**
      * 构造函数
      *
-     * @param workerId     工作ID (0~15)
-     * @param datacenterId 数据中心ID (0~3)
+     * @param workerId
+     *            工作ID (0~15)
+     * @param datacenterId
+     *            数据中心ID (0~3)
      */
     public SnowflakeIdWorkerOptimize(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+            throw new IllegalArgumentException(
+                String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+            throw new IllegalArgumentException(
+                String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
@@ -115,40 +118,41 @@ public class SnowflakeIdWorkerOptimize {
     public synchronized long nextId() {
         long timestamp = timeGen();
 
-        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
+        // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
-            throw new RuntimeException(
-                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+            throw new RuntimeException(String.format(
+                "Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
         }
 
-        //如果是同一时间生成的，则进行毫秒内序列
+        // 如果是同一时间生成的，则进行毫秒内序列
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) & sequenceMask;
-            //毫秒内序列溢出
+            // 毫秒内序列溢出
             if (sequence == 0) {
-                //阻塞到下一个毫秒,获得新的时间戳
+                // 阻塞到下一个毫秒,获得新的时间戳
                 timestamp = tilNextMillis(lastTimestamp);
             }
         }
-        //时间戳改变，毫秒内序列重置
+        // 时间戳改变，毫秒内序列重置
         else {
             sequence = 0L;
         }
 
-        //上次生成ID的时间截
+        // 上次生成ID的时间截
         lastTimestamp = timestamp;
 
-        //移位并通过或运算拼到一起组成64位的ID
+        // 移位并通过或运算拼到一起组成64位的ID
         return ((timestamp - twepoch) << timestampLeftShift) //
-                | (datacenterId << datacenterIdShift) //
-                | (workerId << workerIdShift) //
-                | sequence;
+            | (datacenterId << datacenterIdShift) //
+            | (workerId << workerIdShift) //
+            | sequence;
     }
 
     /**
      * 阻塞到下一个毫秒，直到获得新的时间戳
      *
-     * @param lastTimestamp 上次生成ID的时间截
+     * @param lastTimestamp
+     *            上次生成ID的时间截
      * @return 当前时间戳
      */
     protected long tilNextMillis(long lastTimestamp) {
@@ -168,8 +172,7 @@ public class SnowflakeIdWorkerOptimize {
         return System.currentTimeMillis();
     }
 
-
-    //==============================Test=============================================
+    // ==============================Test=============================================
 
     /**
      * 测试

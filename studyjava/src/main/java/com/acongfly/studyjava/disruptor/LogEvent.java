@@ -1,16 +1,21 @@
 package com.acongfly.studyjava.disruptor;
 
+import java.util.Date;
+
 import cn.hutool.json.JSONUtil;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
- * description: 自定义事件对象 <p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang<p>
- * date: 2019/1/23 <p>
+ * description: 自定义事件对象
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019/1/23
+ * <p>
  */
 @Data
 public class LogEvent {
@@ -23,4 +28,4 @@ public class LogEvent {
     public String toString() {
         return JSONUtil.toJsonStr(this);
     }
-}  
+}

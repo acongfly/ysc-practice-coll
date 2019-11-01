@@ -17,8 +17,8 @@ public class ShareCodeUtils {
     /**
      * 自定义进制(0,1没有加入,容易与o,l混淆)，数组顺序可进行调整增加反推难度，A用来补位因此此数组不包含A，共31个字符。
      */
-    private static final char[] BASE = new char[]{'H', 'V', 'E', '8', 'S', '2', 'D', 'Z', 'X', '9', 'C', '7', 'P',
-            '5', 'I', 'K', '3', 'M', 'J', 'U', 'F', 'R', '4', 'W', 'Y', 'L', 'T', 'N', '6', 'B', 'G', 'Q'};
+    private static final char[] BASE = new char[] {'H', 'V', 'E', '8', 'S', '2', 'D', 'Z', 'X', '9', 'C', '7', 'P', '5',
+        'I', 'K', '3', 'M', 'J', 'U', 'F', 'R', '4', 'W', 'Y', 'L', 'T', 'N', '6', 'B', 'G', 'Q'};
 
     /**
      * A补位字符，不能与自定义重复
@@ -47,12 +47,12 @@ public class ShareCodeUtils {
 
         // 当id除以数组长度结果大于0，则进行取模操作，并以取模的值作为数组的坐标获得对应的字符
         while (id / BIN_LEN > 0) {
-            int index = (int) (id % BIN_LEN);
+            int index = (int)(id % BIN_LEN);
             buf[--charPos] = BASE[index];
             id /= BIN_LEN;
         }
 
-        buf[--charPos] = BASE[(int) (id % BIN_LEN)];
+        buf[--charPos] = BASE[(int)(id % BIN_LEN)];
         // 将字符数组转化为字符串
         String result = new String(buf, charPos, BIN_LEN - charPos);
 
@@ -107,25 +107,24 @@ public class ShareCodeUtils {
 
     }
 
-//    function createCode($user_id) {
-//    static $source_string = 'E5FCDG3HQA4B1NOPIJ2RSTUV67MWX89KLYZ';
-//    $num = $user_id;
-//    $code = '';
-//    while ( $num > 0) {
-//        $mod = $num % 35;
-//        $num = ($num - $mod) / 35;
-//        $code = $source_string[$mod].$code;
-//    }
-//    if(empty($code[3]))
-//        $code = str_pad($code,4,'0',STR_PAD_LEFT);
-//    return $code;
-//    }
-//---------------------
-//    作者：fanghua_vip
-//    来源：CSDN
-//    原文：https://blog.csdn.net/fanghua_vip/article/details/79537194
-//    版权声明：本文为博主原创文章，转载请附上博文链接！
-
+    // function createCode($user_id) {
+    //     static $source_string = 'E5FCDG3HQA4B1NOPIJ2RSTUV67MWX89KLYZ';
+    //     $num = $user_id;
+    //     $code = '';
+    //     while ( $num > 0) {
+    //         $mod = $num % 35;
+    //         $num = ($num - $mod) / 35;
+    //         $code = $source_string[$mod].$code;
+    //     }
+    //     if(empty($code[3]))
+    //         $code = str_pad($code,4,'0',STR_PAD_LEFT);
+    //     return $code;
+    // }
+    // ---------------------
+    // 作者：fanghua_vip
+    // 来源：CSDN
+    // 原文：https://blog.csdn.net/fanghua_vip/article/details/79537194
+    // 版权声明：本文为博主原创文章，转载请附上博文链接！
 
     public static String createCode(Long id) {
         String source = "E5FCDG3HQA4B1NOPIJ2RSTUV67MWX89KLYZ";
@@ -141,7 +140,7 @@ public class ShareCodeUtils {
 
     public static void main(String[] args) {
         String code = idToCode(128238384438285L);
-//        String code = createCode(524962099152297984L);
+        // String code = createCode(524962099152297984L);
         System.out.println(code);
         System.out.println(codeToId(code));
     }

@@ -8,7 +8,7 @@ package com.acongfly.studyjava.designPatterns.adapter;
  */
 public class Phone {
 
-    public static final int V = 220;   //例如正常的手机的220V电压
+    public static final int V = 220; // 例如正常的手机的220V电压
 
     private VoltageAdapter adapter;
 
@@ -19,6 +19,5 @@ public class Phone {
     public void charge() {
         adapter.changeVoltage();
     }
-
 
 }

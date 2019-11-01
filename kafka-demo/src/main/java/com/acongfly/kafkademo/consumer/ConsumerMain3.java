@@ -1,13 +1,17 @@
 package com.acongfly.kafkademo.consumer;
 
-import lombok.extern.slf4j.Slf4j;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.time.Duration;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program: ysc-practice-coll
@@ -45,17 +49,16 @@ public class ConsumerMain3 {
                 for (TopicPartition partition : records.partitions()) {
                     List<ConsumerRecord<String, String>> record = records.records(partition);
                     for (ConsumerRecord<String, String> crecord : record) {
-                        System.out.println("topic=" + crecord.topic()
-                                + ",partion = " + crecord.partition()
-                                + ", offset = " + crecord.offset());
-                        System.out.println("key = " + crecord.key()
-                                + ", value = " + crecord.value());
-                        //do some logical processing .
+                        System.out.println("topic=" + crecord.topic() + ",partion = " + crecord.partition()
+                            + ", offset = " + crecord.offset());
+                        System.out.println("key = " + crecord.key() + ", value = " + crecord.value());
+                        // do some logical processing .
                     }
 
-                    //提交方式3 按照分区粒度同步提交
+                    // 提交方式3 按照分区粒度同步提交
                     long lastConsumedOffset = record.get(record.size() - 1).offset();
-                    consumer.commitSync(Collections.singletonMap(partition, new OffsetAndMetadata(lastConsumedOffset + 1)));
+                    consumer
+                        .commitSync(Collections.singletonMap(partition, new OffsetAndMetadata(lastConsumedOffset + 1)));
                 }
 
             }
@@ -66,6 +69,5 @@ public class ConsumerMain3 {
         }
 
     }
-
 
 }

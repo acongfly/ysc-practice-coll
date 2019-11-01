@@ -1,23 +1,25 @@
 package com.acongfly.studyjava.utils;
 
-import lombok.Data;
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.validation.constraints.*;
+import javax.validation.groups.Default;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.*;
-import javax.validation.groups.Default;
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Data;
 
 @Data
 public class SimpleEntity implements Serializable {
 
     @NotBlank(message = "名字不能为空或者空串", groups = {ValidatorInterfaceColl.account.class})
-//    @Length(min = 2, max = 10, message = "名字必须由2~10个字组成")
-    @Length.List({@Length(min = 2, max = 10, groups = {ValidatorInterfaceColl.account.class}), @Length(min = 10, groups = {ValidatorInterfaceColl.settle.class})})
+    // @Length(min = 2, max = 10, message = "名字必须由2~10个字组成")
+    @Length.List({@Length(min = 2, max = 10, groups = {ValidatorInterfaceColl.account.class}),
+        @Length(min = 10, groups = {ValidatorInterfaceColl.settle.class})})
     private String name;
-
 
     @Past(message = "时间不能晚于当前时间")
     private Date date;
@@ -38,6 +40,4 @@ public class SimpleEntity implements Serializable {
     @EnumValid(target = AccountStatusEnum.class, groups = {Default.class}, enumMethod = "getValue")
     private int type;
 
-
 }
-

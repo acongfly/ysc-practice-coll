@@ -1,24 +1,26 @@
 package com.acongfly.kafkademo.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.scala.DefaultScalaModule;
-import com.google.common.base.Charsets;
-import com.google.common.collect.Lists;
-import com.google.common.io.Files;
-import kafka.admin.ConsumerGroupCommand;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.common.config.ConfigResource;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.kafka.clients.admin.*;
+import org.apache.kafka.common.config.ConfigResource;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.scala.DefaultScalaModule;
+import com.google.common.base.Charsets;
+import com.google.common.collect.Lists;
+import com.google.common.io.Files;
+
+import kafka.admin.ConsumerGroupCommand;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -43,7 +45,7 @@ public class KafkaAdminUtil {
 
     // 新建topic
     public static boolean createTopic(String name, int numPartitions, short replicationFactor,
-                                      Map<String, String> configs) {
+        Map<String, String> configs) {
         AdminClient client = getAdminClient();
         if (client == null) {
             return false;
@@ -77,8 +79,7 @@ public class KafkaAdminUtil {
 
     }
 
-
-    //列出所有topic
+    // 列出所有topic
     public static Set<String> listTopic() {
         AdminClient client = getAdminClient();
 
@@ -135,8 +136,8 @@ public class KafkaAdminUtil {
         try {
 
             // 获取当前分区数量
-            int current = getAdminClient().describeTopics(Lists.newArrayList(name)).all().get().get(name).partitions()
-                    .size();
+            int current =
+                getAdminClient().describeTopics(Lists.newArrayList(name)).all().get().get(name).partitions().size();
 
             if (numPartitions <= current) {
                 return true;
@@ -164,15 +165,16 @@ public class KafkaAdminUtil {
         String bootstrapServer = getProperties().getProperty("bootstrap.servers");
         String[] args = {"--describe", "--bootstrap-server", bootstrapServer, "--group", group};
 
-        ConsumerGroupCommand.ConsumerGroupCommandOptions options = new ConsumerGroupCommand.ConsumerGroupCommandOptions(
-                args);
+        ConsumerGroupCommand.ConsumerGroupCommandOptions options =
+            new ConsumerGroupCommand.ConsumerGroupCommandOptions(args);
         // kafaka 2.x版本已不支持zookeeper存储offsets了
-        // ConsumerGroupCommand.ConsumerGroupService service = new ConsumerGroupCommand.KafkaConsumerGroupService(options);
+        // ConsumerGroupCommand.ConsumerGroupService service = new
+        // ConsumerGroupCommand.KafkaConsumerGroupService(options);
         ConsumerGroupCommand.ConsumerGroupService service = new ConsumerGroupCommand.ConsumerGroupService(options);
 
         try {
-            FutureTask<String> task = new FutureTask<>(
-                    () -> mapper.writeValueAsString(service.collectGroupOffsets()._2.get()));
+            FutureTask<String> task =
+                new FutureTask<>(() -> mapper.writeValueAsString(service.collectGroupOffsets()._2.get()));
             executorService.execute(task);
             rs = task.get(3, TimeUnit.SECONDS);
 
@@ -190,7 +192,7 @@ public class KafkaAdminUtil {
         return rs;
     }
 
-    //topic 相关describe topic
+    // topic 相关describe topic
     public static Collection<ConfigEntry> describeTopic(String topic) {
         AdminClient client = getAdminClient();
         if (client == null) {
@@ -212,7 +214,6 @@ public class KafkaAdminUtil {
         return null;
 
     }
-
 
     // 加载配置
     private static Properties getProperties() {
@@ -258,8 +259,8 @@ public class KafkaAdminUtil {
     public static void main(String[] args) {
         Set<String> strings = listTopic();
         System.out.println(strings);
-//        Collection<ConfigEntry> configEntries = describeTopic("topic-study-mq2");
-//        System.out.println(configEntries);
-//        System.out.println(JSONUtil.toJsonStr(configEntries));
+        // Collection<ConfigEntry> configEntries = describeTopic("topic-study-mq2");
+        // System.out.println(configEntries);
+        // System.out.println(JSONUtil.toJsonStr(configEntries));
     }
 }

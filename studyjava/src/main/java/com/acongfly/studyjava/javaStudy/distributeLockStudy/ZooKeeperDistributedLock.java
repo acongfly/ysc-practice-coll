@@ -1,9 +1,5 @@
 package com.acongfly.studyjava.javaStudy.distributeLockStudy;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.zookeeper.*;
-import org.apache.zookeeper.data.Stat;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -11,12 +7,22 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * description: zookeeper实现分布式锁操作<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-04-18 <p>
+ * description: zookeeper实现分布式锁操作
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-04-18
+ * <p>
  */
 @Slf4j
 public class ZooKeeperDistributedLock implements Watcher {
@@ -82,7 +88,8 @@ public class ZooKeeperDistributedLock implements Watcher {
             // 假设productId代表了一个商品id，比如说1
             // locksRoot = locks
             // /locks/10000000000，/locks/10000000001，/locks/10000000002
-            lockNode = zk.create(locksRoot + File.separator + productId, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+            lockNode = zk.create(locksRoot + File.separator + productId, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL_SEQUENTIAL);
 
             // 看看刚创建的节点是不是最小的节点
             // locks：10000000000，10000000001，10000000002
@@ -91,11 +98,11 @@ public class ZooKeeperDistributedLock implements Watcher {
             log.info("sort:{}", locks);
 
             if (lockNode.equals(locksRoot + File.separator + locks.get(0))) {
-                //如果是最小的节点,则表示取得锁
+                // 如果是最小的节点,则表示取得锁
                 return true;
             }
 
-            //如果不是最小的节点，找到比自己小1的节点
+            // 如果不是最小的节点，找到比自己小1的节点
             int previousLockIndex = -1;
             for (int i = 0; i < locks.size(); i++) {
                 if (lockNode.equals(locksRoot + File.separator + locks.get(i))) {
@@ -137,6 +144,5 @@ public class ZooKeeperDistributedLock implements Watcher {
             e.printStackTrace();
         }
     }
-
 
 }

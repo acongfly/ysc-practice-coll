@@ -1,7 +1,13 @@
 package com.acongfly.studyjava.javaStudy.httpClientStudy;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.CodingErrorAction;
+import java.util.Arrays;
+import java.util.Map;
+
+import javax.net.ssl.SSLContext;
+
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,12 +32,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.SSLContext;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.CodingErrorAction;
-import java.util.Arrays;
-import java.util.Map;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 
 /**
  * Created by ecom on 2015/7/25.
@@ -89,8 +91,7 @@ public class HttpUtil {
         return instance;
     }
 
-    private HttpUtil() {
-    }
+    private HttpUtil() {}
 
     static {
         // Client HTTP connection objects when fully initialized can be bound to
@@ -104,20 +105,15 @@ public class HttpUtil {
 
         // Create a registry of custom connection socket factories for supported
         // protocol schemes.
-        Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
-                .register("http", PlainConnectionSocketFactory.INSTANCE)
-                .register("https", new SSLConnectionSocketFactory(sslcontext))
-                .build();
+        Registry<ConnectionSocketFactory> socketFactoryRegistry =
+            RegistryBuilder.<ConnectionSocketFactory>create().register("http", PlainConnectionSocketFactory.INSTANCE)
+                .register("https", new SSLConnectionSocketFactory(sslcontext)).build();
 
         // Create a connection manager with custom configuration.
-        PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager(
-                socketFactoryRegistry);
+        PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
 
         // Create socket configuration
-        SocketConfig socketConfig = SocketConfig.custom()
-                .setTcpNoDelay(true)
-                .setSoTimeout(SOCKET_TIME_OUT)
-                .build();
+        SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).setSoTimeout(SOCKET_TIME_OUT).build();
         // Configure the connection manager to use socket configuration either
         // by default or for a specific host.
         connManager.setDefaultSocketConfig(socketConfig);
@@ -125,17 +121,12 @@ public class HttpUtil {
         connManager.setValidateAfterInactivity(1000);
 
         // Create message constraints
-        MessageConstraints messageConstraints = MessageConstraints.custom()
-                .setMaxHeaderCount(MAX_HEADER_COUNT)
-                .setMaxLineLength(MAX_LINE_LENGTH)
-                .build();
+        MessageConstraints messageConstraints =
+            MessageConstraints.custom().setMaxHeaderCount(MAX_HEADER_COUNT).setMaxLineLength(MAX_LINE_LENGTH).build();
         // Create connection configuration
-        ConnectionConfig connectionConfig = ConnectionConfig.custom()
-                .setMalformedInputAction(CodingErrorAction.IGNORE)
-                .setUnmappableInputAction(CodingErrorAction.IGNORE)
-                .setCharset(DEFAULT_CHARSET)
-                .setMessageConstraints(messageConstraints)
-                .build();
+        ConnectionConfig connectionConfig = ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE)
+            .setUnmappableInputAction(CodingErrorAction.IGNORE).setCharset(DEFAULT_CHARSET)
+            .setMessageConstraints(messageConstraints).build();
         // Configure the connection manager to use connection configuration either
         // by default or for a specific host.
         connManager.setDefaultConnectionConfig(connectionConfig);
@@ -146,21 +137,16 @@ public class HttpUtil {
         connManager.setDefaultMaxPerRoute(MAX_CON_PER_ROUTE);
 
         // Create global request configuration
-        RequestConfig defaultRequestConfig = RequestConfig.custom()
-                .setCookieSpec(CookieSpecs.DEFAULT)
-                .setExpectContinueEnabled(true)
+        RequestConfig defaultRequestConfig =
+            RequestConfig.custom().setCookieSpec(CookieSpecs.DEFAULT).setExpectContinueEnabled(true)
                 .setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
-                .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC))
-                .setConnectTimeout(CONNECT_TIME_OUT)
-                .setConnectionRequestTimeout(CONNECT_REQUEST_TIME_OUT)
-                .build();
+                .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).setConnectTimeout(CONNECT_TIME_OUT)
+                .setConnectionRequestTimeout(CONNECT_REQUEST_TIME_OUT).build();
 
         // Create an HttpClient with the given custom dependencies and configuration.
-        httpclient = HttpClients.custom()
-                .setConnectionManager(connManager)
-                .setDefaultRequestConfig(defaultRequestConfig)
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(DEFAULT_HTTP_REQUEST_RETRY_COUNT, false))
-                .build();
+        httpclient =
+            HttpClients.custom().setConnectionManager(connManager).setDefaultRequestConfig(defaultRequestConfig)
+                .setRetryHandler(new DefaultHttpRequestRetryHandler(DEFAULT_HTTP_REQUEST_RETRY_COUNT, false)).build();
     }
 
     public String doHttpGet(String url, Map<String, String> params) {
@@ -190,8 +176,7 @@ public class HttpUtil {
         ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 
             @Override
-            public String handleResponse(
-                    final HttpResponse response) throws ClientProtocolException, IOException {
+            public String handleResponse(final HttpResponse response) throws ClientProtocolException, IOException {
                 int status = response.getStatusLine().getStatusCode();
                 if (status >= 200 && status < 300) {
                     HttpEntity entity = response.getEntity();
@@ -210,20 +195,20 @@ public class HttpUtil {
             // be used to examine updated state and various objects affected
             // by the request execution.
 
-//            // Last executed request
-//            System.out.println(context.getRequest());
-//            // Execution route
-//            System.out.println(context.getHttpRoute());
-//            // Target auth state
-//            System.out.println(context.getTargetAuthState());
-//            // Proxy auth state
-//            System.out.println(context.getTargetAuthState());
-//            // Cookie origin
-//            System.out.println(context.getCookieOrigin());
-//            // Cookie spec used
-//            System.out.println(context.getCookieSpec());
-//            // User security token
-//            System.out.println(context.getUserToken());
+            // // Last executed request
+            // System.out.println(context.getRequest());
+            // // Execution route
+            // System.out.println(context.getHttpRoute());
+            // // Target auth state
+            // System.out.println(context.getTargetAuthState());
+            // // Proxy auth state
+            // System.out.println(context.getTargetAuthState());
+            // // Cookie origin
+            // System.out.println(context.getCookieOrigin());
+            // // Cookie spec used
+            // System.out.println(context.getCookieSpec());
+            // // User security token
+            // System.out.println(context.getUserToken());
         } catch (IOException e) {
             e.printStackTrace();
         }

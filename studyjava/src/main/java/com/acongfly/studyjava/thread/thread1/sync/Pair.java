@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Pair {  //不是线程安全操作
+public class Pair { // 不是线程安全操作
     private int x, y;
 
     public Pair(int x, int y) {
@@ -44,10 +44,7 @@ public class Pair {  //不是线程安全操作
 
     @Override
     public String toString() {
-        return "Pair{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "Pair{" + "x=" + x + ", y=" + y + '}';
     }
 
     public class PairValuesNotEqualException extends RuntimeException {
@@ -143,5 +140,3 @@ public class Pair {  //不是线程安全操作
         }
     }
 }
-
-

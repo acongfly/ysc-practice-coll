@@ -1,10 +1,10 @@
 package com.acongfly.studyjava.hystrix;
 
-import com.netflix.hystrix.HystrixCommand;
-import rx.Observable;
-
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+
+import com.netflix.hystrix.HystrixCommand;
+
+import rx.Observable;
 
 /**
  * @program: study
@@ -17,18 +17,17 @@ public class TestGetInfoCommand {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         HystrixCommand command = new GetInfoProcessCommand("1234567890");
-        //同步
-//        String result = command.execute();
-//        System.out.println("===result="+result);
-//        或者返回Future从而实现异步调用。
-//        Future<String> future = command.queue();
-//        System.out.println(future.get());
-//        或者配合RxJava实现响应式编程
+        // 同步
+        // String result = command.execute();
+        // System.out.println("===result="+result);
+        // 或者返回Future从而实现异步调用。
+        // Future<String> future = command.queue();
+        // System.out.println(future.get());
+        // 或者配合RxJava实现响应式编程
         Observable<String> observe = command.observe();
         observe.asObservable().subscribe((result) -> {
             System.out.println(result);
         });
-
 
     }
 }

@@ -1,13 +1,14 @@
 package com.acongfly.redis.util;
 
+import java.util.Set;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
-import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -67,7 +68,8 @@ public class RedisUtilTest {
     @Test
     public void test() {
         String BUCKET_NAME_PREFIX = "ysc:DQ:bucket:";
-        Set<ZSetOperations.TypedTuple<String>> typedTuples = RedisUtil.zRangeWithScores(KEY_PAYMENT_SUBMIT_CHANNEL_ZSET_ID, 0, 2);
+        Set<ZSetOperations.TypedTuple<String>> typedTuples =
+            RedisUtil.zRangeWithScores(KEY_PAYMENT_SUBMIT_CHANNEL_ZSET_ID, 0, 2);
         System.out.println(typedTuples);
     }
 

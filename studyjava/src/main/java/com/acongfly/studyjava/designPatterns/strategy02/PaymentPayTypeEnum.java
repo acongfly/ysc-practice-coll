@@ -1,8 +1,8 @@
 package com.acongfly.studyjava.designPatterns.strategy02;
 
 import com.google.common.base.Strings;
-import lombok.Getter;
 
+import lombok.Getter;
 
 /**
  * 付款支付类型枚举 UPI、PAYTM
@@ -12,9 +12,8 @@ import lombok.Getter;
  */
 public enum PaymentPayTypeEnum {
 
-    //付款支付类型枚举
-    UPI("UPI", 0, "upiPaymentServiceImpl"),
-    PAYTM("PAYTM", 1, "payTmPaymentServiceImpl");
+    // 付款支付类型枚举
+    UPI("UPI", 0, "upiPaymentServiceImpl"), PAYTM("PAYTM", 1, "payTmPaymentServiceImpl");
 
     PaymentPayTypeEnum(String name, Integer code, String paymentService) {
         this.name = name;
@@ -54,7 +53,8 @@ public enum PaymentPayTypeEnum {
     /**
      * 当前币种是否包括在枚举类中
      *
-     * @param payType 付款方式
+     * @param payType
+     *            付款方式
      * @return 返回是否
      */
     public static Boolean isContainPayType(String payType) {

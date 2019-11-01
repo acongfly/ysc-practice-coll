@@ -40,7 +40,7 @@ public class Task implements Runnable {
     public void run() {
         System.out.println("任务id=" + this.id);
         System.out.println(Thread.currentThread().getName());
-        //模拟业务处理
+        // 模拟业务处理
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -51,7 +51,7 @@ public class Task implements Runnable {
 
     @Override
     public String toString() {
-        //此处的toString方法进行返回id,针对与处理失败或者拒绝的任务记录ID
+        // 此处的toString方法进行返回id,针对与处理失败或者拒绝的任务记录ID
         return Integer.toString(this.id);
     }
 }

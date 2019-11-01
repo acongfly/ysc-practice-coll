@@ -1,15 +1,15 @@
 package com.acongfly.kafkademo.consumer;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.kafka.clients.consumer.ConsumerInterceptor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @program: ysc-practice-coll
@@ -19,13 +19,13 @@ import java.util.Map;
  **/
 public class ConsumerinterceptorTTL implements ConsumerInterceptor<String, String> {
 
-    //当前时间戳与请求的消息时间戳相差10秒即为过期，那么这条消息也就被过滤而不投递给具体的消费者
+    // 当前时间戳与请求的消息时间戳相差10秒即为过期，那么这条消息也就被过滤而不投递给具体的消费者
     private static final long EXPIRE_INTERVAL = 10 * 1000;
 
     @Override
     public ConsumerRecords<String, String> onConsume(ConsumerRecords<String, String> records) {
         long now = System.currentTimeMillis();
-        //过滤后新的
+        // 过滤后新的
         Map<TopicPartition, List<ConsumerRecord<String, String>>> newRecords = new HashMap<>();
         for (TopicPartition tp : records.partitions()) {
             List<ConsumerRecord<String, String>> tpRecord = records.records(tp);

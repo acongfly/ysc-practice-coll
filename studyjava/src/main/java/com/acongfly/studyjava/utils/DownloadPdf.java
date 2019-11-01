@@ -1,16 +1,14 @@
 package com.acongfly.studyjava.utils;
 
-import com.arronlong.httpclientutil.HttpClientUtil;
-import com.arronlong.httpclientutil.common.HttpConfig;
-import org.apache.commons.io.IOUtils;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+
+import com.arronlong.httpclientutil.HttpClientUtil;
+import com.arronlong.httpclientutil.common.HttpConfig;
 
 public class DownloadPdf {
 
@@ -24,16 +22,16 @@ public class DownloadPdf {
      */
     public static void downLoadByUrl(String urlStr, String fileName, String savePath) throws IOException {
         URL url = new URL(urlStr);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        //设置超时间为3秒
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        // 设置超时间为3秒
         conn.setConnectTimeout(5 * 1000);
-        //防止屏蔽程序抓取而返回403错误
+        // 防止屏蔽程序抓取而返回403错误
         conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-        //得到输入流
+        // 得到输入流
         InputStream inputStream = conn.getInputStream();
-        //获取自己数组
+        // 获取自己数组
         byte[] getData = readInputStream(inputStream);
-        //文件保存位置
+        // 文件保存位置
         File saveDir = new File(savePath);
         if (!saveDir.exists()) {
             saveDir.mkdir();
@@ -50,7 +48,6 @@ public class DownloadPdf {
         System.out.println("info:" + url + " download success");
 
     }
-
 
     /**
      * 从输入流中获取字节数组
@@ -79,10 +76,11 @@ public class DownloadPdf {
             List<String> urls = IOUtils.readLines(fileInputStream, "UTF-8");
             for (int i = 0; i < urls.size(); i++) {
                 String s = urls.get(i);
-//                downLoadByUrl(s,
-//                        s.substring(s.lastIndexOf("/")), "download_pdf");
-//                String mp3Url="http://win.web.rh01.sycdn.kuwo.cn/resource/n1/24/6/707126989.mp3"; //四叶草-好想你
-                File fileDown = new File("/Users/shicongyang/work/ysc-practice-coll/python-demo/download/" + s.substring(s.lastIndexOf("/")));
+                // downLoadByUrl(s,
+                // s.substring(s.lastIndexOf("/")), "download_pdf");
+                // String mp3Url="http://win.web.rh01.sycdn.kuwo.cn/resource/n1/24/6/707126989.mp3"; //四叶草-好想你
+                File fileDown = new File("/Users/shicongyang/work/ysc-practice-coll/python-demo/download/"
+                    + s.substring(s.lastIndexOf("/")));
                 FileOutputStream fileOutputStream = new FileOutputStream(fileDown);
                 HttpClientUtil.down(HttpConfig.custom().url(s).out(fileOutputStream));
                 if (fileDown.exists()) {

@@ -1,8 +1,8 @@
 package com.acongfly.study.esstudy.elasticsearchStudy;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @author sanglp

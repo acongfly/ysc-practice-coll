@@ -11,7 +11,6 @@ public class FutureData implements Data {
 
     private boolean isReady = false;
 
-
     @Override
     public synchronized String getRequest() {
         while (!isReady) {

@@ -12,10 +12,10 @@ public class comparableStudy implements Comparable<comparableStudy> {
     public comparableStudy(String str) {
         this.str = str;
     }
-//	compareTo方法的返回值是int，有三种情况:
-//	1、比较者大于被比较者（也就是compareTo方法里面的对象），那么返回正整数
-//	2、比较者等于被比较者，那么返回0
-//	3、比较者小于被比较者，那么返回负整数
+    // compareTo方法的返回值是int，有三种情况:
+    // 1、比较者大于被比较者（也就是compareTo方法里面的对象），那么返回正整数
+    // 2、比较者等于被比较者，那么返回0
+    // 3、比较者小于被比较者，那么返回负整数
 
     @Override
     public int compareTo(comparableStudy o) {
@@ -47,4 +47,3 @@ public class comparableStudy implements Comparable<comparableStudy> {
         System.out.println(d.compareTo(c));
     }
 }
-

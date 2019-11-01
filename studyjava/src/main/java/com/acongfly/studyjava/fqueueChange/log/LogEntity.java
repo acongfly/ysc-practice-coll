@@ -1,26 +1,16 @@
 /*
- *  Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
+ * Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.acongfly.studyjava.fqueueChange.log;
-
-import com.acongfly.studyjava.fqueueChange.exception.FileEOFException;
-import com.acongfly.studyjava.fqueueChange.exception.FileFormatException;
-import com.acongfly.studyjava.fqueueChange.util.MappedByteBufferUtil;
-import com.acongfly.studyjava.thread.threadStudy.NamedThreadFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.File;
@@ -35,6 +25,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.acongfly.studyjava.fqueueChange.exception.FileEOFException;
+import com.acongfly.studyjava.fqueueChange.exception.FileFormatException;
+import com.acongfly.studyjava.fqueueChange.util.MappedByteBufferUtil;
+import com.acongfly.studyjava.thread.threadStudy.NamedThreadFactory;
 
 /**
  * @author sunli
@@ -72,13 +70,10 @@ public class LogEntity implements Closeable {
 
     private volatile AtomicBoolean close = new AtomicBoolean(false);
 
-    public LogEntity(final String pathPattern, LogIndex db, int fileNumber,
-                     int fileLimitLength) throws IOException, FileFormatException {
-        this.executor = new ThreadPoolExecutor(1, 1,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024),
-                new NamedThreadFactory("LOGGER-entity", false),
-                new ThreadPoolExecutor.CallerRunsPolicy());
+    public LogEntity(final String pathPattern, LogIndex db, int fileNumber, int fileLimitLength)
+        throws IOException, FileFormatException {
+        this.executor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024),
+            new NamedThreadFactory("LOGGER-entity", false), new ThreadPoolExecutor.CallerRunsPolicy());
 
         this.currentFileNumber = fileNumber;
         this.fileLimitLength = fileLimitLength;
@@ -109,8 +104,7 @@ public class LogEntity implements Closeable {
                 throw new FileFormatException("file format error");
             }
             fc = raFile.getChannel();
-            mappedByteBuffer = fc.map(MapMode.READ_WRITE, 0,
-                    this.fileLimitLength);
+            mappedByteBuffer = fc.map(MapMode.READ_WRITE, 0, this.fileLimitLength);
             // magicString
             byte[] b = new byte[8];
             mappedByteBuffer.get(b);
@@ -159,7 +153,7 @@ public class LogEntity implements Closeable {
                         break;
                     }
                 } else {
-//                    LOGGER.warn("queue buffer is null:=>queue:[{}]", this);
+                    // LOGGER.warn("queue buffer is null:=>queue:[{}]", this);
                     break;
                 }
                 try {
@@ -255,9 +249,9 @@ public class LogEntity implements Closeable {
         this.cursorPosition += length + 4 + 8;
         byte[] b = new byte[length];
         mappedByteBuffer.get(b);
-//        putReaderPosition(this.cursorPosition);
+        // putReaderPosition(this.cursorPosition);
         return new Message(crc, b);
-//        return b;
+        // return b;
     }
 
     @Override

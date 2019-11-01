@@ -1,15 +1,15 @@
 package com.acongfly.kafkademo.consumer;
 
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 /**
  * @program: ysc-practice-coll
@@ -47,12 +47,12 @@ public class ConsumerMain7 {
         private ExecutorService executorService;
         private int threadNumber;
 
-
         public KafkaConsumerThread(Properties props, String topic, int threadNumber) {
             this.kafkaConsumer = new KafkaConsumer<>(props);
             this.kafkaConsumer.subscribe(Collections.singleton(topic));
             this.threadNumber = threadNumber;
-            executorService = new ThreadPoolExecutor(threadNumber, threadNumber, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(1000), new ThreadPoolExecutor.CallerRunsPolicy());
+            executorService = new ThreadPoolExecutor(threadNumber, threadNumber, 0L, TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<>(1000), new ThreadPoolExecutor.CallerRunsPolicy());
 
         }
 
@@ -89,7 +89,7 @@ public class ConsumerMain7 {
             Map<TopicPartition, OffsetAndMetadata> offsets = new HashMap<>();
             for (TopicPartition tp : records.partitions()) {
                 List<ConsumerRecord<String, String>> tpRecords = this.records.records(tp);
-                //处理records
+                // 处理records
                 long lastConsumedOffset = tpRecords.get(tpRecords.size() - 1).offset();
                 synchronized (offsets) {
                     if (!offsets.containsKey(tp)) {
@@ -101,14 +101,12 @@ public class ConsumerMain7 {
                         }
                     }
                 }
-                //处理records
+                // 处理records
                 for (ConsumerRecord<String, String> record : records) {
-                    //处理消息模块
-                    System.out.println("topic=" + record.topic()
-                            + ",partion = " + record.partition()
-                            + ", offset = " + record.offset());
-                    System.out.println("key = " + record.key()
-                            + ", value = " + record.value());
+                    // 处理消息模块
+                    System.out.println("topic=" + record.topic() + ",partion = " + record.partition() + ", offset = "
+                        + record.offset());
+                    System.out.println("key = " + record.key() + ", value = " + record.value());
 
                 }
 

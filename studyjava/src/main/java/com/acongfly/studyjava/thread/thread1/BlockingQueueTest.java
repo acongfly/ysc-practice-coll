@@ -20,10 +20,11 @@ public class BlockingQueueTest {
                 public void run() {
                     while (true) {
                         try {
-                            Thread.sleep((long) (Math.random() * 1000));
+                            Thread.sleep((long)(Math.random() * 1000));
                             System.out.println("线程" + Thread.currentThread().getName() + "准备放数据");
                             queue.put(1);
-                            System.out.println("线程" + Thread.currentThread().getName() + "已经放数据，" + "队列目前有：" + queue.size() + "个数据");
+                            System.out.println(
+                                "线程" + Thread.currentThread().getName() + "已经放数据，" + "队列目前有：" + queue.size() + "个数据");
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -40,7 +41,8 @@ public class BlockingQueueTest {
                         Thread.sleep(1000);
                         System.out.println("线程" + Thread.currentThread().getName() + "准备取出数据");
                         queue.take();
-                        System.out.println("线程" + Thread.currentThread().getName() + "已经取走数据，" + "队列目前有：" + queue.size() + "个数据");
+                        System.out.println(
+                            "线程" + Thread.currentThread().getName() + "已经取走数据，" + "队列目前有：" + queue.size() + "个数据");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

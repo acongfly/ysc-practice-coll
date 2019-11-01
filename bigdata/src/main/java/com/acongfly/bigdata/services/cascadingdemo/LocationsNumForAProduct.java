@@ -1,5 +1,7 @@
 package com.acongfly.bigdata.services.cascadingdemo;
 
+import java.util.Properties;
+
 import cascading.flow.FlowConnector;
 import cascading.flow.FlowDef;
 import cascading.flow.hadoop.HadoopFlowConnector;
@@ -14,8 +16,6 @@ import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
-
-import java.util.Properties;
 
 public class LocationsNumForAProduct {
 
@@ -38,17 +38,15 @@ public class LocationsNumForAProduct {
         Fields product_id = new Fields("product-id");
         cdistPipe = new CountBy(cdistPipe, product_id, cdist);
 
-        FlowDef flowDef = FlowDef.flowDef()
-                .addSource(transactionsPipe, transactionsTap)
-                .addSource(usersPipe, usersTap)
-                .addTailSink(cdistPipe, outputTap);
+        FlowDef flowDef = FlowDef.flowDef().addSource(transactionsPipe, transactionsTap).addSource(usersPipe, usersTap)
+            .addTailSink(cdistPipe, outputTap);
         return flowDef;
     }
 
     public static void main(String[] args) {
 
-        //User information (id, email, language, location)
-        //Transaction information (transaction-id, product-id, user-id, purchase-amount, item-description)
+        // User information (id, email, language, location)
+        // Transaction information (transaction-id, product-id, user-id, purchase-amount, item-description)
         String usersPath = args[0];
         String transactionsPath = args[1];
         String outputPath = args[2];
@@ -60,7 +58,8 @@ public class LocationsNumForAProduct {
         Fields users = new Fields("id", "email", "language", "location");
         Tap usersTap = new Hfs(new TextDelimited(users, false, "\t"), usersPath);
 
-        Fields transactions = new Fields("transaction-id", "product-id", "user-id", "purchase-amount", "item-description");
+        Fields transactions =
+            new Fields("transaction-id", "product-id", "user-id", "purchase-amount", "item-description");
         Tap transactionsTap = new Hfs(new TextDelimited(transactions, false, "\t"), transactionsPath);
 
         Tap outputTap = new Hfs(new TextDelimited(false, "\t"), outputPath);

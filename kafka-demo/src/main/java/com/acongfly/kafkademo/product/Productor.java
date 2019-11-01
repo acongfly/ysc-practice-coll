@@ -1,13 +1,14 @@
 package com.acongfly.kafkademo.product;
 
+import java.util.concurrent.ExecutionException;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.concurrent.ExecutionException;
 
 /**
  * kafka 生产者
@@ -22,7 +23,6 @@ public class Productor {
     @Autowired
     private KafkaSendResultHandler producerListener;
 
-
     private static final String TOPIC = "topic-mq-test1";
 
     @Scheduled(fixedDelay = 10000)
@@ -34,11 +34,12 @@ public class Productor {
             productorEntity.setMessage(System.currentTimeMillis() + "");
             productorEntity.setName("kafka" + i);
             try {
-                /**配置回调*/
+                /** 配置回调 */
                 kafkaTemplate.setProducerListener(producerListener);
-                /**同步发送*/
-                SendResult<String, Object> stringObjectSendResult = kafkaTemplate.send(TOPIC, i % 5, "", productorEntity).get();
-//                System.out.println(stringObjectSendResult);
+                /** 同步发送 */
+                SendResult<String, Object> stringObjectSendResult =
+                    kafkaTemplate.send(TOPIC, i % 5, "", productorEntity).get();
+                System.out.println("stringObjectSendResult=" + stringObjectSendResult);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {

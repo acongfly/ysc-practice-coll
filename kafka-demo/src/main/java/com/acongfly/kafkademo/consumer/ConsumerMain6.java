@@ -1,14 +1,14 @@
 package com.acongfly.kafkademo.consumer;
 
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Properties;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.Properties;
 
 /**
  * @program: ysc-practice-coll
@@ -58,12 +58,10 @@ public class ConsumerMain6 {
                 while (true) {
                     ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(100));
                     for (ConsumerRecord<String, String> record : records) {
-                        //处理消息模块
-                        System.out.println("topic=" + record.topic()
-                                + ",partion = " + record.partition()
-                                + ", offset = " + record.offset());
-                        System.out.println("key = " + record.key()
-                                + ", value = " + record.value());
+                        // 处理消息模块
+                        System.out.println("topic=" + record.topic() + ",partion = " + record.partition()
+                            + ", offset = " + record.offset());
+                        System.out.println("key = " + record.key() + ", value = " + record.value());
 
                     }
                 }

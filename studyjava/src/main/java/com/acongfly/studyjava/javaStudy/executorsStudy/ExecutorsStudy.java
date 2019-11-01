@@ -1,8 +1,8 @@
 package com.acongfly.studyjava.javaStudy.executorsStudy;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-
 import java.util.concurrent.*;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * @author shicongyang
@@ -18,28 +18,25 @@ public class ExecutorsStudy {
          */
         ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
         ExecutorService executorService = new ThreadPoolExecutor(
-                //核心线程数--线程池初始化创建的线程数量
-                1,
-                //最大线程数，线程池中能创建的最大线程数
-                2,
-                //连接存活时间（没有线程时候的等待时间）
-                0,
-                //时间单位
-                TimeUnit.SECONDS
-                //使用有界队列
-                /**
-                 * 使用有界队列的时候：1.当有新任务来的时候，如果线程池中的线程是小于corePoolSize的话，就去创建一个新线程
-                 *                  2.当大于corePoolSize的时候，就会将多余的线程存放在有界队列中
-                 *                  3.如果有界队列满了，那么就将剩下的线程数与maximumPoolSize进行比较，如果小于则创建一个线程
-                 *                  4.如果是大于maximumPoolSize那么就执行拒绝策略
-                 */
-//                , new ArrayBlockingQueue<>(3)
-                , new LinkedBlockingQueue<>()
-                //ThreadFactory，可以后面使用此方法设置名称或者是否是后台进程等等
-                , threadFactory
-                //拒绝策略
-                , new ThreadPoolExecutor.CallerRunsPolicy()
-        );
+            // 核心线程数--线程池初始化创建的线程数量
+            1,
+            // 最大线程数，线程池中能创建的最大线程数
+            2,
+            // 连接存活时间（没有线程时候的等待时间）
+            0,
+            // 时间单位
+            TimeUnit.SECONDS
+            // 使用有界队列
+            /**
+             * 使用有界队列的时候：1.当有新任务来的时候，如果线程池中的线程是小于corePoolSize的话，就去创建一个新线程 2.当大于corePoolSize的时候，就会将多余的线程存放在有界队列中
+             * 3.如果有界队列满了，那么就将剩下的线程数与maximumPoolSize进行比较，如果小于则创建一个线程 4.如果是大于maximumPoolSize那么就执行拒绝策略
+             */
+            // , new ArrayBlockingQueue<>(3)
+            , new LinkedBlockingQueue<>()
+            // ThreadFactory，可以后面使用此方法设置名称或者是否是后台进程等等
+            , threadFactory
+            // 拒绝策略
+            , new ThreadPoolExecutor.CallerRunsPolicy());
 
         Task task1 = new Task(1, "task1");
         Task task2 = new Task(2, "task2");
@@ -59,8 +56,7 @@ public class ExecutorsStudy {
         executorService.execute(task7);
         executorService.execute(task8);
 
-        executorService.shutdown();     //关闭
-
+        executorService.shutdown(); // 关闭
 
     }
 }

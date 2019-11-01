@@ -1,5 +1,6 @@
 package com.acongfly.bigdata.services.cascadingdemo2;
 
+import java.util.Properties;
 
 import cascading.flow.Flow;
 import cascading.flow.FlowConnector;
@@ -17,8 +18,6 @@ import cascading.tap.SinkMode;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
-
-import java.util.Properties;
 
 /**
  * @program: ysc-practice-coll
@@ -53,8 +52,9 @@ public class WordCount {
         wc = new GroupBy(wc, token);
         wc = new Every(wc, Fields.ALL, new Count(), Fields.ALL);
 
-        //connect
-        FlowDef wordCount = FlowDef.flowDef().addSource(docPipe, docFileTap).addTailSink(wc, wcFileTap).setName("wordCount");
+        // connect
+        FlowDef wordCount =
+            FlowDef.flowDef().addSource(docPipe, docFileTap).addTailSink(wc, wcFileTap).setName("wordCount");
         Flow connect = hadoopFlowConnector.connect(wordCount);
         connect.writeDOT("dot/wordCount.dot");
         connect.complete();

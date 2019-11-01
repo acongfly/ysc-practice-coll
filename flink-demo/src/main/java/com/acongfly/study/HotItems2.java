@@ -1,6 +1,13 @@
 package com.acongfly.study;
 
-import com.sun.jmx.snmp.Timestamp;
+import java.io.File;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.state.ListState;
@@ -21,20 +28,19 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import com.sun.jmx.snmp.Timestamp;
 
 /**
- * description: 热门商品排行<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-07-25 <p>
+ * description: 热门商品排行
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-07-25
+ * <p>
  */
 public class HotItems2 {
 
@@ -51,38 +57,34 @@ public class HotItems2 {
         URL fileUrl = HotItems2.class.getClassLoader().getResource("tb_payment_txn_v2.csv");
         Path filePath = Path.fromLocalFile(new File(fileUrl.toURI()));
         // 抽取 UserBehavior 的 TypeInformation，是一个 PojoTypeInfo
-        PojoTypeInfo<TxnDetail> pojoType = (PojoTypeInfo<TxnDetail>) TypeExtractor.createTypeInfo(TxnDetail.class);
+        PojoTypeInfo<TxnDetail> pojoType = (PojoTypeInfo<TxnDetail>)TypeExtractor.createTypeInfo(TxnDetail.class);
         // 由于 Java 反射抽取出的字段顺序是不确定的，需要显式指定下文件中字段的顺序
-        String[] fieldOrder = new String[]{"id", "orderId", "tradeNo", "status", "payOrderNo", "amount", "fee", "tax", "currency", "countryCode", "payType", "productCode", "createTime"};
+        String[] fieldOrder = new String[] {"id", "orderId", "tradeNo", "status", "payOrderNo", "amount", "fee", "tax",
+            "currency", "countryCode", "payType", "productCode", "createTime"};
         // 创建 PojoCsvInputFormat
         PojoCsvInputFormat<TxnDetail> csvInput = new PojoCsvInputFormat<>(filePath, pojoType, fieldOrder);
 
-
         env
-                // 创建数据源，得到 UserBehavior 类型的 DataStream
-                .createInput(csvInput, pojoType)
-                // 抽取出时间和生成 watermark
-                .assignTimestampsAndWatermarks(new AscendingTimestampExtractor<TxnDetail>() {
-                    @Override
-                    public long extractAscendingTimestamp(TxnDetail txnDetail) {
-                        // 原始数据单位秒，将其转成毫秒
-                        return Date.parse(txnDetail.createTime) * 1000;
-                    }
-                })
-                // 过滤出只有点击的数据
-                .filter(new FilterFunction<TxnDetail>() {
-                    @Override
-                    public boolean filter(TxnDetail txnDetail) throws Exception {
-                        // 过滤出只有有效的
-                        return txnDetail.status.equals("0");
-                    }
-                })
-                .keyBy("payType")
-                .timeWindow(Time.minutes(60), Time.minutes(5))
-                .aggregate(new CountAgg(), new WindowResultFunction())
-                .keyBy("windowEnd")
-                .process(new TopNHotItems(3))
-                .print();
+            // 创建数据源，得到 UserBehavior 类型的 DataStream
+            .createInput(csvInput, pojoType)
+            // 抽取出时间和生成 watermark
+            .assignTimestampsAndWatermarks(new AscendingTimestampExtractor<TxnDetail>() {
+                @Override
+                public long extractAscendingTimestamp(TxnDetail txnDetail) {
+                    // 原始数据单位秒，将其转成毫秒
+                    return Date.parse(txnDetail.createTime) * 1000;
+                }
+            })
+            // 过滤出只有点击的数据
+            .filter(new FilterFunction<TxnDetail>() {
+                @Override
+                public boolean filter(TxnDetail txnDetail) throws Exception {
+                    // 过滤出只有有效的
+                    return txnDetail.status.equals("0");
+                }
+            }).keyBy("payType").timeWindow(Time.minutes(60), Time.minutes(5))
+            .aggregate(new CountAgg(), new WindowResultFunction()).keyBy("windowEnd").process(new TopNHotItems(3))
+            .print();
 
         env.execute("Hot Items Job");
     }
@@ -104,17 +106,13 @@ public class HotItems2 {
         @Override
         public void open(Configuration parameters) throws Exception {
             super.open(parameters);
-            ListStateDescriptor<TxnViewCount> itemsStateDesc = new ListStateDescriptor<>(
-                    "itemState-state",
-                    TxnViewCount.class);
+            ListStateDescriptor<TxnViewCount> itemsStateDesc =
+                new ListStateDescriptor<>("itemState-state", TxnViewCount.class);
             itemState = getRuntimeContext().getListState(itemsStateDesc);
         }
 
         @Override
-        public void processElement(
-                TxnViewCount input,
-                Context context,
-                Collector<String> collector) throws Exception {
+        public void processElement(TxnViewCount input, Context context, Collector<String> collector) throws Exception {
 
             // 每条数据都保存到状态中
             itemState.add(input);
@@ -123,8 +121,7 @@ public class HotItems2 {
         }
 
         @Override
-        public void onTimer(
-                long timestamp, OnTimerContext ctx, Collector<String> out) throws Exception {
+        public void onTimer(long timestamp, OnTimerContext ctx, Collector<String> out) throws Exception {
             // 获取收到的所有商品点击量
             List<TxnViewCount> allItems = new ArrayList<>();
             for (TxnViewCount item : itemState.get()) {
@@ -136,7 +133,7 @@ public class HotItems2 {
             allItems.sort(new Comparator<TxnViewCount>() {
                 @Override
                 public int compare(TxnViewCount o1, TxnViewCount o2) {
-                    return (int) (o2.orderCount - o1.orderCount);
+                    return (int)(o2.orderCount - o1.orderCount);
                 }
             });
             // 将排名信息格式化成 String, 便于打印
@@ -145,11 +142,9 @@ public class HotItems2 {
             result.append("时间: ").append(new Timestamp(timestamp - 1)).append("\n");
             for (int i = 0; i < allItems.size() && i < topSize; i++) {
                 TxnViewCount currentItem = allItems.get(i);
-                // No1:  商品ID=12224  浏览量=2413
-                result.append("No").append(i).append(":")
-                        .append("  商品ID=").append(currentItem.payType)
-                        .append("  浏览量=").append(currentItem.orderCount)
-                        .append("\n");
+                // No1: 商品ID=12224 浏览量=2413
+                result.append("No").append(i).append(":").append("  商品ID=").append(currentItem.payType).append("  浏览量=")
+                    .append(currentItem.orderCount).append("\n");
             }
             result.append("====================================\n\n");
 
@@ -166,13 +161,12 @@ public class HotItems2 {
     public static class WindowResultFunction implements WindowFunction<Long, TxnViewCount, Tuple, TimeWindow> {
 
         @Override
-        public void apply(
-                Tuple key,  // 窗口的主键，即 itemId
-                TimeWindow window,  // 窗口
-                Iterable<Long> aggregateResult, // 聚合函数的结果，即 count 值
-                Collector<TxnViewCount> collector  // 输出类型为 ItemViewCount
+        public void apply(Tuple key, // 窗口的主键，即 itemId
+            TimeWindow window, // 窗口
+            Iterable<Long> aggregateResult, // 聚合函数的结果，即 count 值
+            Collector<TxnViewCount> collector // 输出类型为 ItemViewCount
         ) throws Exception {
-            Long payType = ((Tuple1<Long>) key).f0;
+            Long payType = ((Tuple1<Long>)key).f0;
             Long count = aggregateResult.iterator().next();
             collector.collect(TxnViewCount.of(payType, window.getEnd(), count));
         }
@@ -204,17 +198,16 @@ public class HotItems2 {
         }
     }
 
-
     public static class TxnViewCount {
-        public Long payType;     // 支付类型
-        //        public String countryCode;  //国家码
-        public long windowEnd;  // 窗口结束时间戳
-        public Long orderCount;  // 订单数量
+        public Long payType; // 支付类型
+        // public String countryCode; //国家码
+        public long windowEnd; // 窗口结束时间戳
+        public Long orderCount; // 订单数量
 
         public static TxnViewCount of(Long payType, long windowEnd, Long orderCount) {
             TxnViewCount result = new TxnViewCount();
             result.payType = payType;
-//            result.countryCode = countryCode;
+            // result.countryCode = countryCode;
             result.windowEnd = windowEnd;
             result.orderCount = orderCount;
             return result;
@@ -224,37 +217,36 @@ public class HotItems2 {
     /**
      * 商品点击量(窗口操作的输出类型)
      */
-//    public static class ItemViewCount {
-//        public long itemId;     // 商品ID
-//        public long windowEnd;  // 窗口结束时间戳
-//        public long viewCount;  // 商品的点击量
-//
-//        public static ItemViewCount of(long itemId, long windowEnd, long viewCount) {
-//            ItemViewCount result = new ItemViewCount();
-//            result.itemId = itemId;
-//            result.windowEnd = windowEnd;
-//            result.viewCount = viewCount;
-//            return result;
-//        }
-//    }
+    // public static class ItemViewCount {
+    // public long itemId; // 商品ID
+    // public long windowEnd; // 窗口结束时间戳
+    // public long viewCount; // 商品的点击量
+    //
+    // public static ItemViewCount of(long itemId, long windowEnd, long viewCount) {
+    // ItemViewCount result = new ItemViewCount();
+    // result.itemId = itemId;
+    // result.windowEnd = windowEnd;
+    // result.viewCount = viewCount;
+    // return result;
+    // }
+    // }
 
     /**
      * 用户行为数据结构
      **/
-//    public static class UserBehavior {
-//        public long userId;         // 用户ID
-//        public long itemId;         // 商品ID
-//        public int categoryId;      // 商品类目ID
-//        public String behavior;     // 用户行为, 包括("pv", "buy", "cart", "fav")
-//        public long timestamp;      // 行为发生的时间戳，单位秒
-//    }
-
+    // public static class UserBehavior {
+    // public long userId; // 用户ID
+    // public long itemId; // 商品ID
+    // public int categoryId; // 商品类目ID
+    // public String behavior; // 用户行为, 包括("pv", "buy", "cart", "fav")
+    // public long timestamp; // 行为发生的时间戳，单位秒
+    // }
 
     /**
      * 交易单明细
      */
     public static class TxnDetail {
-        //"id","order_id","trade_no","status","pay_order_no","amount","fee","tax","currency","country_code","pay_type","product_code","create_time"
+        // "id","order_id","trade_no","status","pay_order_no","amount","fee","tax","currency","country_code","pay_type","product_code","create_time"
 
         /**
          * 主键
@@ -308,7 +300,6 @@ public class HotItems2 {
          * 创建时间
          */
         public String createTime;
-
 
     }
 }

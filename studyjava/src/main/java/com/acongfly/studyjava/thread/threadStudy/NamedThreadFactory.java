@@ -4,11 +4,16 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * description: 线程工厂命名<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-04-18 <p>
+ * description: 线程工厂命名
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-04-18
+ * <p>
  */
 
 public class NamedThreadFactory implements ThreadFactory {
@@ -33,10 +38,7 @@ public class NamedThreadFactory implements ThreadFactory {
 
     @Override
     public Thread newThread(Runnable r) {
-        Thread t = new Thread(
-                this.group, r,
-                String.format(this.prefixPattern, THREAD_NUM.getAndIncrement()),
-                0);
+        Thread t = new Thread(this.group, r, String.format(this.prefixPattern, THREAD_NUM.getAndIncrement()), 0);
         t.setDaemon(this.deamon);
         if (t.getPriority() != Thread.NORM_PRIORITY) {
             t.setPriority(Thread.NORM_PRIORITY);

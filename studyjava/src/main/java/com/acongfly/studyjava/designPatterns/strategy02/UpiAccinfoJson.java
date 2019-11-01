@@ -29,7 +29,6 @@ public class UpiAccinfoJson implements AbstractAccInfoBaseSupport {
         return baseAccInfoJson;
     }
 
-
     @Data
     private static class UpiAccInfo {
         /**

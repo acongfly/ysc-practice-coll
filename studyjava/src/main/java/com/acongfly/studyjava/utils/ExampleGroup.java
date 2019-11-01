@@ -6,5 +6,4 @@ package com.acongfly.studyjava.utils;
  * @author: shicong yang
  * @create: 2019-04-12 11:02
  **/
-public interface ExampleGroup {
-}
+public interface ExampleGroup {}

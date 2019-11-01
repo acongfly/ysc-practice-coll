@@ -1,17 +1,14 @@
 /*
- *  Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
+ * Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.acongfly.studyjava.fqueue;
 
@@ -20,14 +17,14 @@ import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.acongfly.studyjava.fqueue.exception.FileEOFException;
 import com.acongfly.studyjava.fqueue.exception.FileFormatException;
 import com.acongfly.studyjava.fqueue.log.FileRunner;
 import com.acongfly.studyjava.fqueue.log.LogEntity;
 import com.acongfly.studyjava.fqueue.log.LogIndex;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 
 /**
  * 完成基于文件的先进先出的读写功能
@@ -63,8 +60,10 @@ public class FSQueue {
     /**
      * 在指定的目录中，以fileLimitLength为单个数据文件的最大大小限制初始化队列存储
      *
-     * @param dir             队列数据存储的路径
-     * @param fileLimitLength 单个数据文件的大小，不能超过2G
+     * @param dir
+     *            队列数据存储的路径
+     * @param fileLimitLength
+     *            单个数据文件的大小，不能超过2G
      * @throws Exception
      */
     public FSQueue(String dir, int fileLimitLength) throws Exception {
@@ -80,13 +79,13 @@ public class FSQueue {
         db = new LogIndex(path + fileSeparator + dbName);
         writerIndex = db.getWriterIndex();
         readerIndex = db.getReaderIndex();
-        writerHandle = createLogEntity(path + fileSeparator + filePrefix + "data_" + writerIndex + ".idb", db,
-                writerIndex);
+        writerHandle =
+            createLogEntity(path + fileSeparator + filePrefix + "data_" + writerIndex + ".idb", db, writerIndex);
         if (readerIndex == writerIndex) {
             readerHandle = writerHandle;
         } else {
-            readerHandle = createLogEntity(path + fileSeparator + filePrefix + "data_" + readerIndex + ".idb", db,
-                    readerIndex);
+            readerHandle =
+                createLogEntity(path + fileSeparator + filePrefix + "data_" + readerIndex + ".idb", db, readerIndex);
 
         }
         FileRunner deleteFileRunner = new FileRunner(path + fileSeparator + filePrefix + "data_", fileLimitLength);
@@ -103,8 +102,8 @@ public class FSQueue {
      * @throws IOException
      * @throws FileFormatException
      */
-    private LogEntity createLogEntity(String dbpath, LogIndex db, int fileNumber) throws IOException,
-            FileFormatException {
+    private LogEntity createLogEntity(String dbpath, LogIndex db, int fileNumber)
+        throws IOException, FileFormatException {
         return new LogEntity(dbpath, db, fileNumber, this.fileLimitLength);
     }
 
@@ -121,14 +120,15 @@ public class FSQueue {
             writerHandle.close();
         }
         db.putWriterIndex(writerIndex);
-        writerHandle = createLogEntity(path + fileSeparator + filePrefix + "data_" + writerIndex + ".idb", db,
-                writerIndex);
+        writerHandle =
+            createLogEntity(path + fileSeparator + filePrefix + "data_" + writerIndex + ".idb", db, writerIndex);
     }
 
     /**
      * 向队列存储添加一个字符串
      *
-     * @param message message
+     * @param message
+     *            message
      * @throws IOException
      * @throws FileFormatException
      */
@@ -177,8 +177,8 @@ public class FSQueue {
             if (writerHandle.getCurrentFileNumber() == nextfile) {
                 readerHandle = writerHandle;
             } else {
-                readerHandle = createLogEntity(path + fileSeparator + filePrefix + "data_" + nextfile + ".idb", db,
-                        nextfile);
+                readerHandle =
+                    createLogEntity(path + fileSeparator + filePrefix + "data_" + nextfile + ".idb", db, nextfile);
             }
             try {
                 b = readerHandle.readNextAndRemove();

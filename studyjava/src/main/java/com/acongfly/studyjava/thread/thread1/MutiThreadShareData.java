@@ -3,8 +3,7 @@ package com.acongfly.studyjava.thread.thread1;
 /**
  * @author shicongyang
  * @ClassName: MutiThreadShareData
- * @Description: 多种线程数据共享
- * 题目：设计四个线程，其中两个每次对j增加1,另外两个线程对j每次减少一
+ * @Description: 多种线程数据共享 题目：设计四个线程，其中两个每次对j增加1,另外两个线程对j每次减少一
  * @date 2018年4月22日 下午4:17:54
  */
 public class MutiThreadShareData {
@@ -49,13 +48,13 @@ class MyRunnable2 implements Runnable {
 class shareData {
     private int j = 0;
 
-    //增
+    // 增
     public synchronized void inc() {
         j++;
         System.out.println(Thread.currentThread().getName() + "inc" + j);
     }
 
-    //减
+    // 减
     public synchronized void dec() {
         j--;
         System.out.println(Thread.currentThread().getName() + "dec" + j);

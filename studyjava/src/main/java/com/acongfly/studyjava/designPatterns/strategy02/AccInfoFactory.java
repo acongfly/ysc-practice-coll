@@ -13,8 +13,7 @@ public class AccInfoFactory {
 
     public static AccInfoFactory accInfoFactory = new AccInfoFactory();
 
-    private AccInfoFactory() {
-    }
+    private AccInfoFactory() {}
 
     private static Map strategyMap = new HashMap<>();
 
@@ -24,7 +23,7 @@ public class AccInfoFactory {
     }
 
     public AbstractAccInfoBaseSupport creator(String paymentType) {
-        return (AbstractAccInfoBaseSupport) strategyMap.get(paymentType);
+        return (AbstractAccInfoBaseSupport)strategyMap.get(paymentType);
     }
 
     public static AccInfoFactory getInstance() {

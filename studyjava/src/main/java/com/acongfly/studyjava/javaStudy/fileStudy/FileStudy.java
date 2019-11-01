@@ -1,14 +1,13 @@
 package com.acongfly.studyjava.javaStudy.fileStudy;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.util.StopWatch;
+
 import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.text.csv.CsvWriter;
 import cn.hutool.core.util.CharsetUtil;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.springframework.util.StopWatch;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * @program: study
@@ -18,11 +17,9 @@ import java.util.Collection;
  **/
 public class FileStudy {
 
-
     public static void main(String[] args) {
 
         writeCsv();
-
 
     }
 

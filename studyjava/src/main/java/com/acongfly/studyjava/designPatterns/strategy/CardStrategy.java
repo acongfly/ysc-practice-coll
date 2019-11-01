@@ -7,4 +7,4 @@ public class CardStrategy implements Strategy {
         return charge + charge * 0.01;
     }
 
-} 
+}

@@ -1,11 +1,12 @@
 package com.acongfly.bigdata.services.reconciliation;
 
+import org.apache.commons.lang.StringUtils;
+
 import cascading.flow.FlowProcess;
 import cascading.operation.BaseOperation;
 import cascading.operation.Filter;
 import cascading.operation.FilterCall;
 import cascading.tuple.TupleEntry;
-import org.apache.commons.lang.StringUtils;
 
 public class FilterByType extends BaseOperation implements Filter {
 

@@ -1,17 +1,23 @@
 package com.acongfly.study.annotation;
 
-import com.acongfly.study.utils.EnumValidtor;
+import java.lang.annotation.*;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.*;
+
+import com.acongfly.study.utils.EnumValidtor;
 
 /**
- * description: 枚举校验注解<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-04-24 <p>
+ * description: 枚举校验注解
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-04-24
+ * <p>
  */
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -27,8 +33,7 @@ public @interface EnumValid {
     Class<?>[] target();
 
     /**
-     * 需要校验的数据的get方法,如：你需要校验枚举中code值，则传入getCode
-     * 此方法区分大小写，且必填
+     * 需要校验的数据的get方法,如：你需要校验枚举中code值，则传入getCode 此方法区分大小写，且必填
      *
      * @return
      */

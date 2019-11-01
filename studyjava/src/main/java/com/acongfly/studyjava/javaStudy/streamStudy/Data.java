@@ -1,9 +1,9 @@
 package com.acongfly.studyjava.javaStudy.streamStudy;
 
-import lombok.Builder;
-
 import java.util.Arrays;
 import java.util.List;
+
+import lombok.Builder;
 
 public class Data {
     private static List<PersonModel> list = null;
@@ -20,7 +20,6 @@ public class Data {
     public static List<PersonModel> getData() {
         return list;
     }
-
 
 }
 

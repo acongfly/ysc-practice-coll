@@ -4,18 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * description: 策略工厂类 <p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang<p>
- * date: 2018/9/23 <p>
+ * description: 策略工厂类
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2018/9/23
+ * <p>
  */
 public class StrategyFactory {
 
     private static StrategyFactory factory = new StrategyFactory();
 
-    private StrategyFactory() {
-    }
+    private StrategyFactory() {}
 
     private static Map strategyMap = new HashMap<>();
 
@@ -27,10 +31,10 @@ public class StrategyFactory {
     }
 
     public Strategy creator(Integer type) {
-        return (Strategy) strategyMap.get(type);
+        return (Strategy)strategyMap.get(type);
     }
 
     public static StrategyFactory getInstance() {
         return factory;
     }
-} 
+}

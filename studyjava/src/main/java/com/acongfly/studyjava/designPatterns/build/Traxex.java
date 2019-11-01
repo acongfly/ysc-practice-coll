@@ -3,10 +3,14 @@ package com.acongfly.studyjava.designPatterns.build;
 import java.util.List;
 
 /**
- * program: study<p>
- * description: 英雄的接口实现类<p>
- * author: shicong yang<p>
- * createDate: 2019-01-07 14:59<p>
+ * program: study
+ * <p>
+ * description: 英雄的接口实现类
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-07 14:59
+ * <p>
  **/
 
 public class Traxex implements Hero {
@@ -47,7 +51,6 @@ public class Traxex implements Hero {
     public List<Skill> getSkills() {
         return skills;
     }
-
 
     public List<Equipment> getEquipments() {
         return equipments;

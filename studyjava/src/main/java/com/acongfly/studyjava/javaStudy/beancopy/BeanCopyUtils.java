@@ -1,31 +1,42 @@
 package com.acongfly.studyjava.javaStudy.beancopy;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
+import java.util.*;
+
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import lombok.Data;
 import net.sf.cglib.beans.BeanCopier;
 
-import java.util.*;
-
 /**
- * description: Bean拷贝工具类 <p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang<p>
- * date: 2018/6/28 <p>
+ * description: Bean拷贝工具类
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2018/6/28
+ * <p>
  */
 public class BeanCopyUtils {
 
     private static Mapper MAPPER = DozerBeanMapperBuilder.buildDefault();
 
     /**
-     * description: bean copy 可以包括集合的copy方式 <p>
-     * param: [source, destinationClass] <p>
-     * return: T <p>
-     * author: shicong yang<p>
-     * date: 2018/10/25 <p>
+     * description: bean copy 可以包括集合的copy方式
+     * <p>
+     * param: [source, destinationClass]
+     * <p>
+     * return: T
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/10/25
+     * <p>
      */
     public static <T> T map(Object source, Class<T> destinationClass) {
         if (source == null) {
@@ -35,22 +46,32 @@ public class BeanCopyUtils {
     }
 
     /**
-     * description: bean copy 可以包括集合的copy方式 <p>
-     * param: [source, destination] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/10/25 <p>
+     * description: bean copy 可以包括集合的copy方式
+     * <p>
+     * param: [source, destination]
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/10/25
+     * <p>
      */
     public static void map(Object source, Object destination) {
         MAPPER.map(source, destination);
     }
 
     /**
-     * description: bean copy 可以包括集合的copy方式  <p>
-     * param: [sourceList, destinationClass] <p>
-     * return: java.util.List<T> <p>
-     * author: shicong yang<p>
-     * date: 2018/10/25 <p>
+     * description: bean copy 可以包括集合的copy方式
+     * <p>
+     * param: [sourceList, destinationClass]
+     * <p>
+     * return: java.util.List<T>
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/10/25
+     * <p>
      */
     public static <T> List<T> mapList(Collection sourceList, Class<T> destinationClass) {
         List<T> destinationList = new ArrayList<>();
@@ -61,11 +82,16 @@ public class BeanCopyUtils {
     }
 
     /**
-     * description: 实体类copy <p>
-     * param: [source 原实体类, target目标实体类]  不包括集合 <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/6/28 <p>
+     * description: 实体类copy
+     * <p>
+     * param: [source 原实体类, target目标实体类] 不包括集合
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/6/28
+     * <p>
      */
     public static void copyProperties(Object source, Object target) {
 
@@ -87,11 +113,16 @@ public class BeanCopyUtils {
     }
 
     /**
-     * description: 忽略null的属性copy <p>
-     * param: [source, target] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2019/1/17 <p>
+     * description: 忽略null的属性copy
+     * <p>
+     * param: [source, target]
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2019/1/17
+     * <p>
      */
     public static void copyPropertiesIgnoreNull(Object source, Object target) {
         BeanUtil.copyProperties(source, target, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
@@ -99,9 +130,9 @@ public class BeanCopyUtils {
 
     public static void main(String[] args) {
         A a = new A();
-//        a.setAge(12);
+        // a.setAge(12);
         a.setName("aaaa");
-//        a.setSex("nan");
+        // a.setSex("nan");
         B b = new B();
         b.setAge(12);
         b.setName("aaaa");

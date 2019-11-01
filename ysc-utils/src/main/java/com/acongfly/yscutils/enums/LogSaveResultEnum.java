@@ -10,10 +10,7 @@ import lombok.Getter;
  **/
 public enum LogSaveResultEnum {
 
-    SUCCESS("200", "success"),
-    FAIL("500", "fail"),
-    ;
-
+    SUCCESS("200", "success"), FAIL("500", "fail"),;
 
     @Getter
     private String code;
@@ -25,6 +22,5 @@ public enum LogSaveResultEnum {
         this.code = code;
         this.message = message;
     }
-
 
 }

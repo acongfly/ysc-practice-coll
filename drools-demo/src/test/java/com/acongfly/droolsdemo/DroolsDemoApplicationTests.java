@@ -1,6 +1,8 @@
 package com.acongfly.droolsdemo;
 
-import com.acongfly.droolsdemo.model.User;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.drools.core.base.RuleNameEndsWithAgendaFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.acongfly.droolsdemo.model.User;
 
 /**
  * https://mp.weixin.qq.com/s/jqaMsokYNwDsQTlsRpg8nA
@@ -20,20 +21,16 @@ import java.util.List;
 @SpringBootTest
 public class DroolsDemoApplicationTests {
 
-
     @Autowired
     KieSession kieSession;
 
     @Test
-    public void contextLoads() {
-    }
-
+    public void contextLoads() {}
 
     @Test
     public void testHelloWord() {
         kieSession.fireAllRules();
     }
-
 
     /**
      * 执行所有规则
@@ -46,7 +43,6 @@ public class DroolsDemoApplicationTests {
         System.err.println("规则执行完毕后张三变为了：" + user.getName());
     }
 
-
     /**
      * 执行某一规则
      */
@@ -56,7 +52,6 @@ public class DroolsDemoApplicationTests {
         kieSession.insert(user);
         kieSession.fireAllRules(new RuleNameEndsWithAgendaFilter("users"));
     }
-
 
     /**
      * contains用于判断对象的某个字段是否包含另外一个对象
@@ -69,7 +64,6 @@ public class DroolsDemoApplicationTests {
         kieSession.insert(user);
         kieSession.fireAllRules(new RuleNameEndsWithAgendaFilter("contains"));
     }
-
 
     /**
      * memberOf用于判断对象的某个字段是否存在一个集合中

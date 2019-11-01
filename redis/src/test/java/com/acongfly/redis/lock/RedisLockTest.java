@@ -1,13 +1,11 @@
 package com.acongfly.redis.lock;
 
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,14 +29,11 @@ public class RedisLockTest {
     }
 
     @Test
-    public void lock1() {
-    }
+    public void lock1() {}
 
     @Test
-    public void tryLock1() {
-    }
+    public void tryLock1() {}
 
     @Test
-    public void unlock() {
-    }
+    public void unlock() {}
 }

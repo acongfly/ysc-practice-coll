@@ -1,12 +1,12 @@
 package com.acongfly.kafkademo.product;
 
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-
-import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @program: ysc-practice-coll
@@ -20,7 +20,6 @@ public class ProductorMain1 {
 
     public static final String topic = "topic-study-mq";
     private static final long EXPIRE_INTERVAL = 10 * 1000;
-
 
     public static Properties initConfig() {
         Properties properties = new Properties();
@@ -36,14 +35,17 @@ public class ProductorMain1 {
         KafkaProducer<String, String> productor = new KafkaProducer<>(properties);
         ProducerRecord<String, String> producerRecord = null;
 
-//        //模拟延时操作
-//        ProducerRecord<String, String> record1 = new ProducerRecord<>(topic, 0, System.currentTimeMillis() - EXPIRE_INTERVAL, null, "first-expire-data");
-//        ProducerRecord<String, String> record2 = new ProducerRecord<>(topic, 0, System.currentTimeMillis(), null, "normal-data");
-//        ProducerRecord<String, String> record3 = new ProducerRecord<>(topic, 0, System.currentTimeMillis() - EXPIRE_INTERVAL, null, "last-expire-data");
+        // //模拟延时操作
+        // ProducerRecord<String, String> record1 = new ProducerRecord<>(topic, 0, System.currentTimeMillis() -
+        // EXPIRE_INTERVAL, null, "first-expire-data");
+        // ProducerRecord<String, String> record2 = new ProducerRecord<>(topic, 0, System.currentTimeMillis(), null,
+        // "normal-data");
+        // ProducerRecord<String, String> record3 = new ProducerRecord<>(topic, 0, System.currentTimeMillis() -
+        // EXPIRE_INTERVAL, null, "last-expire-data");
         try {
-//            productor.send(record1).get();
-//            productor.send(record2).get();
-//            productor.send(record3).get();
+            // productor.send(record1).get();
+            // productor.send(record2).get();
+            // productor.send(record3).get();
             for (int j = 0; j < 1000; j++) {
                 for (int i = 0; i < 3; i++) {
                     producerRecord = new ProducerRecord(topic, i, "", "hello kafka!!!!" + i);

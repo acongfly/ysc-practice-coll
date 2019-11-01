@@ -1,20 +1,26 @@
 package com.acongfly.yscutils.utils;
 
-import com.google.common.cache.*;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
+import com.google.common.cache.*;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * description: guava loading cache 工具类 <p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang<p>
- * date: 2018/11/30 <p>
+ * description: guava loading cache 工具类
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2018/11/30
+ * <p>
  */
 @Slf4j
 public class GuavaCacheUtil {
@@ -41,7 +47,7 @@ public class GuavaCacheUtil {
                     if (log.isDebugEnabled()) {
                         log.debug("Guava Cache缓存值不存在，初始化空值，键名：{}", key);
                     }
-                    /**简单处理*/
+                    /** 简单处理 */
                     put(key, key);
                     return null;
                 }
@@ -66,24 +72,29 @@ public class GuavaCacheUtil {
         /*
          * maximumSize 缓存池大小，在缓存项接近该大小时， Guava开始回收旧的缓存项 expireAfterAccess 表示最后一次使用该缓存项多长时间后失效 removalListener 移除缓存项时执行的逻辑方法 recordStats 开启Guava Cache的统计功能
          */
-        LoadingCache<K, V> cache = CacheBuilder.newBuilder().maximumSize(GUAVA_CACHE_SIZE).expireAfterAccess(GUAVA_CACHE_TIME, TimeUnit.MINUTES)
-                .removalListener(new RemovalListener<K, V>() {
-                    @Override
-                    public void onRemoval(RemovalNotification<K, V> rn) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Guava Cache缓存回收成功，键：{}, 值：{}", rn.getKey(), rn.getValue());
-                        }
+        LoadingCache<K, V> cache = CacheBuilder.newBuilder().maximumSize(GUAVA_CACHE_SIZE)
+            .expireAfterAccess(GUAVA_CACHE_TIME, TimeUnit.MINUTES).removalListener(new RemovalListener<K, V>() {
+                @Override
+                public void onRemoval(RemovalNotification<K, V> rn) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("Guava Cache缓存回收成功，键：{}, 值：{}", rn.getKey(), rn.getValue());
                     }
-                }).recordStats().build(cacheLoader);
+                }
+            }).recordStats().build(cacheLoader);
         return cache;
     }
 
     /**
-     * description: 设置缓存值 <p>
-     * param: [key, value] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 设置缓存值
+     * <p>
+     * param: [key, value]
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static void put(String key, Object value) {
         try {
@@ -97,11 +108,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 批量设置缓存值 <p>
-     * param: [map] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 批量设置缓存值
+     * <p>
+     * param: [map]
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static void putAll(Map<? extends String, ? extends Object> map) {
         try {
@@ -115,12 +131,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 获取缓存值
-     * 注：如果键不存在值，将调用CacheLoader的load方法加载新值到该键中  <p>
-     * param: [key] <p>
-     * return: java.lang.Object <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 获取缓存值 注：如果键不存在值，将调用CacheLoader的load方法加载新值到该键中
+     * <p>
+     * param: [key]
+     * <p>
+     * return: java.lang.Object
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static Object get(String key) {
         Object obj = null;
@@ -143,12 +163,19 @@ public class GuavaCacheUtil {
      * @return
      */
     /**
-     * description:  获取缓存值<p>
-     * <p>注：如果键不存在值，将直接返回 NULL</p>
-     * param: [key] <p>
-     * return: java.lang.Object <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 获取缓存值
+     * <p>
+     * <p>
+     * 注：如果键不存在值，将直接返回 NULL
+     * </p>
+     * param: [key]
+     * <p>
+     * return: java.lang.Object
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static Object getIfPresent(String key) {
         Object obj = null;
@@ -164,11 +191,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 移除缓存 <p>
-     * param: [key] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 移除缓存
+     * <p>
+     * param: [key]
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static void remove(String key) {
         try {
@@ -182,11 +214,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 批量移除缓存 <p>
-     * param: [keys] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 批量移除缓存
+     * <p>
+     * param: [keys]
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static void removeAll(Iterable<String> keys) {
         try {
@@ -200,11 +237,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 清空所有缓存 <p>
-     * param: [] <p>
-     * return: void <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 清空所有缓存
+     * <p>
+     * param: []
+     * <p>
+     * return: void
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static void removeAll() {
         try {
@@ -218,11 +260,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 获取缓存项数量 <p>
-     * param: [] <p>
-     * return: long <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 获取缓存项数量
+     * <p>
+     * param: []
+     * <p>
+     * return: long
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static long size() {
         long size = 0;
@@ -238,11 +285,16 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 获取所有缓存项的键 <p>
-     * param: [] <p>
-     * return: java.util.List<java.lang.String> <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 获取所有缓存项的键
+     * <p>
+     * param: []
+     * <p>
+     * return: java.util.List<java.lang.String>
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static List<String> keys() {
         List<String> list = new ArrayList<String>();
@@ -261,33 +313,48 @@ public class GuavaCacheUtil {
     }
 
     /**
-     * description: 缓存命中率 <p>
-     * param: [] <p>
-     * return: double <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 缓存命中率
+     * <p>
+     * param: []
+     * <p>
+     * return: double
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static double getHitRate() {
         return GLOBAL_CACHE.stats().hitRate();
     }
 
     /**
-     * description: 加载新值的平均时间，单位为纳秒 <p>
-     * param: [] <p>
-     * return: double <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 加载新值的平均时间，单位为纳秒
+     * <p>
+     * param: []
+     * <p>
+     * return: double
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static double getAverageLoadPenalty() {
         return GLOBAL_CACHE.stats().averageLoadPenalty();
     }
 
     /**
-     * description: 缓存项被回收的总数，不包括显式清除 <p>
-     * param: [] <p>
-     * return: long <p>
-     * author: shicong yang<p>
-     * date: 2018/11/30 <p>
+     * description: 缓存项被回收的总数，不包括显式清除
+     * <p>
+     * param: []
+     * <p>
+     * return: long
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2018/11/30
+     * <p>
      */
     public static long getEvictionCount() {
         return GLOBAL_CACHE.stats().evictionCount();

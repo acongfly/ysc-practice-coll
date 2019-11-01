@@ -38,7 +38,7 @@ public class ReadWriteLockTest {
 }
 
 class Queue {
-    //共享数据只能有一个线程能写数据，但是可以有多个线程同时读该数据
+    // 共享数据只能有一个线程能写数据，但是可以有多个线程同时读该数据
     private Object data = null;
     ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
@@ -46,26 +46,26 @@ class Queue {
         readWriteLock.readLock().lock();
         try {
             System.out.println(Thread.currentThread().getName() + "准备读取数据");
-            Thread.sleep((long) (Math.random() * 1000));
+            Thread.sleep((long)(Math.random() * 1000));
             System.out.println(Thread.currentThread().getName() + "读取到的数据：" + data);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            readWriteLock.readLock().unlock();//释放锁
+            readWriteLock.readLock().unlock();// 释放锁
         }
     }
 
     public void put(Object data) {
-        readWriteLock.writeLock().lock();       //写锁
+        readWriteLock.writeLock().lock(); // 写锁
         try {
             System.out.println(Thread.currentThread().getName() + "准备写数据");
-            Thread.sleep((long) (Math.random() * 1000));
+            Thread.sleep((long)(Math.random() * 1000));
             this.data = data;
             System.out.println(Thread.currentThread().getName() + "写的数据是：" + data);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            readWriteLock.writeLock().unlock();        //释放锁，针对无论是否出现异常
+            readWriteLock.writeLock().unlock(); // 释放锁，针对无论是否出现异常
         }
 
     }

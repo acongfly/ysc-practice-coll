@@ -29,7 +29,6 @@ public class TraditionalThreadSynchronized {
             }
         }).start();
 
-
         new Thread(new Runnable() {
 
             @Override
@@ -46,11 +45,10 @@ public class TraditionalThreadSynchronized {
         }).start();
     }
 
-
     class Output {
         public void outputer(String name) {
             int len = name.length();
-            synchronized (this) {                    //必须是同一个对象加锁，此关键字才起作用
+            synchronized (this) { // 必须是同一个对象加锁，此关键字才起作用
                 for (int i = 0; i < len; i++) {
                     System.out.print(name.charAt(i));
                 }

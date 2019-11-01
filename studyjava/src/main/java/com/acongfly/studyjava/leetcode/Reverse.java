@@ -1,12 +1,16 @@
 package com.acongfly.studyjava.leetcode;/**
- * Created by hc on 2019/2/13.
- */
+                                         * Created by hc on 2019/2/13.
+                                         */
 
 /**
- * program: study<p>
- * description: 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。<p>
- * author: shicong yang<p>
- * createDate: 2019-02-13 22:19<p>
+ * program: study
+ * <p>
+ * description: 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-02-13 22:19
+ * <p>
  **/
 
 public class Reverse {
@@ -15,7 +19,7 @@ public class Reverse {
         StringBuilder sb = new StringBuilder();
         try {
             if (s.startsWith("-")) {
-                //负数
+                // 负数
                 String value = s.substring(1, s.length());
                 sb.append(value);
                 String s1 = sb.reverse().toString();

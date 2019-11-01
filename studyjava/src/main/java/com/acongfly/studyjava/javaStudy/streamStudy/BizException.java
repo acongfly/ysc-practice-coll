@@ -67,9 +67,9 @@ public class BizException extends RuntimeException {
         }
     }
 
-//    public static void checkException(boolean b, ErrorCodeEnum errorCodeEnum) {
-//        if (b) {
-//            throw new BizException(errorCodeEnum.getCode(), errorCodeEnum.getMsg());
-//        }
-//    }
+    // public static void checkException(boolean b, ErrorCodeEnum errorCodeEnum) {
+    // if (b) {
+    // throw new BizException(errorCodeEnum.getCode(), errorCodeEnum.getMsg());
+    // }
+    // }
 }

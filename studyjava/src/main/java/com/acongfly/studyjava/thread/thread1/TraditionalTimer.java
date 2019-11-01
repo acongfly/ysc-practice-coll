@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class TraditionalTimer {
 
     public static void main(String[] args) {
-        //定时器调度一个任务(十秒以后炸，以后每三秒炸一个)
+        // 定时器调度一个任务(十秒以后炸，以后每三秒炸一个)
         new Timer().schedule(new TimerTask() {
 
             @Override
@@ -22,8 +22,7 @@ public class TraditionalTimer {
             }
         }, 10000, 3000);
 
-
-        //写内部类，可以让炸弹每隔2秒就炸一个
+        // 写内部类，可以让炸弹每隔2秒就炸一个
 
         class MyTimeTask extends TimerTask {
 

@@ -9,17 +9,16 @@ public class Singleton01 {
 
     private static Singleton01 singleton01;
 
-    private Singleton01() {
-    }
-    //1.(懒汉写法，线程不安全版本)  这种在多线程的时候依旧有可能会生成两个实例
-//	public static Singleton01 getInstance(){
-//		if (singleton01 == null) {
-//			singleton01 = new Singleton01();
-//		}
-//		return singleton01;
-//	}
+    private Singleton01() {}
+    // 1.(懒汉写法，线程不安全版本) 这种在多线程的时候依旧有可能会生成两个实例
+    // public static Singleton01 getInstance(){
+    // if (singleton01 == null) {
+    // singleton01 = new Singleton01();
+    // }
+    // return singleton01;
+    // }
 
-    //	2.(懒汉写法，线程安全版本) 但是缺点就是加锁是很耗性能的
+    // 2.(懒汉写法，线程安全版本) 但是缺点就是加锁是很耗性能的
     public static synchronized Singleton01 getInstance() {
         if (singleton01 == null) {
             singleton01 = new Singleton01();

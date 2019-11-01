@@ -1,7 +1,11 @@
 package com.acongfly.studyjava.mail;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -9,10 +13,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import javax.mail.internet.MimeMessage;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
 
 /**
  * @program: ysc-practice-coll
@@ -23,12 +25,11 @@ import java.util.Map;
 @Service
 public class TemplateSendMail {
 
-//    @Autowired
-//    private ;
+    // @Autowired
+    // private ;
 
     @Autowired
     private Configuration freemarkerConfiguration;
-
 
     public String freemarker() throws IOException, TemplateException, javax.mail.MessagingException {
         JavaMailSender javaMailSender = new JavaMailSenderImpl();
@@ -43,14 +44,14 @@ public class TemplateSendMail {
         model.put("username", "itmuch");
         model.put("event", "IT牧场大事件");
 
-        String content = FreeMarkerTemplateUtils.processTemplateIntoString(
-                this.freemarkerConfiguration.getTemplate("TestMail.ftl"), model);
+        String content = FreeMarkerTemplateUtils
+            .processTemplateIntoString(this.freemarkerConfiguration.getTemplate("TestMail.ftl"), model);
 
         System.out.println(content);
         // 第二个参数表示是否html，设为true
         messageHelper.setText(content, true);
 
-//        this.javaMailSender.send(message);
+        // this.javaMailSender.send(message);
         return "success";
     }
 }

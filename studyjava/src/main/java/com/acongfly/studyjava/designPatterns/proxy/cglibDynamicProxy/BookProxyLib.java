@@ -1,17 +1,20 @@
 package com.acongfly.studyjava.designPatterns.proxy.cglibDynamicProxy;
 
+import java.lang.reflect.Method;
+
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import java.lang.reflect.Method;
-import java.util.Objects;
-
 /**
- * program: study<p>
- * description: 定义反射类与重载方法<p>
- * author: shicong yang<p>
- * createDate: 2019-01-08 12:08<p>
+ * program: study
+ * <p>
+ * description: 定义反射类与重载方法
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-08 12:08
+ * <p>
  **/
 
 public class BookProxyLib implements MethodInterceptor {
@@ -22,13 +25,13 @@ public class BookProxyLib implements MethodInterceptor {
         this.target = target;
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(this.target.getClass());
-        //回调方法
+        // 回调方法
         enhancer.setCallback(this);
-        //创建代理对象
+        // 创建代理对象
         return enhancer.create();
     }
 
-    //回调方法
+    // 回调方法
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
         System.out.println("事物开始");

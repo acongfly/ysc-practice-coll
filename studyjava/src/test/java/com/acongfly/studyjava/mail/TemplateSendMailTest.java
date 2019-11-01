@@ -1,17 +1,16 @@
 package com.acongfly.studyjava.mail;
 
-import freemarker.template.TemplateException;
+import java.io.IOException;
+
+import javax.annotation.Resource;
+import javax.mail.MessagingException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
-import javax.mail.MessagingException;
-
-import java.io.IOException;
-
-import static org.junit.Assert.*;
+import freemarker.template.TemplateException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

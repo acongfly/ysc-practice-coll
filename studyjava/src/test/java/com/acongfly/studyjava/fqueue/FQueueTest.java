@@ -1,13 +1,15 @@
 package com.acongfly.studyjava.fqueue;
 
-import cn.hutool.json.JSONUtil;
-import com.acongfly.studyjava.fqueue.exception.FileFormatException;
-import com.google.common.collect.Maps;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
+
+import org.junit.Test;
+
+import com.acongfly.studyjava.fqueue.exception.FileFormatException;
+import com.google.common.collect.Maps;
+
+import cn.hutool.json.JSONUtil;
 
 /**
  * TODO:
@@ -33,7 +35,7 @@ public class FQueueTest {
 
             byte[] poll = f2.poll();
 
-//            Message next = f2.next();
+            // Message next = f2.next();
             while (poll != null) {
                 String s = new String(poll, CHARSET);
                 System.out.println(s);
@@ -44,7 +46,6 @@ public class FQueueTest {
         } finally {
             f2.close();
         }
-
 
     }
 

@@ -1,9 +1,8 @@
 package com.acongfly.studyjava.disruptorDemo;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @program: study

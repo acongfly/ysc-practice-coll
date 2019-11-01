@@ -34,10 +34,11 @@ public class NewFeaturesStudy {
     }
 
     /**
-     * @param @param names
+     * @param @param
+     *            names
      * @return void
-     * @throws
-     * @Title: sortUsingJava7
+     * @throws @Title:
+     *             sortUsingJava7
      * @Description: 使用java7排序
      * @author shicongyang
      */
@@ -52,10 +53,11 @@ public class NewFeaturesStudy {
     }
 
     /**
-     * @param @param names
+     * @param @param
+     *            names
      * @return void
-     * @throws
-     * @Title: sortUsingJava8
+     * @throws @Title:
+     *             sortUsingJava8
      * @Description: 使用java8排序
      * @author shicongyang
      */

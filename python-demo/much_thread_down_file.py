@@ -1,5 +1,9 @@
 from concurrent.futures import ThreadPoolExecutor
-import requests, argparse, re, os
+
+import argparse
+import os
+import re
+import requests
 from bs4 import BeautifulSoup as Soup
 
 # http://www.voidcn.com/article/p-giowzigt-bmu.html

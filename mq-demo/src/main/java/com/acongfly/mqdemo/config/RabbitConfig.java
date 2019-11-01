@@ -5,11 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * description: RabbitMQ配置<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-05-21 <p>
+ * description: RabbitMQ配置
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-05-21
+ * <p>
  */
 @Configuration
 public class RabbitConfig {

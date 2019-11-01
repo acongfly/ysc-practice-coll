@@ -1,19 +1,27 @@
 /*
- *  Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
+ * Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.acongfly.studyjava.fqueueChange;
+
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.acongfly.studyjava.fqueueChange.exception.FileEOFException;
 import com.acongfly.studyjava.fqueueChange.exception.FileFormatException;
@@ -23,16 +31,6 @@ import com.acongfly.studyjava.fqueueChange.log.LogIndex;
 import com.acongfly.studyjava.fqueueChange.log.Message;
 import com.acongfly.studyjava.fqueueChange.util.ThreadUtils;
 import com.acongfly.studyjava.thread.threadStudy.NamedThreadFactory;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.Closeable;
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 完成基于文件的先进先出的读写功能
@@ -46,7 +44,8 @@ public class FSQueue implements Closeable {
     private static final String filePrefix = "fqueue";
     private static final String dbName = "icqueue.db";
     private static final String fileSeparator = System.getProperty("file.separator");
-    private final ExecutorService executor = Executors.newSingleThreadExecutor(new NamedThreadFactory("fs-queue", false));
+    private final ExecutorService executor =
+        Executors.newSingleThreadExecutor(new NamedThreadFactory("fs-queue", false));
     private final int id;
 
     private final String dataRootDir;
@@ -87,8 +86,10 @@ public class FSQueue implements Closeable {
     /**
      * 在指定的目录中，以fileLimitLength为单个数据文件的最大大小限制初始化队列存储
      *
-     * @param dir             队列数据存储的路径,目录下根据ID分子目录存储
-     * @param fileLimitLength 单个数据文件的大小，不能超过2G
+     * @param dir
+     *            队列数据存储的路径,目录下根据ID分子目录存储
+     * @param fileLimitLength
+     *            单个数据文件的大小，不能超过2G
      */
     FSQueue(int id, String dir, int fileLimitLength) {
         this.id = id;
@@ -133,8 +134,7 @@ public class FSQueue implements Closeable {
      * @throws IOException
      * @throws FileFormatException
      */
-    LogEntity createLogEntity(LogIndex db, int fileNumber) throws IOException,
-            FileFormatException {
+    LogEntity createLogEntity(LogIndex db, int fileNumber) throws IOException, FileFormatException {
         LogEntity entity = new LogEntity(pathPattern, db, fileNumber, this.fileLimitLength);
         {
             String nextFilePath = String.format(pathPattern, fileNumber + 1);
@@ -243,12 +243,12 @@ public class FSQueue implements Closeable {
      * @throws FileFormatException
      */
     Message readNext() throws IOException, FileFormatException {
-//        MessageAndMetadata m = null;
+        // MessageAndMetadata m = null;
         Message message = null;
         try {
             message = cursorHandle.readNext();
         } catch (FileEOFException e) {
-//            int deleteNum = readerHandle.getCurrentFileNumber();
+            // int deleteNum = readerHandle.getCurrentFileNumber();
             int readerIndex = readerHandle.getCurrentFileNumber();
             int writerIndex = writerHandle.getCurrentFileNumber();
             int cursorIndex = cursorHandle.getCurrentFileNumber();
@@ -262,9 +262,9 @@ public class FSQueue implements Closeable {
                 cursorHandle = createLogEntity(db, nextfile);
             }
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("change cursor file:=>id:[{}],r:[{}],c:[{}],w:[{}]",
-                        id, readerHandle.getCurrentFileNumber(),
-                        cursorHandle.getCurrentFileNumber(), writerHandle.getCurrentFileNumber());
+                LOGGER.debug("change cursor file:=>id:[{}],r:[{}],c:[{}],w:[{}]", id,
+                    readerHandle.getCurrentFileNumber(), cursorHandle.getCurrentFileNumber(),
+                    writerHandle.getCurrentFileNumber());
             }
             try {
                 message = cursorHandle.readNext();
@@ -273,7 +273,7 @@ public class FSQueue implements Closeable {
             }
         }
         if (message != null) {
-//            db.decrementSize();
+            // db.decrementSize();
             cursorNum.incrementAndGet();
         }
         return message;

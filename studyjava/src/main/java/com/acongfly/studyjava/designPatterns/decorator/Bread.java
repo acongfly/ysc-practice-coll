@@ -1,6 +1,6 @@
 package com.acongfly.studyjava.designPatterns.decorator;
 
-//面包
+// 面包
 public class Bread extends Food {
 
     private Food basicFood;

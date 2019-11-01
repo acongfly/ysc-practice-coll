@@ -1,6 +1,6 @@
 package com.acongfly.studyjava.designPatterns.decorator;
 
-//蔬菜类
+// 蔬菜类
 public class Vegetable extends Food {
 
     private Food basic_food;

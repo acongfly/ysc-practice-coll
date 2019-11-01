@@ -31,7 +31,7 @@ class businesses {
     BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(1);
     BlockingQueue<Integer> queue2 = new ArrayBlockingQueue<>(1);
 
-    //匿名内部方法，在每次实例化new的时候都是会执行一遍，并且是首先执行
+    // 匿名内部方法，在每次实例化new的时候都是会执行一遍，并且是首先执行
     {
         System.out.println("队列放数据开始");
         try {

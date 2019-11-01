@@ -12,8 +12,8 @@ import java.util.Random;
  */
 public class TreadScopeShareData {
 
-    //	private static int data = 0;
-    private static Map<Thread, Integer> threadData = new HashMap<>();    //线程间数据隔离
+    // private static int data = 0;
+    private static Map<Thread, Integer> threadData = new HashMap<>(); // 线程间数据隔离
 
     public static void main(String[] args) {
         for (int i = 0; i < 2; i++) {

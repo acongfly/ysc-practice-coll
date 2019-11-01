@@ -1,5 +1,9 @@
 package com.acongfly.bigdata.services.reconciliation;
 
+import java.util.Iterator;
+
+import org.apache.commons.lang.StringUtils;
+
 import cascading.flow.FlowProcess;
 import cascading.operation.BaseOperation;
 import cascading.operation.Function;
@@ -8,13 +12,10 @@ import cascading.tuple.Fields;
 import cascading.tuple.Tuple;
 import cascading.tuple.TupleEntry;
 import cascading.tuple.TupleEntryCollector;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.Iterator;
 
 /**
  * @program: ysc-practice-coll
- * @description: 汇总单   数据从Tap进入流程，通过几个Pipes，最后流入Sink。
+ * @description: 汇总单 数据从Tap进入流程，通过几个Pipes，最后流入Sink。
  * @author: shicong yang
  * @create: 2019-06-14 11:02
  **/
@@ -23,7 +24,6 @@ public class OperateBill extends BaseOperation implements Function {
     public OperateBill(Fields fields) {
         super(fields);
     }
-
 
     @Override
     public void operate(FlowProcess flowProcess, FunctionCall functionCall) {
@@ -38,9 +38,9 @@ public class OperateBill extends BaseOperation implements Function {
             if (value == null) {
                 value = "";
             }
-//            else if (value.contains("\"")) {
-//                value = value.replaceAll("\"", "");
-//            }
+            // else if (value.contains("\"")) {
+            // value = value.replaceAll("\"", "");
+            // }
             if (StringUtils.isBlank(value)) {
                 tuple.add("-");
             } else {
@@ -49,6 +49,5 @@ public class OperateBill extends BaseOperation implements Function {
         }
         collector.add(tuple);
     }
-
 
 }

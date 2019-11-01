@@ -1,14 +1,20 @@
 package com.acongfly.study.annotation;
 
-import javax.validation.groups.Default;
 import java.lang.annotation.*;
 
+import javax.validation.groups.Default;
+
 /**
- * description: 此注解是针对全局使用的数据校验操作<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-07-05 <p>
+ * description: 此注解是针对全局使用的数据校验操作
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-07-05
+ * <p>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})

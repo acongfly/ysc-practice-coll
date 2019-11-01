@@ -485,6 +485,7 @@
     <![CDATA[
     modified_time <= from_unixtime(left(#{updateTime},10))
 
+
         ]]>
     </select>
 </mapper>

@@ -1,8 +1,8 @@
 package com.acongfly.studyjava.designPatterns.strategy02;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @program: fintech-payment

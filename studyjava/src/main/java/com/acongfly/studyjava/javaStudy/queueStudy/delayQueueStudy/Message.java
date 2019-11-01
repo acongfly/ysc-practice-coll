@@ -1,10 +1,10 @@
 package com.acongfly.studyjava.javaStudy.queueStudy.delayQueueStudy;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
+
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * @program: study
@@ -16,15 +16,14 @@ import java.util.concurrent.TimeUnit;
 @Builder
 public class Message implements Delayed {
     private int id;
-    private String body;  //消息内容
-    private long excuteTime;//执行时间
+    private String body; // 消息内容
+    private long excuteTime;// 执行时间
 
     public Message(int id, String body, long delayTime) {
         this.id = id;
         this.body = body;
         this.excuteTime = TimeUnit.NANOSECONDS.convert(delayTime, TimeUnit.MILLISECONDS) + System.nanoTime();
     }
-
 
     @Override
     public long getDelay(TimeUnit unit) {
@@ -33,6 +32,6 @@ public class Message implements Delayed {
 
     @Override
     public int compareTo(Delayed delayed) {
-        return (int) (this.getDelay(TimeUnit.MILLISECONDS) - delayed.getDelay(TimeUnit.MILLISECONDS));
+        return (int)(this.getDelay(TimeUnit.MILLISECONDS) - delayed.getDelay(TimeUnit.MILLISECONDS));
     }
 }

@@ -1,6 +1,5 @@
 package com.acongfly.study.enums;
 
-
 /**
  * @program: ysc-practice-coll
  * @description: 错误枚举
@@ -9,10 +8,7 @@ package com.acongfly.study.enums;
  **/
 public enum ErrorEnum {
 
-    ERROR_CHECK_VALIDATE("400", "check validate error"),
-    ERROR_REQ_NULL("401", "request param is null"),
-    ;
-
+    ERROR_CHECK_VALIDATE("400", "check validate error"), ERROR_REQ_NULL("401", "request param is null"),;
 
     private String code;
 
@@ -30,6 +26,5 @@ public enum ErrorEnum {
         this.code = code;
         this.message = message;
     }
-
 
 }

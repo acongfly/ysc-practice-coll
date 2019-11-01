@@ -1,10 +1,14 @@
 package com.acongfly.studyjava.designPatterns.observed01;
 
 /**
- * program: study<p>
- * description: 测试观察者模式<p>
- * author: shicong yang<p>
- * createDate: 2019-01-09 16:33<p>
+ * program: study
+ * <p>
+ * description: 测试观察者模式
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-09 16:33
+ * <p>
  **/
 
 public class TestObserve {

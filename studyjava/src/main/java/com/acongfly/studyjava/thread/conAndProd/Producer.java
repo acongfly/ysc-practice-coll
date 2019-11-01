@@ -20,7 +20,7 @@ public class Producer implements Runnable {
     public void run() {
         try {
             while (true) {
-                Thread.sleep(1000);  //模拟耗时
+                Thread.sleep(1000); // 模拟耗时
                 queue.put(produce());
             }
         } catch (InterruptedException e) {

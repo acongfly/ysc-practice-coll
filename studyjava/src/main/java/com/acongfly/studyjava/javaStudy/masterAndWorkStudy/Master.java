@@ -77,11 +77,10 @@ public class Master {
     public int getResult() {
         int resultNum = 0;
         for (Map.Entry<String, Object> m : resultMap.entrySet()) {
-            //汇总处理逻辑
-            resultNum += (Integer) m.getValue();
+            // 汇总处理逻辑
+            resultNum += (Integer)m.getValue();
         }
         return resultNum;
     }
-
 
 }

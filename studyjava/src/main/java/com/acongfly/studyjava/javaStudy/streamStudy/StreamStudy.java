@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  */
 public class StreamStudy {
     public static void main(String[] args) {
-//       List<Integer> list = Lists.newArrayList();
+        // List<Integer> list = Lists.newArrayList();
         ArrayList<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(4);
@@ -26,11 +26,10 @@ public class StreamStudy {
         }
         System.out.println();
 
-
         Map<Integer, List<Integer>> collect1 = list.stream().collect(Collectors.groupingBy(elem -> elem % 2));
         System.out.println(collect1);
 
-        //计算最小值
+        // 计算最小值
         System.out.print("list中最小值");
         Stream<Integer> stream = list.stream();
         Optional<Integer> min = stream.min(Integer::compareTo);
@@ -38,29 +37,27 @@ public class StreamStudy {
             System.out.print(min.get());
         }
         System.out.println();
-        //计算最大值
+        // 计算最大值
         System.out.print("计算最大值");
         list.stream().max(Integer::compareTo).ifPresent(System.out::print);
-        //排序
+        // 排序
         System.out.println();
         System.out.println("将list进行排序");
         Stream<Integer> sorted = list.stream().sorted();
         sorted.forEach(elem -> System.out.print(elem + " "));
         System.out.println();
 
-        //过滤
+        // 过滤
         System.out.println("过滤：选择大于3的元素");
         list.stream().filter(elem -> elem > 3).forEach(elem -> System.out.print(elem + " "));
         System.out.println();
-        //过滤
+        // 过滤
         System.out.println("过滤List流,只剩下那些大于0并且小于4的元素:");
-        list.stream().filter(elem -> elem > 0)
-                .filter(elem -> elem < 4)
-                .sorted(Integer::compareTo)
-                .forEach(elem -> System.out.print(elem + " "));
+        list.stream().filter(elem -> elem > 0).filter(elem -> elem < 4).sorted(Integer::compareTo)
+            .forEach(elem -> System.out.print(elem + " "));
 
         System.out.println();
-        //求和
+        // 求和
         ArrayList<Long> list2 = new ArrayList<>();
         list2.add(1L);
         list2.add(4L);
@@ -115,11 +112,9 @@ public class StreamStudy {
         List<Integer> lista = list1.stream().filter(t -> list4.contains(t)).collect(Collectors.toList());
         lista.stream().forEach(System.out::println);
 
-
         System.out.println("====求差集===");
         lista = list1.stream().filter(t -> !list4.contains(t)).collect(Collectors.toList());
         lista.stream().forEach(System.out::println);
-
 
         System.out.println("====求并集===");
 
@@ -127,7 +122,6 @@ public class StreamStudy {
         list.addAll(list4);
         lista = list.stream().distinct().collect(Collectors.toList());
         lista.stream().forEach(System.out::println);
-
 
     }
 

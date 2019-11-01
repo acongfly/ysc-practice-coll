@@ -1,5 +1,9 @@
 package com.acongfly.bigdata.services.cascadingdemo;
 
+import java.util.Properties;
+
+import org.springframework.stereotype.Service;
+
 import cascading.flow.FlowConnector;
 import cascading.flow.FlowDef;
 import cascading.flow.hadoop.HadoopFlowConnector;
@@ -13,9 +17,6 @@ import cascading.tap.SinkMode;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
-import org.springframework.stereotype.Service;
-
-import java.util.Properties;
 
 /**
  * @program: ysc-practice-coll
@@ -34,37 +35,15 @@ public class CompareService {
         Properties properties = new Properties();
         AppProps.setApplicationJarClass(properties, CompareService.class);
         FlowConnector flowConnector = new HadoopFlowConnector(properties);
-        Fields batchCsvBefs = new Fields(
-                "b_merchantId",
-                "b_tradeMasterNo",
-                "b_merchantBatchNo",
-                "b_orderId",
-                "b_tradeNo",
-                "b_status",
-                "b_amount",
-                "b_currency",
-                "b_countryCode",
-                "b_payType",
-                "b_payeeUpi",
-                "b_payeeName");
+        Fields batchCsvBefs =
+            new Fields("b_merchantId", "b_tradeMasterNo", "b_merchantBatchNo", "b_orderId", "b_tradeNo", "b_status",
+                "b_amount", "b_currency", "b_countryCode", "b_payType", "b_payeeUpi", "b_payeeName");
         Tap beforTap = new Hfs(new TextDelimited(batchCsvBefs, true, ","), batchCsvBefPath, SinkMode.REPLACE);
-        Fields batchCsvAfts = new Fields(
-                "a_merchantId",
-                "a_tradeMasterNo",
-                "a_merchantBatchNo",
-                "a_orderId",
-                "a_tradeNo",
-                "a_status",
-                "a_amount",
-                "a_currency",
-                "a_countryCode",
-                "a_payType",
-                "a_payeeUpi",
-                "a_payeeName");
+        Fields batchCsvAfts =
+            new Fields("a_merchantId", "a_tradeMasterNo", "a_merchantBatchNo", "a_orderId", "a_tradeNo", "a_status",
+                "a_amount", "a_currency", "a_countryCode", "a_payType", "a_payeeUpi", "a_payeeName");
         Tap afterTap = new Hfs(new TextDelimited(batchCsvAfts, true, ","), batchCsvAftPath, SinkMode.REPLACE);
-        Fields outs = new Fields(
-                "o_amount"
-        );
+        Fields outs = new Fields("o_amount");
         Tap outputTap = new Hfs(new TextDelimited(outs, true, ","), outputPath, SinkMode.REPLACE);
 
         FlowDef flowDef = FlowDef.flowDef();
@@ -74,11 +53,11 @@ public class CompareService {
         Aggregator b_amount = new Sum(new Fields("b_amount"), Double.class);
 
         Pipe sum = new Every(new Pipe("sum"), b_amount);
-        Tap resultTap = new Hfs(new TextDelimited(outs, true, ","), String.format("%s/%s", outputPath, "result.csv"), SinkMode.REPLACE);
+        Tap resultTap = new Hfs(new TextDelimited(outs, true, ","), String.format("%s/%s", outputPath, "result.csv"),
+            SinkMode.REPLACE);
         flowDef.addTailSink(sum, resultTap);
 
         flowConnector.connect(flowDef).complete();
     }
-
 
 }

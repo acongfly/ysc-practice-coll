@@ -1,10 +1,14 @@
 package com.acongfly.studyjava.designPatterns.template;
 
 /**
- * program: study<p>
- * description: 测试模板模式<p>
- * author: shicong yang<p>
- * createDate: 2019-01-09 16:14<p>
+ * program: study
+ * <p>
+ * description: 测试模板模式
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-09 16:14
+ * <p>
  **/
 
 public class TestTemplate {

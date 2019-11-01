@@ -3,8 +3,7 @@ package com.acongfly.redis.constant;
 /**
  * Function: Redis Cluster or Single Redis
  *
- * @author crossoverJie
- * Date: 06/05/2018 01:03
+ * @author crossoverJie Date: 06/05/2018 01:03
  * @since JDK 1.8
  */
 public class RedisToolsConstant {

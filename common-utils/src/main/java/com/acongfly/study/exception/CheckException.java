@@ -1,6 +1,5 @@
 package com.acongfly.study.exception;
 
-
 /**
  * check exception
  */

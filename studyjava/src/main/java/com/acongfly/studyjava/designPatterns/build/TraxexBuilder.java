@@ -3,10 +3,14 @@ package com.acongfly.studyjava.designPatterns.build;
 import java.util.List;
 
 /**
- * program: study<p>
- * description: 具体的创建者实现创建接口<p>
- * author: shicong yang<p>
- * createDate: 2019-01-07 14:49<p>
+ * program: study
+ * <p>
+ * description: 具体的创建者实现创建接口
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-07 14:49
+ * <p>
  **/
 
 public class TraxexBuilder implements HeroBuilder {

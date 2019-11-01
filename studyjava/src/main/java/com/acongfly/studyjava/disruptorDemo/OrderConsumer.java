@@ -1,15 +1,14 @@
 package com.acongfly.studyjava.disruptorDemo;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONUtil;
+import java.io.IOException;
+
 import com.acongfly.studyjava.fqueueChange.FQueue;
 import com.acongfly.studyjava.fqueueChange.exception.FileFormatException;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.WorkHandler;
-import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
+import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program: study
@@ -34,15 +33,15 @@ public class OrderConsumer implements EventHandler<OrderInfo>, WorkHandler<Order
 
     @Override
     public void onEvent(OrderInfo event, long sequence, boolean endOfBatch) throws Exception {
-//        log.info("事件消费orderInfo=[{}],sequence=[{}]", event, sequence);
-//        Thread.sleep(10000);
+        // log.info("事件消费orderInfo=[{}],sequence=[{}]", event, sequence);
+        // Thread.sleep(10000);
         this.onEvent(event);
     }
 
     @Override
     public void onEvent(OrderInfo event) throws Exception {
         log.info("事件消费orderInfo=[{}],sequence=[{}]", event);
-        ////这里做具体的消费逻辑
+        //// 这里做具体的消费逻辑
         singleMessageFqueue.add(JSONUtil.toJsonStr(event).getBytes());
     }
 }

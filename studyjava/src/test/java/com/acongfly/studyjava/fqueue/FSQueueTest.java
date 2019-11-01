@@ -1,29 +1,28 @@
 /*
- *  Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
+ * Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.acongfly.studyjava.fqueue;
-
-import cn.hutool.json.JSONUtil;
-import com.google.common.collect.Maps;
-import junit.framework.TestCase;
-import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Test;
+
+import com.google.common.collect.Maps;
+
+import cn.hutool.json.JSONUtil;
+import junit.framework.TestCase;
 
 /**
  * @author sunli
@@ -189,14 +188,13 @@ public class FSQueueTest extends TestCase {
         System.out.println("spend:" + (System.currentTimeMillis() - start) + "ms");
     }
 
-
     @Test
     public void testPerformance3() throws UnsupportedEncodingException {
-//        StringBuffer sBuffer = new StringBuffer(1024);
-//        for (int i = 0; i < 10; i++) {
-//            sBuffer.append("a");
-//        }
-//        String string = sBuffer.toString();
+        // StringBuffer sBuffer = new StringBuffer(1024);
+        // for (int i = 0; i < 10; i++) {
+        // sBuffer.append("a");
+        // }
+        // String string = sBuffer.toString();
         System.out.println("Test write 10000000 times 10 Bytes data to queue");
         long start = System.currentTimeMillis();
         for (int i = 0; i < 10000000; i++) {
@@ -204,8 +202,8 @@ public class FSQueueTest extends TestCase {
             map.put("name", "name" + i);
             map.put("value", i);
             queue.add(JSONUtil.toJsonStr(map).getBytes());
-//            byte[] b = (string + i).getBytes();
-//            queue.offer(b);
+            // byte[] b = (string + i).getBytes();
+            // queue.offer(b);
             map.clear();
         }
         System.out.println("spend time:" + (System.currentTimeMillis() - start) + "ms");
@@ -225,6 +223,5 @@ public class FSQueueTest extends TestCase {
         assertEquals(0, queue.size());
         System.out.println("spend:" + (System.currentTimeMillis() - start) + "ms");
     }
-
 
 }

@@ -1,17 +1,14 @@
 /*
- *  Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
+ * Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.acongfly.studyjava.fqueue.log;
 
@@ -27,10 +24,11 @@ import java.security.PrivilegedAction;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import com.acongfly.studyjava.fqueue.exception.FileEOFException;
-import com.acongfly.studyjava.fqueue.exception.FileFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.acongfly.studyjava.fqueue.exception.FileEOFException;
+import com.acongfly.studyjava.fqueue.exception.FileFormatException;
 
 /**
  * @author sunli
@@ -63,8 +61,8 @@ public class LogEntity {
     private int endPosition = -1;
     private int currentFileNumber = -1;
 
-    public LogEntity(String path, LogIndex db, int fileNumber,
-                     int fileLimitLength) throws IOException, FileFormatException {
+    public LogEntity(String path, LogIndex db, int fileNumber, int fileLimitLength)
+        throws IOException, FileFormatException {
         this.currentFileNumber = fileNumber;
         this.fileLimitLength = fileLimitLength;
         this.db = db;
@@ -79,8 +77,7 @@ public class LogEntity {
                 throw new FileFormatException("file format error");
             }
             fc = raFile.getChannel();
-            mappedByteBuffer = fc.map(MapMode.READ_WRITE, 0,
-                    this.fileLimitLength);
+            mappedByteBuffer = fc.map(MapMode.READ_WRITE, 0, this.fileLimitLength);
             // magicString
             byte[] b = new byte[8];
             mappedByteBuffer.get(b);
@@ -241,11 +238,10 @@ public class LogEntity {
             AccessController.doPrivileged(new PrivilegedAction<Object>() {
                 public Object run() {
                     try {
-                        Method getCleanerMethod = mappedByteBuffer.getClass()
-                                .getMethod("cleaner", new Class[0]);
+                        Method getCleanerMethod = mappedByteBuffer.getClass().getMethod("cleaner", new Class[0]);
                         getCleanerMethod.setAccessible(true);
-                        sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod
-                                .invoke(mappedByteBuffer, new Object[0]);
+                        sun.misc.Cleaner cleaner =
+                            (sun.misc.Cleaner)getCleanerMethod.invoke(mappedByteBuffer, new Object[0]);
                         cleaner.clean();
                     } catch (Exception e) {
                         e.printStackTrace();

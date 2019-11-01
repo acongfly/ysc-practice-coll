@@ -10,9 +10,7 @@ import javax.validation.groups.Default;
  **/
 public interface ValidatorInterfaceColl extends Default {
 
-    interface account {
-    }
+    interface account {}
 
-    interface settle {
-    }
+    interface settle {}
 }

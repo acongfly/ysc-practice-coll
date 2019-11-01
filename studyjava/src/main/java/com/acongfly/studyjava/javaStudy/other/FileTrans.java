@@ -1,9 +1,10 @@
 package com.acongfly.studyjava.javaStudy.other;
 
-import lombok.Data;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * @program: study
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class FileTrans {
 
-//    private FileInputStream fileInputStream;
+    // private FileInputStream fileInputStream;
 
     @NotBlank
     private String merId;

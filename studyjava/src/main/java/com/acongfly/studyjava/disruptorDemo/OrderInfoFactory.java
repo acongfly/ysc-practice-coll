@@ -1,6 +1,7 @@
 package com.acongfly.studyjava.disruptorDemo;
 
 import com.lmax.disruptor.EventFactory;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderInfoFactory implements EventFactory<OrderInfo> {
     @Override
     public OrderInfo newInstance() {
-//        log.info("订单工厂初始化数据......");
+        // log.info("订单工厂初始化数据......");
         return new OrderInfo();
     }
 }

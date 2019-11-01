@@ -1,15 +1,16 @@
 package com.acongfly.kafkademo.consumer;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program: ysc-practice-coll
@@ -46,20 +47,18 @@ public class ConsumerMain2 {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                 for (ConsumerRecord<String, String> record : records) {
 
-                    System.out.println("topic=" + record.topic()
-                            + ",partion = " + record.partition()
-                            + ", offset = " + record.offset());
-                    System.out.println("key = " + record.key()
-                            + ", value = " + record.value());
-                    //do something to process record.
-                    //提交方式2,带参数的同步提交,此中方式会阻塞，线上不建议使用此方式
+                    System.out.println("topic=" + record.topic() + ",partion = " + record.partition() + ", offset = "
+                        + record.offset());
+                    System.out.println("key = " + record.key() + ", value = " + record.value());
+                    // do something to process record.
+                    // 提交方式2,带参数的同步提交,此中方式会阻塞，线上不建议使用此方式
                     long offset = record.offset();
                     TopicPartition topicPartition = new TopicPartition(record.topic(), record.partition());
                     consumer.commitSync(Collections.singletonMap(topicPartition, new OffsetAndMetadata(offset + 1)));
 
                 }
-                //提交方式1。同步提交
-//                consumer.commitSync();
+                // 提交方式1。同步提交
+                // consumer.commitSync();
             }
         } catch (Exception e) {
             log.error("kafka consumer exception", e);
@@ -68,6 +67,5 @@ public class ConsumerMain2 {
         }
 
     }
-
 
 }

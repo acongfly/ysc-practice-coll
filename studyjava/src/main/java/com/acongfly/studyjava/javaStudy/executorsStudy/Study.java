@@ -37,10 +37,7 @@ public class Study {
 
     @Override
     public String toString() {
-        return "Study{" +
-                "id='" + id + '\'' +
-                ", notityName='" + notityName + '\'' +
-                ", notityTime='" + notityTime + '\'' +
-                '}';
+        return "Study{" + "id='" + id + '\'' + ", notityName='" + notityName + '\'' + ", notityTime='" + notityTime
+            + '\'' + '}';
     }
 }

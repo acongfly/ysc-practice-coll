@@ -1,5 +1,7 @@
 package com.acongfly.droolsdemo.config;
 
+import java.io.IOException;
+
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
@@ -13,9 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-
-import java.io.IOException;
-
 
 @Configuration
 public class DroolsAutoConfiguration {

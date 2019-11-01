@@ -41,7 +41,7 @@ public class ThreeConditionCommunication {
 
 class Busine {
     Lock lock = new ReentrantLock();
-    //创建三个condition
+    // 创建三个condition
     Condition condition = lock.newCondition();
     Condition condition2 = lock.newCondition();
     Condition condition3 = lock.newCondition();

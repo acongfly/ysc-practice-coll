@@ -1,5 +1,8 @@
 package com.acongfly.kafkademo.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -8,9 +11,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @program: ysc-practice-coll
@@ -32,17 +32,15 @@ public class KafkaProducterConfigure {
         return new DefaultKafkaProducerFactory<>(config);
     }
 
-
     @Bean
     public KafkaTemplate<String, Object> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-
-    //创建topic
-//    @Bean
-//    public NewTopic newTopic(){
-//        return new NewTopic("topic-mq-test1",5, (short) 1);
-//    }
+    // 创建topic
+    // @Bean
+    // public NewTopic newTopic(){
+    // return new NewTopic("topic-mq-test1",5, (short) 1);
+    // }
 
 }

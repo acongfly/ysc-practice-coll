@@ -12,14 +12,14 @@ import com.acongfly.redis.util.ProtoStuffSerializerUtil;
 public class ProtoStuffService {
 
     public void ProtoSerialization(OrderVO orderVO) {
-        //使用 protoStuff
+        // 使用 protoStuff
         byte[] serialize = ProtoStuffSerializerUtil.serialize(orderVO);
         System.out.println(serialize.length);
     }
 
-//    public void jdkSerial(OrderVO orderVO){
-//        orderVO.
-//    }
+    // public void jdkSerial(OrderVO orderVO){
+    // orderVO.
+    // }
 
     public static void main(String[] args) {
         OrderVO build = OrderVO.builder().accountId("123").amt(1).orderId("234").build();

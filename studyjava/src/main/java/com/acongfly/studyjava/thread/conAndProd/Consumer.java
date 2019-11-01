@@ -20,7 +20,7 @@ public class Consumer implements Runnable {
 
         try {
             while (true) {
-                Thread.sleep(2000);            //模拟耗时
+                Thread.sleep(2000); // 模拟耗时
                 consume(queue.take());
             }
         } catch (InterruptedException e) {

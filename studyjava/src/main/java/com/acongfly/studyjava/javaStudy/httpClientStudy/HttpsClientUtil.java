@@ -1,12 +1,6 @@
 package com.acongfly.studyjava.javaStudy.httpClientStudy;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.security.cert.CertificateException;
@@ -15,12 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,14 +33,12 @@ public class HttpsClientUtil {
     private final static int DEFAULT_READ_TIMEOUT = 120000; // 120s
 
     private static class MyTrustManager implements X509TrustManager {
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
 
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
 
         public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[]{};
+            return new X509Certificate[] {};
         }
     }
 
@@ -62,11 +49,13 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url  请求地址
-     * @param data 参数字符串
+     * @param url
+     *            请求地址
+     * @param data
+     *            参数字符串
      * @return String 应答结果字符串
-     * @throws
-     * @Description: https协议 post zip
+     * @throws @Description:
+     *             https协议 post zip
      * @author: shicong yang
      * @date: 2018年1月15日 下午3:47:03
      */
@@ -75,12 +64,15 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url     请求地址
-     * @param data    参数字符串
-     * @param charset 字符集
+     * @param url
+     *            请求地址
+     * @param data
+     *            参数字符串
+     * @param charset
+     *            字符集
      * @return String 应答结果字符串
-     * @throws
-     * @Description: https协议 post zip
+     * @throws @Description:
+     *             https协议 post zip
      * @author: shicong yang
      * @date: 2018年1月15日 下午3:50:59
      */
@@ -89,11 +81,13 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 参数map
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            参数map
      * @return String 应答结果字符串
-     * @throws
-     * @Description: https协议 post zip
+     * @throws @Description:
+     *             https协议 post zip
      * @author: shicong yang
      * @date: 2018年1月9日 下午8:37:22
      */
@@ -102,12 +96,15 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 参数map
-     * @param charset   字符集
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            参数map
+     * @param charset
+     *            字符集
      * @return String 应答结果字符串
-     * @throws
-     * @Description: https协议 post zip
+     * @throws @Description:
+     *             https协议 post zip
      * @author: shicong yang
      * @date: 2018年1月9日 下午8:35:57
      */
@@ -116,14 +113,19 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 参数map
-     * @param charset   字符集
-     * @param connOut   链接超时时间
-     * @param readOut   请求超时 时间
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            参数map
+     * @param charset
+     *            字符集
+     * @param connOut
+     *            链接超时时间
+     * @param readOut
+     *            请求超时 时间
      * @return String 应答结果字符串
-     * @throws
-     * @Description: https协议 post zip
+     * @throws @Description:
+     *             https协议 post zip
      * @author: shicong yang
      * @date: 2018年1月9日 下午8:36:37
      */
@@ -132,14 +134,19 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramData 参数数据
-     * @param charset   字符集
-     * @param connOut   链接超时时间
-     * @param readOut   请求超时 时间
+     * @param url
+     *            请求地址
+     * @param paramData
+     *            参数数据
+     * @param charset
+     *            字符集
+     * @param connOut
+     *            链接超时时间
+     * @param readOut
+     *            请求超时 时间
      * @return String 应答结果字符串
-     * @throws
-     * @Description: https协议 post zip
+     * @throws @Description:
+     *             https协议 post zip
      * @author: shicong yang
      * @date: 2018年1月9日 下午8:36:37
      */
@@ -150,8 +157,8 @@ public class HttpsClientUtil {
         StringBuffer sb = new StringBuffer();
         try {
             SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, new TrustManager[]{new MyTrustManager()}, new java.security.SecureRandom());
-            uc = (HttpsURLConnection) new URL(url).openConnection();
+            sc.init(null, new TrustManager[] {new MyTrustManager()}, new java.security.SecureRandom());
+            uc = (HttpsURLConnection)new URL(url).openConnection();
             uc.setSSLSocketFactory(sc.getSocketFactory());
             uc.setHostnameVerifier(new TrustAnyHostnameVerifier());
             uc.setRequestMethod("POST");
@@ -180,11 +187,13 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 请求参数 map
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            请求参数 map
      * @return String 应答结果字符串
-     * @throws
-     * @Description: HTTPS协议POST请求方法
+     * @throws @Description:
+     *             HTTPS协议POST请求方法
      * @author: shicong yang
      * @date: 2018年1月9日 下午12:30:39
      */
@@ -193,12 +202,15 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 请求参数 map
-     * @param charset   字符集
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            请求参数 map
+     * @param charset
+     *            字符集
      * @return String 应答结果字符串
-     * @throws
-     * @Description: HTTPS协议POST请求方法
+     * @throws @Description:
+     *             HTTPS协议POST请求方法
      * @author: shicong yang
      * @date: 2017年11月20日 下午5:02:08
      */
@@ -207,11 +219,13 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url   请求地址
-     * @param param 参数字符串
+     * @param url
+     *            请求地址
+     * @param param
+     *            参数字符串
      * @return String
-     * @throws
-     * @Description: HTTPS协议POST请求方法
+     * @throws @Description:
+     *             HTTPS协议POST请求方法
      * @author: shicong yang
      * @date: 2018年3月25日 下午7:16:34
      */
@@ -220,14 +234,19 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 参数map
-     * @param charset   字符集
-     * @param connOut   链接超时时间
-     * @param readOut   响应超时时间
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            参数map
+     * @param charset
+     *            字符集
+     * @param connOut
+     *            链接超时时间
+     * @param readOut
+     *            响应超时时间
      * @return String 应答结果字符串
-     * @throws
-     * @Description: HTTPS协议POST请求方法
+     * @throws @Description:
+     *             HTTPS协议POST请求方法
      * @author: shicong yang
      * @date: 2018年1月9日 下午12:27:13
      */
@@ -236,14 +255,19 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url     请求地址
-     * @param param   参数字符串
-     * @param charset 字符集
-     * @param connOut 链接超时时间
-     * @param readOut 响应超时时间
+     * @param url
+     *            请求地址
+     * @param param
+     *            参数字符串
+     * @param charset
+     *            字符集
+     * @param connOut
+     *            链接超时时间
+     * @param readOut
+     *            响应超时时间
      * @return String 应答结果字符串
-     * @throws
-     * @Description: HTTPS协议POST请求方法
+     * @throws @Description:
+     *             HTTPS协议POST请求方法
      * @author: shicong yang
      * @date: 2018年1月9日 下午12:27:13
      */
@@ -255,8 +279,8 @@ public class HttpsClientUtil {
         StringBuffer sb = new StringBuffer();
         try {
             SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, new TrustManager[]{new MyTrustManager()}, new java.security.SecureRandom());
-            uc = (HttpsURLConnection) new URL(url).openConnection();
+            sc.init(null, new TrustManager[] {new MyTrustManager()}, new java.security.SecureRandom());
+            uc = (HttpsURLConnection)new URL(url).openConnection();
             uc.setSSLSocketFactory(sc.getSocketFactory());
             uc.setHostnameVerifier(new TrustAnyHostnameVerifier());
             uc.setRequestMethod("POST");
@@ -286,11 +310,13 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url  请求地址
-     * @param data 请求参数
+     * @param url
+     *            请求地址
+     * @param data
+     *            请求参数
      * @return byte[] 二进制文件
-     * @throws
-     * @Description: postFile
+     * @throws @Description:
+     *             postFile
      * @author: shicong yang
      * @date: 2018年1月16日 上午10:44:32
      */
@@ -299,12 +325,15 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url     请求地址
-     * @param data    请求参数
-     * @param charset 字符集
+     * @param url
+     *            请求地址
+     * @param data
+     *            请求参数
+     * @param charset
+     *            字符集
      * @return byte[]二进制文件
-     * @throws
-     * @Description: postFile
+     * @throws @Description:
+     *             postFile
      * @author: shicong yang
      * @date: 2018年1月16日 上午10:23:29
      */
@@ -313,14 +342,19 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url     请求地址
-     * @param data    请求参数
-     * @param charset 字符集
-     * @param connOut 连接超时时间
-     * @param readOut 读取超时时间
+     * @param url
+     *            请求地址
+     * @param data
+     *            请求参数
+     * @param charset
+     *            字符集
+     * @param connOut
+     *            连接超时时间
+     * @param readOut
+     *            读取超时时间
      * @return byte []
-     * @throws
-     * @Description: postFile
+     * @throws @Description:
+     *             postFile
      * @author: shicong yang
      * @date: 2018年1月16日 上午10:24:19
      */
@@ -333,8 +367,8 @@ public class HttpsClientUtil {
         ByteArrayOutputStream outStream = null;
         try {
             SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, new TrustManager[]{new MyTrustManager()}, new java.security.SecureRandom());
-            uc = (HttpsURLConnection) new URL(url).openConnection();
+            sc.init(null, new TrustManager[] {new MyTrustManager()}, new java.security.SecureRandom());
+            uc = (HttpsURLConnection)new URL(url).openConnection();
             uc.setSSLSocketFactory(sc.getSocketFactory());
             uc.setHostnameVerifier(new TrustAnyHostnameVerifier());
             uc.setRequestMethod("POST");
@@ -380,11 +414,13 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 参数map
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            参数map
      * @return byte[] 二进制文件
-     * @throws
-     * @Description: HTTPS协议POST File请求方法
+     * @throws @Description:
+     *             HTTPS协议POST File请求方法
      * @author: shicong yang
      * @date: 2018年1月9日 下午8:14:11
      */
@@ -393,12 +429,15 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param url       请求地址
-     * @param paramsMap 参数map
-     * @param charset   字符集
+     * @param url
+     *            请求地址
+     * @param paramsMap
+     *            参数map
+     * @param charset
+     *            字符集
      * @return byte[] 二进制文件
-     * @throws
-     * @Description: HTTPS协议POST File请求方法
+     * @throws @Description:
+     *             HTTPS协议POST File请求方法
      * @author: shicong yang
      * @date: 2017年11月20日 下午5:06:03
      */
@@ -407,10 +446,11 @@ public class HttpsClientUtil {
     }
 
     /**
-     * @param paramsMap 参数map
+     * @param paramsMap
+     *            参数map
      * @return String 应答结果
-     * @throws
-     * @Description: HTTP协议POST请求添加参数的封装方法
+     * @throws @Description:
+     *             HTTP协议POST请求添加参数的封装方法
      * @author: shicong yang
      * @date: 2017年11月20日 下午3:46:11
      */
@@ -419,7 +459,7 @@ public class HttpsClientUtil {
         if (paramsMap == null) {
             return param.toString();
         }
-        for (Iterator<Map.Entry<String, String>> it = paramsMap.entrySet().iterator(); it.hasNext(); ) {
+        for (Iterator<Map.Entry<String, String>> it = paramsMap.entrySet().iterator(); it.hasNext();) {
             Map.Entry<String, String> e = it.next();
             param.append("&").append(e.getKey()).append("=").append(e.getValue());
         }
@@ -432,8 +472,8 @@ public class HttpsClientUtil {
      * @param inStream
      * @param outStream
      * @return void
-     * @throws
-     * @Description: 关闭IO
+     * @throws @Description:
+     *             关闭IO
      * @author: shicong yang
      * @date: 2017年11月20日 下午5:15:35
      */

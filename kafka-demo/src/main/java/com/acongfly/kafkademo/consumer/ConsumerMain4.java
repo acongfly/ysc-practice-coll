@@ -1,15 +1,16 @@
 package com.acongfly.kafkademo.consumer;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program: ysc-practice-coll
@@ -34,7 +35,7 @@ public class ConsumerMain4 {
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, "consumer.client.id.demo");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 
-        //此处配置消费端的拦截器
+        // 此处配置消费端的拦截器
         props.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, ConsumerinterceptorTTL.class.getName());
         return props;
     }
@@ -49,12 +50,10 @@ public class ConsumerMain4 {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                 for (ConsumerRecord<String, String> record : records) {
 
-                    System.out.println("topic=" + record.topic()
-                            + ",partion = " + record.partition()
-                            + ", offset = " + record.offset());
-                    System.out.println("key = " + record.key()
-                            + ", value = " + record.value());
-                    //do something to process record.
+                    System.out.println("topic=" + record.topic() + ",partion = " + record.partition() + ", offset = "
+                        + record.offset());
+                    System.out.println("key = " + record.key() + ", value = " + record.value());
+                    // do something to process record.
                 }
                 consumer.commitAsync(new OffsetCommitCallback() {
                     @Override
@@ -67,7 +66,6 @@ public class ConsumerMain4 {
                     }
                 });
 
-
             }
         } catch (Exception e) {
             log.error("kafka consumer exception", e);
@@ -76,6 +74,5 @@ public class ConsumerMain4 {
         }
 
     }
-
 
 }

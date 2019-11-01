@@ -1,12 +1,9 @@
 package com.acongfly.study.aspect;
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
-import com.acongfly.study.annotation.LogSave;
-import com.acongfly.study.common.CommonConstants;
-import com.acongfly.study.model.LogInfo;
-import com.acongfly.study.utils.GuavaCacheUtil;
-import com.google.common.collect.Maps;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Objects;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,9 +15,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Objects;
+import com.acongfly.study.annotation.LogSave;
+import com.acongfly.study.common.CommonConstants;
+import com.acongfly.study.model.LogInfo;
+import com.acongfly.study.utils.GuavaCacheUtil;
+import com.google.common.collect.Maps;
+
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 /**
  * @program: fintech-payment
@@ -32,13 +34,10 @@ import java.util.Objects;
 @Component
 public class LogAspect {
 
-
     private static Logger log = LoggerFactory.getLogger(LogAspect.class);
 
-
     @Pointcut("@annotation(com.acongfly.study.annotation.LogSave)")
-    public void pointCut() {
-    }
+    public void pointCut() {}
 
     @Before("pointCut()")
     public void beforeLogSave(JoinPoint point) {
@@ -49,12 +48,13 @@ public class LogAspect {
          * 请求msg 转为jsonObject 方便后面处理
          */
         JSONObject reqJsonObject = JSONUtil.parseFromMap(paramMap);
-        String simpleName = point.getSignature().getDeclaringType().getSimpleName();        //类名称
+        String simpleName = point.getSignature().getDeclaringType().getSimpleName(); // 类名称
         String reqMsg = JSONUtil.toJsonStr(reqJsonObject);
         /**
          * 缓存key 格式
          */
-        String cacheKey = String.format(CommonConstants.LOG_CACHE_KEY, Thread.currentThread().getId(), simpleName, name);
+        String cacheKey =
+            String.format(CommonConstants.LOG_CACHE_KEY, Thread.currentThread().getId(), simpleName, name);
         /**
          * 切面日志格式
          */
@@ -76,7 +76,7 @@ public class LogAspect {
      */
     private Map<String, Object> buildReqMsgInfo(JoinPoint point) {
         Object[] paramValues = point.getArgs();
-        String[] paramNames = ((CodeSignature) point.getSignature()).getParameterNames();
+        String[] paramNames = ((CodeSignature)point.getSignature()).getParameterNames();
         Map<String, Object> paramMap = Maps.newHashMap();
         for (int i = 0; i < paramNames.length; i++) {
             paramMap.put(paramNames[i], paramValues[i]);
@@ -87,10 +87,14 @@ public class LogAspect {
     /**
      * 组装请求缓存信息
      *
-     * @param name       方法名称
-     * @param simpleName 类名称
-     * @param reqMsg     请求报文
-     * @param cacheKey   缓存key
+     * @param name
+     *            方法名称
+     * @param simpleName
+     *            类名称
+     * @param reqMsg
+     *            请求报文
+     * @param cacheKey
+     *            缓存key
      * @return
      */
     private Map<String, Object> buildReqLogCacheInfo(String name, String simpleName, String reqMsg, String cacheKey) {
@@ -104,20 +108,21 @@ public class LogAspect {
         return logMap;
     }
 
-
     @SuppressWarnings("All")
     @AfterReturning(pointcut = "pointCut()", returning = "result")
     public void after(JoinPoint joinPoint, Object result) {
         String name = joinPoint.getSignature().getName();
         String simpleName = joinPoint.getSignature().getDeclaringType().getSimpleName();
-        LogInfo logInfo = (LogInfo) GuavaCacheUtil.getIfPresent(String.format(CommonConstants.LOG_CACHE_KEY, Thread.currentThread().getId(), simpleName, name));
+        LogInfo logInfo = (LogInfo)GuavaCacheUtil.getIfPresent(
+            String.format(CommonConstants.LOG_CACHE_KEY, Thread.currentThread().getId(), simpleName, name));
         logInfo.setMethodEndTime(System.currentTimeMillis());
         if (!Objects.isNull(result)) {
             log.info("{}.{} response={}", simpleName, name, JSONUtil.toJsonStr(result));
             logInfo.setRespMsg(JSONUtil.toJsonStr(result));
         }
         boolean value = getControllerLogValue(joinPoint);
-        log.info("{}.{} time consuming = [{}]ms", simpleName, name, logInfo.getMethodEndTime() - logInfo.getMethodStartTime());
+        log.info("{}.{} time consuming = [{}]ms", simpleName, name,
+            logInfo.getMethodEndTime() - logInfo.getMethodStartTime());
         if (value) {
             /**
              * 异步记录日志操作 TODO
@@ -127,21 +132,25 @@ public class LogAspect {
 
     }
 
-
     /**
-     * description: 获取注解值<p>
-     * param: [joinPoint] <p>
-     * return: boolean <p>
-     * author: shicong yang <p>
-     * date: 2019-04-22 <p>
+     * description: 获取注解值
+     * <p>
+     * param: [joinPoint]
+     * <p>
+     * return: boolean
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2019-04-22
+     * <p>
      */
     private boolean getControllerLogValue(JoinPoint joinPoint) {
-        //获得当前访问的class
+        // 获得当前访问的class
         Class<?> className = joinPoint.getTarget().getClass();
-        //获得访问的方法名
+        // 获得访问的方法名
         String methodName = joinPoint.getSignature().getName();
-        //得到方法的参数的类型
-        Class[] argClass = ((MethodSignature) joinPoint.getSignature()).getParameterTypes();
+        // 得到方法的参数的类型
+        Class[] argClass = ((MethodSignature)joinPoint.getSignature()).getParameterTypes();
         boolean value = false;
         try {
             // 得到访问的方法对象

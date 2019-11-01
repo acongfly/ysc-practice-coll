@@ -1,15 +1,15 @@
 package com.acongfly.bigdata.services.reconciliation;
 
-import com.acongfly.bigdata.BigdataApplication;
-import com.acongfly.bigdata.services.reconciliation.ReconciliationPorcessService;
+import java.io.IOException;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
-
-import java.io.IOException;
+import com.acongfly.bigdata.BigdataApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BigdataApplication.class)

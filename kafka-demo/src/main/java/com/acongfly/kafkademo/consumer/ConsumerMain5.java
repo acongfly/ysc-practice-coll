@@ -1,22 +1,20 @@
 package com.acongfly.kafkademo.consumer;
 
-import lombok.extern.slf4j.Slf4j;
+import java.time.Duration;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.time.Duration;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program: ysc-practice-coll
- * @description: kafka consumer
- * 如果消费组 内 的消费者在启动的时候 能够找到消费位移 ，
- * 除非发生位移越界 ， 否 则 auto . offset. reset 参数并不会奏效，
- * 此时如 果想指定从开头或末尾开始消费，就需要 seek() 方法的帮助了 ，
- * 下面代码 用来指定从分区末尾开始消费。
+ * @description: kafka consumer 如果消费组 内 的消费者在启动的时候 能够找到消费位移 ， 除非发生位移越界 ， 否 则 auto . offset. reset 参数并不会奏效， 此时如
+ *               果想指定从开头或末尾开始消费，就需要 seek() 方法的帮助了 ， 下面代码 用来指定从分区末尾开始消费。
  * @author: shicong yang
  * @create: 2019-08-28 14:47
  **/
@@ -51,8 +49,8 @@ public class ConsumerMain5 {
                 consumer.poll(Duration.ofMillis(100));
                 assignment = consumer.assignment();
             }
-//            endOffsets()方法用来获取指定分区的末尾的消息位置,如下:
-//            注意这里获取 的不是 8，是将要写入最新消息 的位置。
+            // endOffsets()方法用来获取指定分区的末尾的消息位置,如下:
+            // 注意这里获取 的不是 8，是将要写入最新消息 的位置。
             Map<TopicPartition, Long> offsets = consumer.endOffsets(assignment);
             for (TopicPartition tp : assignment) {
                 consumer.seek(tp, offsets.get(tp));
@@ -64,6 +62,5 @@ public class ConsumerMain5 {
         }
 
     }
-
 
 }

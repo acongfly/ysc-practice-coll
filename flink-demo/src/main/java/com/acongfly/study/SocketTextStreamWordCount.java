@@ -16,7 +16,7 @@ import org.apache.flink.util.Collector;
 public class SocketTextStreamWordCount {
 
     public static void main(String[] args) throws Exception {
-        //参数检查
+        // 参数检查
         if (args.length != 2) {
             System.err.println("USAGE:\nSocketTextStreamWordCount <hostname> <port>");
             return;
@@ -28,15 +28,13 @@ public class SocketTextStreamWordCount {
         // set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        //获取数据将创建一个从本地端口号 9000 的 socket 中读取数据的数据源：
-        //DataStream 创建流式处理：上面定义了非常多常见的操作（如，过滤、转换、聚合、窗口、关联等）
+        // 获取数据将创建一个从本地端口号 9000 的 socket 中读取数据的数据源：
+        // DataStream 创建流式处理：上面定义了非常多常见的操作（如，过滤、转换、聚合、窗口、关联等）
         DataStreamSource<String> stream = env.socketTextStream(hostname, port);
 
-        //计数
+        // 计数
 
-        SingleOutputStreamOperator<Tuple2<String, Integer>> sum = stream.flatMap(new LineSplitter())
-                .keyBy(0)
-                .sum(1);
+        SingleOutputStreamOperator<Tuple2<String, Integer>> sum = stream.flatMap(new LineSplitter()).keyBy(0).sum(1);
         sum.print();
 
         env.execute("Java WordCount from SocketTextStream Example");

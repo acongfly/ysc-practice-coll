@@ -1,10 +1,14 @@
 package com.acongfly.studyjava.designPatterns.template;
 
 /**
- * program: study<p>
- * description: 足球游戏<p>
- * author: shicong yang<p>
- * createDate: 2019-01-09 16:10<p>
+ * program: study
+ * <p>
+ * description: 足球游戏
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-09 16:10
+ * <p>
  **/
 
 public class FootballGame extends Game {

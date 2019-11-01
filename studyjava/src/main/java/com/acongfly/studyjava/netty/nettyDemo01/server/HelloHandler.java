@@ -15,7 +15,7 @@ public class HelloHandler extends SimpleChannelHandler {
      */
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-        String eString = (String) e.getMessage();
+        String eString = (String)e.getMessage();
         System.out.println(eString);
         ctx.getChannel().write("hi");
         super.messageReceived(ctx, e);
@@ -56,6 +56,5 @@ public class HelloHandler extends SimpleChannelHandler {
         System.out.println("channelClosed");
         super.channelClosed(ctx, e);
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.acongfly.studyjava.fqueueChange.log;
 
-
 import com.acongfly.studyjava.fqueueChange.util.Crc32;
 
 /**

@@ -6,20 +6,29 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * program: study<p>
- * description: 网络编程相关<p>
- * author: shicong yang<p>
- * createDate: 2019-01-03 15:26<p>
+ * program: study
+ * <p>
+ * description: 网络编程相关
+ * <p>
+ * author: shicong yang
+ * <p>
+ * createDate: 2019-01-03 15:26
+ * <p>
  **/
 
 public class NetUtil {
 
     /**
-     * description: 获取所有IPv4的IP地址 <p>
-     * param: [] <p>
-     * return: java.util.List<java.lang.String> <p>
-     * author: shicong yang<p>
-     * date: 2019/1/3 <p>
+     * description: 获取所有IPv4的IP地址
+     * <p>
+     * param: []
+     * <p>
+     * return: java.util.List<java.lang.String>
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2019/1/3
+     * <p>
      */
     public static List<String> getLocalIPList() {
         List<String> ipList = new ArrayList<String>();
@@ -47,11 +56,16 @@ public class NetUtil {
     }
 
     /**
-     * description: 获取本地IP <p>
-     * param: [] <p>
-     * return: java.lang.String <p>
-     * author: shicong yang<p>
-     * date: 2019/1/3 <p>
+     * description: 获取本地IP
+     * <p>
+     * param: []
+     * <p>
+     * return: java.lang.String
+     * <p>
+     * author: shicong yang
+     * <p>
+     * date: 2019/1/3
+     * <p>
      */
     public static String getLocalIP() {
         String hostAddress = null;

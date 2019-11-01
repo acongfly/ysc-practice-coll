@@ -3,11 +3,16 @@ package com.acongfly.yscutils.model;
 import java.io.Serializable;
 
 /**
- * description: returnT<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-07-30 <p>
+ * description: returnT
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-07-30
+ * <p>
  */
 public class ReturnT<T> implements Serializable {
     private static final long serialVersionUID = -4669029785201015355L;
@@ -18,13 +23,11 @@ public class ReturnT<T> implements Serializable {
     public static final ReturnT<String> SUCCESS = new ReturnT<String>(null);
     public static final ReturnT<String> FAIL = new ReturnT<String>(FAIL_CODE, null);
 
-
     private int code;
     private String msg;
     private T content;
 
-    public ReturnT() {
-    }
+    public ReturnT() {}
 
     public ReturnT(int code, String msg) {
         this.code = code;

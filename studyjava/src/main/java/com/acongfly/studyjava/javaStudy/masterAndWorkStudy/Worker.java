@@ -29,7 +29,6 @@ public class Worker implements Runnable {
         this.resultMap = resultMap;
     }
 
-
     @Override
     public void run() {
         while (true) {
@@ -37,7 +36,7 @@ public class Worker implements Runnable {
             if (task == null) {
                 break;
             }
-            //此处进行业务逻辑的处理,此处mywork继承worker
+            // 此处进行业务逻辑的处理,此处mywork继承worker
             Object result = MyWork.handle(task);
             this.resultMap.put(Integer.toString(task.getId()), result);
         }

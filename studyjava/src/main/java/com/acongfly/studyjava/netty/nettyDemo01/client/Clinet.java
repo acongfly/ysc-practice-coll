@@ -1,16 +1,15 @@
 package com.acongfly.studyjava.netty.nettyDemo01.client;
 
-import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.*;
-import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
-import org.jboss.netty.handler.codec.string.StringDecoder;
-import org.jboss.netty.handler.codec.string.StringEncoder;
-
 import java.net.InetSocketAddress;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.jboss.netty.bootstrap.ClientBootstrap;
+import org.jboss.netty.channel.*;
+import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
+import org.jboss.netty.handler.codec.string.StringDecoder;
+import org.jboss.netty.handler.codec.string.StringEncoder;
 
 /**
  * @author shicongyang
@@ -28,7 +27,7 @@ public class Clinet {
 
         clientBootstrap.setFactory(new NioClientSocketChannelFactory(boss, work));
 
-        //管道工厂
+        // 管道工厂
         clientBootstrap.setPipelineFactory(new ChannelPipelineFactory() {
 
             @Override
@@ -42,7 +41,7 @@ public class Clinet {
             }
         });
 
-        //连接服务器
+        // 连接服务器
         ChannelFuture connect = clientBootstrap.connect(new InetSocketAddress("127.0.0.1", 8888));
         Channel channel = connect.getChannel();
 
@@ -55,6 +54,5 @@ public class Clinet {
         }
 
     }
-
 
 }

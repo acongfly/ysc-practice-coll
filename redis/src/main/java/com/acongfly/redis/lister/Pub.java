@@ -1,11 +1,11 @@
 package com.acongfly.redis.lister;
 
+import javax.annotation.Resource;
+
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Service
 public class Pub {
@@ -25,10 +25,9 @@ public class Pub {
     }
 }
 
-//    public void sendMessage(String channel, User user) {
-//        byte[] msg = jackson2JsonRedisSerializer.serialize(user);
-//        rt.convertAndSend(channel, new String(msg));
+// public void sendMessage(String channel, User user) {
+// byte[] msg = jackson2JsonRedisSerializer.serialize(user);
+// rt.convertAndSend(channel, new String(msg));
 //
-////        rt.convertAndSend(channel, user);
-//    }
-    
+//// rt.convertAndSend(channel, user);
+// }

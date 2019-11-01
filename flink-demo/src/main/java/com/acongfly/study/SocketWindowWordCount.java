@@ -7,13 +7,17 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 
-
 /**
- * description: 统计字数，需要现在控制台执行（nc -lk 9000）<p>
- * param:  <p>
- * return:  <p>
- * author: shicong yang <p>
- * date: 2019-07-25 <p>
+ * description: 统计字数，需要现在控制台执行（nc -lk 9000）
+ * <p>
+ * param:
+ * <p>
+ * return:
+ * <p>
+ * author: shicong yang
+ * <p>
+ * date: 2019-07-25
+ * <p>
  */
 public class SocketWindowWordCount {
 
@@ -26,18 +30,15 @@ public class SocketWindowWordCount {
         DataStream<String> text = env.socketTextStream("localhost", 9000, "\n");
 
         // 解析数据，按 word 分组，开窗，聚合
-        DataStream<Tuple2<String, Integer>> windowCounts = text
-                .flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
-                    @Override
-                    public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
-                        for (String word : value.split("\\s")) {
-                            out.collect(Tuple2.of(word, 1));
-                        }
+        DataStream<Tuple2<String, Integer>> windowCounts =
+            text.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+                @Override
+                public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
+                    for (String word : value.split("\\s")) {
+                        out.collect(Tuple2.of(word, 1));
                     }
-                })
-                .keyBy(0)
-                .timeWindow(Time.seconds(5))
-                .sum(1);
+                }
+            }).keyBy(0).timeWindow(Time.seconds(5)).sum(1);
 
         // 将结果打印到控制台，注意这里使用的是单线程打印，而非多线程
         windowCounts.print().setParallelism(1);

@@ -49,8 +49,8 @@ public class ArrayListDemo {
         arrayList.toArray(integer1);
 
         // 抛出异常，java不支持向下转型
-        //Integer[] integer2 = new Integer[arrayList.size()];
-        //integer2 = arrayList.toArray();
+        // Integer[] integer2 = new Integer[arrayList.size()];
+        // integer2 = arrayList.toArray();
         System.out.println();
 
         // 在指定位置添加元素
@@ -58,7 +58,7 @@ public class ArrayListDemo {
         // 删除指定位置上的元素
         arrayList.remove(2);
         // 删除指定元素
-        arrayList.remove((Object) 3);
+        arrayList.remove((Object)3);
         // 判断arrayList是否包含5
         System.out.println("ArrayList contains 5 is: " + arrayList.contains(5));
 

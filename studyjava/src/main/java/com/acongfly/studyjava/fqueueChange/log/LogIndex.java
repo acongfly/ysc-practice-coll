@@ -1,23 +1,16 @@
 /*
- *  Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
+ * Copyright 2011 sunli [sunli1223@gmail.com][weibo.com@sunli1223]
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.acongfly.studyjava.fqueueChange.log;
-
-import com.acongfly.studyjava.fqueueChange.exception.FileFormatException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.File;
@@ -31,6 +24,11 @@ import java.nio.channels.FileChannel.MapMode;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.acongfly.studyjava.fqueueChange.exception.FileFormatException;
 
 /**
  * 数据索引文件
@@ -212,8 +210,8 @@ public class LogIndex implements Closeable {
                     try {
                         Method getCleanerMethod = mappedByteBuffer.getClass().getMethod("cleaner", new Class[0]);
                         getCleanerMethod.setAccessible(true);
-                        sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod.invoke(mappedByteBuffer,
-                                new Object[0]);
+                        sun.misc.Cleaner cleaner =
+                            (sun.misc.Cleaner)getCleanerMethod.invoke(mappedByteBuffer, new Object[0]);
                         cleaner.clean();
                     } catch (Exception e) {
                         LOGGER.error("close logindexy file error:", e);

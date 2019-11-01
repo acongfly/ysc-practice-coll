@@ -1,6 +1,5 @@
 package com.acongfly.yscutils.exception;
 
-
 /**
  * check exception
  */

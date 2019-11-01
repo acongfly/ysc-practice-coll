@@ -10,10 +10,7 @@ import lombok.Getter;
  **/
 public enum ErrorEnum {
 
-    ERROR_CHECK_VALIDATE("400", "check validate error"),
-    ERROR_REQ_NULL("401", "request param is null"),
-    ;
-
+    ERROR_CHECK_VALIDATE("400", "check validate error"), ERROR_REQ_NULL("401", "request param is null"),;
 
     @Getter
     private String code;
@@ -25,6 +22,5 @@ public enum ErrorEnum {
         this.code = code;
         this.message = message;
     }
-
 
 }

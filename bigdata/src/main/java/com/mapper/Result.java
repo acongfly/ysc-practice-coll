@@ -1,6 +1,5 @@
 package com.mapper;
 
-
 import lombok.Data;
 
 @Data

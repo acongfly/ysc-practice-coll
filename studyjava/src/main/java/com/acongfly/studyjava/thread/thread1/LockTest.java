@@ -32,7 +32,6 @@ public class LockTest {
             }
         }).start();
 
-
         new Thread(new Runnable() {
 
             @Override
@@ -49,20 +48,19 @@ public class LockTest {
         }).start();
     }
 
-
     class Output {
-        Lock lock = new ReentrantLock();        //创建一把锁（全局）
+        Lock lock = new ReentrantLock(); // 创建一把锁（全局）
 
         public void outputer(String name) {
             int len = name.length();
-            lock.lock();                //加锁
-            try {                        //使用try catch finally 是为了防止出现异常的时候这个lock也要释放开锁
+            lock.lock(); // 加锁
+            try { // 使用try catch finally 是为了防止出现异常的时候这个lock也要释放开锁
                 for (int i = 0; i < len; i++) {
                     System.out.print(name.charAt(i));
                 }
                 System.out.println();
             } finally {
-                lock.unlock();            //释放锁
+                lock.unlock(); // 释放锁
             }
         }
     }

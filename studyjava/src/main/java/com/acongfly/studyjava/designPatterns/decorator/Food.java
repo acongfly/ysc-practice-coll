@@ -1,6 +1,5 @@
 package com.acongfly.studyjava.designPatterns.decorator;
 
-
 /**
  * @author shicongyang
  * @ClassName: Food
@@ -11,8 +10,7 @@ public class Food {
 
     private String foodName;
 
-    public Food() {
-    }
+    public Food() {}
 
     public Food(String foodName) {
         this.foodName = foodName;

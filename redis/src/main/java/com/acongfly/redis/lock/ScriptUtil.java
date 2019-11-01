@@ -8,8 +8,7 @@ import java.io.InputStreamReader;
 /**
  * Function:
  *
- * @author crossoverJie
- * Date: 22/04/2018 15:55
+ * @author crossoverJie Date: 22/04/2018 15:55
  * @since JDK 1.8
  */
 public class ScriptUtil {

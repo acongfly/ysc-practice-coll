@@ -1,7 +1,6 @@
 package com.acongfly.yscutils.support;
 
 import com.acongfly.yscutils.model.ReturnT;
-import org.springframework.stereotype.Component;
 
 /**
  * @program: ysc-practice-coll
@@ -20,8 +19,7 @@ public abstract class LogPrcessSupport {
      */
     public static final ReturnT<String> FAIL = new ReturnT<String>(500, null);
 
-    public LogPrcessSupport() {
-    }
+    public LogPrcessSupport() {}
 
     public ReturnT<String> logSaveProcess(Object o) {
         return logSave(o);
@@ -35,7 +33,6 @@ public abstract class LogPrcessSupport {
     public void init() {
         // do something
     }
-
 
     /**
      * destroy handler, invoked when JobThread destroy
