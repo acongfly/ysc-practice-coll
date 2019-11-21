@@ -1,16 +1,23 @@
 package com.acongfly.study.esstudy;
 
-import java.util.Date;
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.util.Lists;
+import org.elasticsearch.action.DocWriteResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.index.query.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.UpdateQuery;
+import org.springframework.data.elasticsearch.core.query.UpdateQueryBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.acongfly.study.esstudy.elasticsearchStudy.Article;
@@ -30,24 +37,27 @@ public class SpringbootElasticsearchApplicationTests {
     @Autowired
     private ArticleSearchRepository articleSearchRepository;
 
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
     /**
      * 参看：https://www.cnblogs.com/wenbronk/p/6432990.html https://www.jianshu.com/p/a3694b13bf89
      */
 
     @Test
     public void testSaveArticleIndex() {
-        // UpdateRequest updateRequest = new UpdateRequest();
+        UpdateRequest updateRequest = new UpdateRequest();
         // updateRequest.
 
         Author author = new Author();
         author.setId(2L);
         author.setName("王五");
-        author.setRemark("test");
+        author.setRemark(null);
         author.setAge(20);
 
         Tutorial tutorial = new Tutorial();
         tutorial.setId(2L);
-        tutorial.setName("elastic search");
+        tutorial.setName("elastic3 search");
 
         List<Author> authors = Lists.newArrayList();
         authors.add(author);
@@ -63,7 +73,7 @@ public class SpringbootElasticsearchApplicationTests {
         article.setPostTime("20180704");
         article.setClickCount("1");
         article.setAuthors(authors);
-        article.setCreateTime(new Date());
+        // article.setCreateTime(new Date());
         articleSearchRepository.save(article);
 
     }
@@ -182,4 +192,24 @@ public class SpringbootElasticsearchApplicationTests {
         }
     }
 
+    /**
+     * 部分更新(https://www.javazhiyin.com/4588.html#3%E6%9B%B4%E6%96%B0)
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testUpdate() throws IOException {
+
+        UpdateRequest updateRequest = new UpdateRequest();
+        updateRequest.index("projectname");
+        updateRequest.type("article");
+        updateRequest.id(123457891 + "");
+        updateRequest.doc(jsonBuilder().startObject().field("title", "test update").endObject());
+        UpdateQuery updateQuery = new UpdateQueryBuilder().withId(123457891 + "").withIndexName("projectname")
+            .withType("article").withClass(Article.class).withUpdateRequest(updateRequest).build();
+
+        DocWriteResponse.Result result = elasticsearchTemplate.update(updateQuery).getResult();
+        System.out.println(result);
+
+    }
 }

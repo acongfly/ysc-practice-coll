@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.TimeZone;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.google.common.collect.Maps;
+
 import cn.hutool.json.JSONUtil;
-import lombok.Data;
 
 /**
  * program: study
@@ -200,6 +200,7 @@ public class OtherTest {
         SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         Date parse = dff.parse("2029-10-26T19:35:48+07:00");
         System.out.println(parse);
+        System.out.println("1111111111111111");
         // DateFormat.getDateTimeInstance().parse("2029-10-26T19:35:48+07:00");
 
         // Date date = new Date("2029-10-26T19:35:48+07:00");
@@ -211,8 +212,8 @@ public class OtherTest {
 
         // Date date = DateTime.of("2029-10-26T19:35:48+07:00",
         // "yyyy-MM-dd'T'HH:mm:sszzz").toJdkDate();
-        String s = fromDateTimeWithTimeZone2UTCDateTime("2029-10-26T19:35:48+07:00");
-        System.out.println(s);
+        // String s = fromDateTimeWithTimeZone2UTCDateTime("2029-10-26T19:35:48+07:00");
+        // System.out.println(s);
 
         // List<NameValuePair> params = Lists.newArrayList();
         // params.add(new BasicNameValuePair("redirectUrl","12222"));
@@ -229,6 +230,40 @@ public class OtherTest {
         // } catch (IOException e) {
         // e.printStackTrace();
         // }
+
+        // TestSeam.RiskData riskData = new TestSeam.RiskData();
+        Map<String, String> map = Maps.newHashMap();
+        map.put("fuzzyDeviceId", "k+OrCqw7QMNxlrT3qU2m0TRYTucd+nrMH2izjtltJ");
+        map.put("terminalType", "APP");
+        map.put("riskFlag", "00110");
+        map.put("realIp", "123.23.12.111");
+
+        // riskData.setFuzzyDeviceId("k+OrCqw7QMNxlrT3qU2m0TRYTucd+nrMH2izjtltJ");
+        // riskData.setTerminalType("APP");
+        // riskData.setRiskFlag("00110");
+        // riskData.setRealIp("123.23.12.111");
+        // System.out.println();
+
+        // TestSeam testSeam = new TestSeam();
+        // testSeam.setMobile("62-882345678");
+        // testSeam.setVerifiedTime("2001-07-04T12:08:56+05:30");
+        // testSeam.setExternalUid("TIXxxxxxUID");
+        // testSeam.setReqTime("2001-07-04T12:08:56+05:30");
+        // testSeam.setReqMsgId(System.currentTimeMillis() + "");
+        // testSeam.setRiskData(map.toString());
+        //
+        // System.out.println(JSONUtil.toJsonStr(testSeam));
+
+        List<String> stringList;
+
+        for (int j = 0; j < 100; j++) {
+
+            stringList = new ArrayList<>();
+            stringList.add(System.currentTimeMillis() + "");
+            System.out.println(stringList);
+            Thread.sleep(10);
+
+        }
 
     }
 
@@ -262,9 +297,9 @@ public class OtherTest {
         System.out.println(JSONUtil.toJsonStr(new Object[] {objects}));
     }
 }
-
-@Data
-class DataTest {
-
-    private String pushId;
-}
+//
+// @Data
+// class DataTest {
+//
+// private String pushId;
+// }

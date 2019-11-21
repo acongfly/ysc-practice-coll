@@ -3,7 +3,6 @@ package com.acongfly.kafkademo.consumer;
 import java.util.Optional;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,7 @@ public class EventListener {
 
     private static final String TOPIC = "topic-mq-test1";
 
-    @KafkaListener(groupId = "test-consumer-group", topics = {TOPIC})
+    // @KafkaListener(groupId = "test-consumer-group", topics = {TOPIC})
     public void listen(ConsumerRecord<?, ?> record, Acknowledgment ack) {
 
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());

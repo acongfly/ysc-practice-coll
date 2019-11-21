@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,7 +24,7 @@ public class Productor {
 
     private static final String TOPIC = "topic-mq-test1";
 
-    @Scheduled(fixedDelay = 10000)
+    // @Scheduled(fixedDelay = 10000)
     public String product() {
         ProductorEntity productorEntity = new ProductorEntity();
         for (int i = 0; i < 100; i++) {
