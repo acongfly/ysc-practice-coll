@@ -3,6 +3,7 @@ package com.acongfly.kafkademo.product;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -18,7 +19,7 @@ public class ProductorMain1 {
 
     public static final String brokerList = "127.0.0.1:9092";
 
-    public static final String topic = "topic-study-mq";
+    public static final String topic = "blinklog";
     private static final long EXPIRE_INTERVAL = 10 * 1000;
 
     public static Properties initConfig() {
@@ -46,9 +47,17 @@ public class ProductorMain1 {
             // productor.send(record1).get();
             // productor.send(record2).get();
             // productor.send(record3).get();
-            for (int j = 0; j < 1000; j++) {
+            for (int j = 0; j < 10; j++) {
                 for (int i = 0; i < 3; i++) {
-                    producerRecord = new ProducerRecord(topic, i, "", "hello kafka!!!!" + i);
+
+                    LogInfo logInfo = new LogInfo();
+                    logInfo.setBizMethod(i + "" + j);
+                    logInfo.setReqMsg("test req");
+                    logInfo.setRespMsg("test resp");
+                    logInfo.setCreateTime(System.currentTimeMillis());
+                    logInfo.setMethodStartTime(System.currentTimeMillis());
+                    logInfo.setMethodEndTime(System.currentTimeMillis());
+                    producerRecord = new ProducerRecord(topic, 0, "", JSON.toJSONString(logInfo));
                     productor.send(producerRecord).get();
                 }
             }

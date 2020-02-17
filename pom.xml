@@ -22,6 +22,7 @@
         <module>flink-demo</module>
         <module>ysc-utils</module>
         <module>common-utils</module>
+        <module>blink-demo</module>
     </modules>
 
 </project>
