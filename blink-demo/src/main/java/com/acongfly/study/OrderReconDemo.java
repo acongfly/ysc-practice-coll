@@ -11,13 +11,13 @@ import org.apache.flink.table.api.DataTypes;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
+import org.apache.flink.table.sinks.RetractStreamTableSink;
+import org.apache.flink.table.types.DataType;
+import org.apache.flink.types.Row;
 
 import com.acongfly.study.common.ExecutionEnvUtil;
 import com.acongfly.study.common.KafkaConfigUtil;
 import com.acongfly.study.common.LogInfoSchema;
-import org.apache.flink.table.sinks.RetractStreamTableSink;
-import org.apache.flink.table.types.DataType;
-import org.apache.flink.types.Row;
 
 /**
  * @program: ysc-practice-coll
@@ -72,9 +72,11 @@ public class OrderReconDemo {
         stEnv.toRetractStream(result, Row.class).print();
 
         // sink
-        // RetractStreamTableSink<Row> retractStreamTableSink = new MyRetractStreamTableSink(new String[]{"_count",
-        // "word"}, new DataType[]{DataTypes.BIGINT(), DataTypes.STRING()});
-        // stEnv.registerTableSink("sinkTable", retractStreamTableSink);
+        RetractStreamTableSink<Row> retractStreamTableSink = new MyRetractStreamTableSink(
+            new String[] {"logSum", "bizMethod"}, new DataType[] {DataTypes.BIGINT(), DataTypes.STRING()});
+        stEnv.registerTableSink("sinkTable", retractStreamTableSink);
+        // 将结果insert into sink中
+        result.insertInto("sinkTable");
 
         stEnv.execute("loginfo kafka learn");
     }
