@@ -1,4 +1,4 @@
-package com.acongfly.studyjava.netty.nettyDemo01.server;
+package com.acongfly.studyjava.netty.server;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
