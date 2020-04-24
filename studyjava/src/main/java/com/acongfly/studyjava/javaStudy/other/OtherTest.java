@@ -256,14 +256,17 @@ public class OtherTest {
 
         List<String> stringList;
 
-        for (int j = 0; j < 100; j++) {
-
-            stringList = new ArrayList<>();
-            stringList.add(System.currentTimeMillis() + "");
-            System.out.println(stringList);
-            Thread.sleep(10);
-
-        }
+        // for (int j = 0; j < 100; j++) {
+        //
+        // stringList = new ArrayList<>();
+        // stringList.add(System.currentTimeMillis() + "");
+        // System.out.println(stringList);
+        // Thread.sleep(10);
+        //
+        // }
+        String a =
+            "Your product #${productName}# failed our inspection and authentication. For the benefit of the buyer, the order is closed and your deposit is charged as a penalty fee and is deducted from your PayPal account. Your product will be returned to your return address within 3 business days.";
+        System.out.println(a.length());
 
     }
 
@@ -271,7 +274,6 @@ public class OtherTest {
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:sszzz");
 
     private static final DateTimeFormatter TARGET_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     /**
      * fromDateTimeWithTimeZone2UTCDateTime
      *
