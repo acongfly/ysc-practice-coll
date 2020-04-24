@@ -1,4 +1,4 @@
-package com.acongfly.studyjava.netty.nettyDemo01.client;
+package com.acongfly.studyjava.netty.client;
 
 import java.net.InetSocketAddress;
 import java.util.Scanner;

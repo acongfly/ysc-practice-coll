@@ -1,4 +1,4 @@
-package com.acongfly.studyjava.netty.nettyDemo01.server;
+package com.acongfly.studyjava.netty.client;
 
 import org.jboss.netty.channel.*;
 
@@ -8,7 +8,7 @@ import org.jboss.netty.channel.*;
  * @Description: 消息接受处理
  * @date 2018年4月17日 下午8:04:09
  */
-public class HelloHandler extends SimpleChannelHandler {
+public class ClientHandler extends SimpleChannelHandler {
 
     /**
      * 接收到客户端的信息
@@ -17,7 +17,6 @@ public class HelloHandler extends SimpleChannelHandler {
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         String eString = (String)e.getMessage();
         System.out.println(eString);
-        ctx.getChannel().write("hi");
         super.messageReceived(ctx, e);
     }
 
