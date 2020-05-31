@@ -188,12 +188,34 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>2.1.6</version>
+        </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <version>4.1.45.Final</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Kryo -->
+
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo-shaded</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+        <!--        如果使用 KryoUtil 的话，还需要以下依赖：-->
+        <!-- commons-codec -->
+        <!--        <dependency>-->
+        <!--            <groupId>commons-codec</groupId>-->
+        <!--            <artifactId>commons-codec</artifactId>-->
+        <!--            <version>1.10</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

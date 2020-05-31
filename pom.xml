@@ -24,6 +24,7 @@
         <module>common-utils</module>
         <module>blink-demo</module>
         <module>gatling-demo</module>
+        <module>dubbo-demo</module>
     </modules>
 
 </project>
