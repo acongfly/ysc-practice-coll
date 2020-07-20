@@ -25,6 +25,7 @@
         <module>blink-demo</module>
         <module>gatling-demo</module>
         <module>dubbo-demo</module>
+        <module>spock-demo</module>
     </modules>
 
 </project>
