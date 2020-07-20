@@ -1,5 +1,9 @@
 package com.acongfly.studyjava.javaStudy.snowflake;
 
+import com.google.common.collect.Sets;
+
+import java.util.Set;
+
 /**
  * description: 进制转换工具，最大支持十进制和62进制的转换 * 1、将十进制的数字转换为指定进制的字符串； * 2、将其它进制的数字（字符串形式）转换为十进制的数字
  * <p>
@@ -77,10 +81,17 @@ public class NumericConvertUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(toOtherNumberSystem(1857568745871168L, 64));
-        System.out.println(toDecimalNumber("6CnbJfBt0", 64));
-        System.out.println();
-        System.out.println(toOtherNumberSystem(185748383552778241L, 64));
-        System.out.println(toDecimalNumber("ajWiKPh301", 64));
+        // System.out.println(toOtherNumberSystem(1857568745871168L, 64));
+        // System.out.println(toDecimalNumber("6CnbJfBt0", 64));
+        // System.out.println();
+        // System.out.println(toOtherNumberSystem(185748383552778241L, 64));
+        Set<Object> objects = Sets.newConcurrentHashSet();
+        objects.add(toDecimalNumber("HKD", 64));
+        objects.add(toDecimalNumber("CNY", 64));
+        objects.add(toDecimalNumber("JPY", 64));
+        objects.add(toDecimalNumber("KRW", 64));
+        // objects.add(toDecimalNumber("CNY", 64));
+        System.out.println(objects.size());
+        System.out.println(toDecimalNumber("CNY", 64));
     }
 }

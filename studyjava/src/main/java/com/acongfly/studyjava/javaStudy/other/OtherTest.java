@@ -1,5 +1,6 @@
 package com.acongfly.studyjava.javaStudy.other;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
@@ -8,13 +9,28 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.HashUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NumberUtil;
+import com.acongfly.studyjava.javaStudy.snowflake.NumericConvertUtils;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.google.common.collect.Maps;
 
 import cn.hutool.json.JSONUtil;
+import sun.util.locale.provider.LocaleProviderAdapter;
+import sun.util.locale.provider.ResourceBundleBasedAdapter;
+import sun.util.resources.OpenListResourceBundle;
 
 /**
  * program: study
@@ -185,22 +201,22 @@ public class OtherTest {
         //
         // } finally {
         // System.out.println("6666666666666");
-        // }
-        int i = 102;
-        System.out.println(i % 2);
-
-        System.out.println("payment".hashCode() ^ "testlo".hashCode());
-        System.out.println(0);
-
-        String utcCurrentDateTimeWithIndiaTimeZone = LocalDateTime.now(Clock.systemUTC())
-            .atOffset(ZoneOffset.ofHoursMinutes(5, 30)).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"));
-
-        System.out.println(utcCurrentDateTimeWithIndiaTimeZone);
-
-        SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
-        Date parse = dff.parse("2029-10-26T19:35:48+07:00");
-        System.out.println(parse);
-        System.out.println("1111111111111111");
+        // // }
+        // int i = 102;
+        // System.out.println(i % 2);
+        //
+        // System.out.println("payment".hashCode() ^ "testlo".hashCode());
+        // System.out.println(0);
+        //
+        // String utcCurrentDateTimeWithIndiaTimeZone = LocalDateTime.now(Clock.systemUTC())
+        // .atOffset(ZoneOffset.ofHoursMinutes(5, 30)).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"));
+        //
+        // System.out.println(utcCurrentDateTimeWithIndiaTimeZone);
+        //
+        // SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+        // Date parse = dff.parse("2029-10-26T19:35:48+07:00");
+        // System.out.println(parse);
+        // System.out.println("1111111111111111");
         // DateFormat.getDateTimeInstance().parse("2029-10-26T19:35:48+07:00");
 
         // Date date = new Date("2029-10-26T19:35:48+07:00");
@@ -264,10 +280,50 @@ public class OtherTest {
         // Thread.sleep(10);
         //
         // }
-        String a =
-            "Your product #${productName}# failed our inspection and authentication. For the benefit of the buyer, the order is closed and your deposit is charged as a penalty fee and is deducted from your PayPal account. Your product will be returned to your return address within 3 business days.";
-        System.out.println(a.length());
+        // String a =
+        // "Your product #${productName}# failed our inspection and authentication. For the benefit of the buyer, the
+        // order is closed and your deposit is charged as a penalty fee and is deducted from your PayPal account. Your
+        // product will be returned to your return address within 3 business days.";
+        // System.out.println(a.length());
 
+        //
+        // BigDecimal mul = NumberUtil.mul("34500", "0.085");
+        // System.out.println("amount:"+mul);
+        //
+        //
+        // Currency instance = Currency.getInstance(Locale.JAPAN);
+        // System.out.println(instance.getCurrencyCode());
+
+// getCountries();
+// String hkd = billidGen("HKD", 1, "20200101", 12345678912345678L);
+// System.out.println(hkd);
+// System.out.println(hkd.length());
+//
+// String orderNo = "12345678912345678912345678912345";
+// StringBuilder stringBuilder = new StringBuilder();
+// for (int j = 0; j < 32; j++) {
+// stringBuilder.append(orderNo);
+// }
+//
+// int i1 = HashUtil.fnvHash(stringBuilder.toString());
+// System.out.println(i1);
+//
+// int i2 = "JYP".hashCode();
+// System.out.println(i2);
+// System.out.println(IdUtil.createSnowflake(5,5).nextId());
+// 1275412976266530816
+//
+// System.out.println(settleIdGen(12345L));
+//
+// System.out.println(DateUtil.parse("20200901"));
+
+DateTime parse1 = DateUtil.parseDateTime("0000-00-00 00:00:00");
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+long time = sdf.parse("0000-00-00 00:00:00").getTime();
+DateTime date = DateUtil.date(time);
+// DateTime dateTime = DateUtil.parseTime(StringUtils.EMPTY);
+System.out.println(parse1);
+System.out.println(date);
     }
 
     private static final DateTimeFormatter ORIGINAL_DATE_FORMAT =
@@ -298,6 +354,73 @@ public class OtherTest {
 
         System.out.println(JSONUtil.toJsonStr(new Object[] {objects}));
     }
+
+    public static void getCountries() {
+        ResourceBundleBasedAdapter resourceBundleBasedAdapter =
+            ((ResourceBundleBasedAdapter)LocaleProviderAdapter.forJRE());
+        OpenListResourceBundle resource = resourceBundleBasedAdapter.getLocaleData().getLocaleNames(Locale.CHINA);
+        Set<String> data = resource.keySet();
+        List<String> twoCodes = data.stream()
+            // 提取出国家的二字码，长度为2和全是大写
+            .filter(code -> code.length() == 2 && StringUtils.isAllUpperCase(code)).collect(Collectors.toList());
+        twoCodes.sort(Comparator.naturalOrder());
+
+        System.out.println("size: " + twoCodes.size());
+        System.out.println(twoCodes);
+        ImmutableMap.Builder<String, Currency> builder = ImmutableMap.builder();
+        twoCodes.forEach(twoCode -> {
+            Locale locale = new Locale("", twoCode);
+            String threeCode = null;
+            try {
+                // 获取国家的三字码
+                threeCode = locale.getISO3Country();
+            } catch (Exception e) {
+            }
+            // 币种
+            Currency instance = Currency.getInstance(locale);
+            String format =
+                String.format("%-5s %-5s %-5s %-20s\n", twoCode, threeCode, instance, resource.getString(twoCode));
+            if (!Objects.equals(instance, null)) {
+                builder.put(twoCode, instance);
+            }
+            System.out.println(format);
+        });
+        ImmutableMap<String, Currency> build = builder.build();
+        System.out.println(build);
+
+    }
+
+    public static String billidGen(String currency, int code, String settleTime, Long uid) {
+        int billIdLength = 32;
+        long decimalNumber = NumericConvertUtils.toDecimalNumber(currency, 64);
+        String billFormat = "%s%s%s";
+        String format = String.format(billFormat, code, decimalNumber, settleTime);
+        int total = uid.toString().length() + format.length();
+        System.out.println("total==" + total);
+        if (total > billIdLength) {
+            return format.concat(uid.toString().substring(total - billIdLength));
+        } else if (total == billIdLength) {
+            return format.concat(uid.toString());
+        } else {
+            return format.concat(String.format("%0" + (billIdLength - total + uid.toString().length()) + "d", uid));
+        }
+    }
+
+    public static String settleIdGen(Long uid) {
+        int settleIdLength = 27;
+        Snowflake snowflake = IdUtil.createSnowflake(5, 5);
+        int length = uid.toString().length();
+        String nexId = snowflake.nextId() + "";
+        int total = length + nexId.length();
+        if (total > settleIdLength) {
+            return 1 + nexId.substring(total - settleIdLength).concat(uid.toString());
+        } else if (total == settleIdLength) {
+            return 1 + nexId.concat(uid.toString());
+        } else {
+            return 1 + nexId.concat(String.format("%0" + (settleIdLength - total + length) + "d", uid));
+        }
+    }
+
 }
 //
 // @Data
